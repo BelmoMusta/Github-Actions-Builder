@@ -1,7 +1,7 @@
 package org.example.collections;
 
 import org.example.Appender;
-import org.example.Indentable;
+import org.example.wrappers.Indentable;
 import org.example.Job;
 
 import java.util.ArrayList;

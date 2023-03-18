@@ -1,5 +1,16 @@
 name: My Workflow
 on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        type: choice
+        required: true
+        default: 'warning'
+        options:
+          - 'info'
+          - 'warning'
+          - 'debug'
   push:
     branches:
       - 'releases/*'

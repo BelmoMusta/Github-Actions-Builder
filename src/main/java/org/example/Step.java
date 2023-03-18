@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.wrappers.Indentable;
+
 public class Step extends Indentable {
 	String name;
 	String uses;

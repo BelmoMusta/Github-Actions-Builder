@@ -5,12 +5,17 @@ import org.example.collections.Branches;
 public class Push extends WorkflowEvent {
 	final Branches branches = new Branches();
 	
-	public Push branches(String... branches) {
+	public static Push $() {
+		return new Push();
+	}
+	
+	public static Push branches(String... branches) {
+		final Push push = new Push();
 		for (String branch : branches) {
 			Branch br = new Branch(branch);
-			this.branches.add(br);
+			push.branches.add(br);
 		}
-		return this;
+		return push;
 	}
 	
 	@Override
@@ -19,10 +24,12 @@ public class Push extends WorkflowEvent {
 		Appender appender = new Appender();
 		appender.append("push: ");
 		appender.newLine();
-		appender.indent(getIndentLevel() + 1);
-		appender.append("branches: ");
-		appender.newLine();
-		appender.append(branches.toString());
+		if (!branches.isEmpty()) {
+			appender.indent(getIndentLevel() + 1);
+			appender.append("branches: ");
+			appender.newLine();
+			appender.append(branches.toString());
+		}
 		
 		return appender.toString();
 	}

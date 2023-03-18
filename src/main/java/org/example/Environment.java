@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.wrappers.NameValuePair;
+
 public class Environment extends NameValuePair {
 	
 	public static Environment init() {

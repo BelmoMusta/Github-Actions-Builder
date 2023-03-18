@@ -1,4 +1,6 @@
 package org.example;
 
-public class WorkflowEvent extends Indentable{
+import org.example.wrappers.Indentable;
+
+public class WorkflowEvent extends Indentable {
 }

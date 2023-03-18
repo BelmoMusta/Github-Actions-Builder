@@ -2,8 +2,7 @@ package org.example.collections;
 
 import org.example.Appender;
 import org.example.Environment;
-import org.example.Indentable;
-import org.example.WorkflowEvent;
+import org.example.wrappers.Indentable;
 
 import java.util.ArrayList;
 import java.util.List;

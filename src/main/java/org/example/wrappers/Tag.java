@@ -1,4 +1,4 @@
-package org.example;
+package org.example.wrappers;
 
 public interface Tag {
 	boolean isEmpty();

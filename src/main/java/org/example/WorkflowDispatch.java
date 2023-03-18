@@ -1,30 +1,34 @@
 package org.example;
 
-import org.example.collections.Branches;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.example.collections.Inputs;
+import org.example.wrappers.Input;
 
 public class WorkflowDispatch extends WorkflowEvent {
-	Branches branches = new Branches();
+	Inputs inputs = new Inputs();
 	
-	public WorkflowDispatch branches(String ... branches){
-		for (String branch : branches) {
-			this.branches.add(new Branch(branch));
+	public static WorkflowDispatch inputs(Input... inputs) {
+		final WorkflowDispatch workflowDispatch = new WorkflowDispatch();
+		for (Input input : inputs) {
+			workflowDispatch.inputs.add(input);
 		}
-		return this;
+		return workflowDispatch;
 	}
+	
+	public static WorkflowDispatch $(){
+		return new WorkflowDispatch();
+	}
+	
 	
 	@Override
 	public String toString() {
-		branches.setIndentLevel(getIndentLevel() + 1);
+		inputs.setIndentLevel(getIndentLevel() + 1);
 		Appender appender = new Appender();
 		appender.append("workflow_dispatch: ");
 		appender.newLine();
 		appender.indent(getIndentLevel() + 1);
-		appender.append("branches: ");
+		appender.append("inputs: ");
 		appender.newLine();
-		appender.append(branches.toString());
+		appender.append(inputs.toString());
 		
 		return appender.toString();
 	}
