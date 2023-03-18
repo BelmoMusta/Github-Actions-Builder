@@ -14,13 +14,12 @@ public class Input extends Indentable {
 	public InputElement<Type> type;
 	public Options options = new Options();
 	public InputElement<String> default_;
-	List<InputElement<?>> inputElements = new ArrayList<>();
+	List<Indentable> inputElements = new ArrayList<>();
 	
 	@Override
 	public void setIndentLevel(int indentLvel) {
 		super.setIndentLevel(indentLvel);
-		name.setIndentLevel(indentLvel);
-		for (InputElement<?> inputElement : inputElements) {
+		for (Indentable inputElement : inputElements) {
 			inputElement.setIndentLevel(indentLvel + 1);
 		}
 		options.setIndentLevel(indentLvel + 1);
@@ -59,16 +58,15 @@ public class Input extends Indentable {
 	
 	public Input options(String... options) {
 		this.options.addAll(options);
+		inputElements.add(this.options);
 		return this;
 	}
 	
 	@Override
 	public String toString() {
-		Appender appender = new Appender();
+		Appender appender = preAppend();
 		appender.append(name);
 		appender.append(inputElements);
-		appender.newLine();
-		appender.append(options);
 		return appender.toString();
 	}
 }

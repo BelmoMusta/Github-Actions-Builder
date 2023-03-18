@@ -1,22 +1,32 @@
 package org.example.main;
 
 import org.example.Container;
-import org.example.wrappers.Input;
 import org.example.Job;
+import org.example.PullRequest;
+import org.example.PullRequestTarget;
 import org.example.Push;
+import org.example.Schedule;
 import org.example.Service;
 import org.example.Step;
-import org.example.wrappers.Type;
 import org.example.Workflow;
 import org.example.WorkflowDispatch;
+import org.example.wrappers.Input;
+import org.example.wrappers.Type;
 
 public class Main {
 	public static void main(String[] args) {
 		Workflow wf = Workflow
 				.name("My Workflow")
-				.on(Push.branches("releases/*", "!releases/**-alpha"),
+				.on(Push.branches("releases/*", "!releases/**-alpha")
+								.paths("path_1", "path_2")
+								.tags("tag_1"),
+						PullRequest.types("auto_merge_disabled", "opened")
+								.branches("master"),
+						Schedule.cron("30 5 * * 1,3"),
+						Schedule.cron("20 9 * * 3"),
 						//Push.$(),
 						//WorkflowDispatch.$(),
+						PullRequestTarget.$(),
 						WorkflowDispatch.inputs(
 								Input.name("logLevel")
 										.description("Log Level")
@@ -24,7 +34,7 @@ public class Main {
 										.required()
 										.default_("warning")
 										.options("info", "warning", "error"),
-								Input.name("khrya")
+								Input.name("settings")
 						))
 				
 				.env("message", "'conversation'")

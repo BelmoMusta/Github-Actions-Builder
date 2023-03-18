@@ -1,9 +1,15 @@
 package org.example;
 
 import org.example.collections.Inputs;
+import org.example.wrappers.Indentable;
 import org.example.wrappers.Input;
+import org.example.wrappers.SimpleName;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class WorkflowDispatch extends WorkflowEvent {
+	SimpleName name = new SimpleName("workflow_dispatch");
 	Inputs inputs = new Inputs();
 	
 	public static WorkflowDispatch inputs(Input... inputs) {
@@ -18,18 +24,15 @@ public class WorkflowDispatch extends WorkflowEvent {
 		return new WorkflowDispatch();
 	}
 	
+	@Override
+	public void setIndentLevel(int indentLvel) {
+		super.setIndentLevel(indentLvel);
+		name.setIndentLevel(indentLvel);
+		inputs.setIndentLevel(getIndentLevel() + 1);
+	}
 	
 	@Override
-	public String toString() {
-		inputs.setIndentLevel(getIndentLevel() + 1);
-		Appender appender = new Appender();
-		appender.append("workflow_dispatch: ");
-		appender.newLine();
-		appender.indent(getIndentLevel() + 1);
-		appender.append("inputs: ");
-		appender.newLine();
-		appender.append(inputs.toString());
-		
-		return appender.toString();
+	protected List<Indentable> getIndentables() {
+		return Arrays.asList(name, inputs);
 	}
 }

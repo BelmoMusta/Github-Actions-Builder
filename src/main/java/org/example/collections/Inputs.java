@@ -3,12 +3,14 @@ package org.example.collections;
 import org.example.Appender;
 import org.example.wrappers.Indentable;
 import org.example.wrappers.Input;
+import org.example.wrappers.SingleElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inputs extends Indentable {
 	private final List<Input> inputs = new ArrayList<>();
+	SingleElement name = new SingleElement("inputs");
 	
 	public void add(Input input) {
 		inputs.add(input);
@@ -17,6 +19,7 @@ public class Inputs extends Indentable {
 	@Override
 	public void setIndentLevel(int indentLvel) {
 		super.setIndentLevel(indentLvel);
+		name.setIndentLevel(indentLvel);
 		for (Input input : inputs) {
 			input.setIndentLevel(getIndentLevel() + 1);
 		}
@@ -25,6 +28,7 @@ public class Inputs extends Indentable {
 	@Override
 	public String toString() {
 		Appender appender = new Appender();
+		appender.append(name);
 		appender.append(inputs);
 		return appender.toString();
 	}

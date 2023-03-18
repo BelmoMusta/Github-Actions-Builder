@@ -33,10 +33,7 @@ public class Options extends Indentable {
 		Appender appender = new Appender();
 		if (!options.isEmpty()) {
 			appender.append(name);
-			for (DashSingleElement option : options) {
-				appender.append(option);
-				appender.newLine();
-			}
+			appender.append(options);
 		}
 		return appender.toString();
 	}

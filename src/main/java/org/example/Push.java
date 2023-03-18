@@ -1,9 +1,21 @@
 package org.example;
 
 import org.example.collections.Branches;
+import org.example.collections.Paths;
+import org.example.collections.Tags;
+import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.Indentable;
+import org.example.wrappers.SimpleName;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Push extends WorkflowEvent {
 	final Branches branches = new Branches();
+	final Paths paths = new Paths();
+	final Tags tags = new Tags();
+	SimpleName name = new SimpleName("push");
+	
 	
 	public static Push $() {
 		return new Push();
@@ -12,25 +24,43 @@ public class Push extends WorkflowEvent {
 	public static Push branches(String... branches) {
 		final Push push = new Push();
 		for (String branch : branches) {
-			Branch br = new Branch(branch);
+			DashSingleElement br = new DashSingleElement(branch);
 			push.branches.add(br);
 		}
 		return push;
 	}
 	
-	@Override
-	public String toString() {
-		branches.setIndentLevel(getIndentLevel() + 1);
-		Appender appender = new Appender();
-		appender.append("push: ");
-		appender.newLine();
-		if (!branches.isEmpty()) {
-			appender.indent(getIndentLevel() + 1);
-			appender.append("branches: ");
-			appender.newLine();
-			appender.append(branches.toString());
+	public Push paths(String ... paths){
+		for (String path : paths) {
+			this.paths.add(new DashSingleElement(path));
 		}
 		
-		return appender.toString();
+		return this;
+	}
+	
+	public Push tags(String ... tags){
+		for (String tag : tags) {
+			this.tags.add(new DashSingleElement(tag));
+		}
+		
+		return this;
+	}
+	
+	@Override
+	public void setIndentLevel(int indentLvel) {
+		super.setIndentLevel(indentLvel);
+		name.setIndentLevel(getIndentLevel());
+		branches.setIndentLevel(getIndentLevel() + 1);
+		paths.setIndentLevel(getIndentLevel() + 1);
+		tags.setIndentLevel(getIndentLevel() + 1);
+	}
+	
+	
+	@Override
+	protected List<Indentable> getIndentables() {
+		return Arrays.asList(name,
+				branches,
+				paths,
+				tags);
 	}
 }

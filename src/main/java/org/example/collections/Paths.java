@@ -1,8 +1,8 @@
 package org.example.collections;
 
-public class Branches extends AbstractCollection {
+public class Paths extends AbstractCollection {
 	@Override
 	protected String getName() {
-		return "branches";
+		return "paths";
 	}
 }

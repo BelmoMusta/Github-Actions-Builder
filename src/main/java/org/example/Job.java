@@ -26,6 +26,12 @@ public class Job extends Indentable {
 		return this;
 	}
 	
+	@Override
+	public void setIndentLevel(int indentLvel) {
+		super.setIndentLevel(indentLvel);
+		steps.setIndentLevel(getIndentLevel() + 1);
+	}
+	
 	public Job step(Step step) {
 		steps.add(step);
 		return this;
@@ -48,7 +54,7 @@ public class Job extends Indentable {
 	
 	@Override
 	public String toString() {
-		steps.setIndentLevel(getIndentLevel() + 1);
+		
 		Appender appender = new Appender();
 		appender.append(name)
 				.append(":")

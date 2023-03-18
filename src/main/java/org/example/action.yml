@@ -1,5 +1,9 @@
 name: My Workflow
 on:
+  pull_request:
+    types:
+      - 'auto_merge_disabled'
+      - 'opened'
   workflow_dispatch:
     inputs:
       logLevel:

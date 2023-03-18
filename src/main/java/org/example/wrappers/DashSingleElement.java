@@ -1,11 +1,10 @@
 package org.example.wrappers;
 
 import org.example.Appender;
-import org.example.wrappers.NameValuePair;
 
 public class DashSingleElement extends NameValuePair {
 	public DashSingleElement(String value) {
-		this.value = value;
+		super(null, value);
 	}
 	
 	@Override

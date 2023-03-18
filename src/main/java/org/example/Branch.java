@@ -1,24 +1,25 @@
 package org.example;
 
+import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.Indentable;
 
 public class Branch extends Indentable {
-	private String name;
+	private DashSingleElement name;
 	
 	public Branch(String branch) {
-		this.name = branch;
+		name = new DashSingleElement(branch);
 	}
 	
-	public String getName() {
-		return name;
+	@Override
+	public void setIndentLevel(int indentLvel) {
+		super.setIndentLevel(indentLvel);
+		name.setIndentLevel(indentLvel);
 	}
 	
 	@Override
 	public String toString() {
-		Appender appender = new Appender();
-		appender.indent(getIndentLevel());
- 		appender.append("- ");
-		appender.append(name);
+		Appender appender = new Appender()
+				.append(name);
 		return appender.toString();
 	}
 }

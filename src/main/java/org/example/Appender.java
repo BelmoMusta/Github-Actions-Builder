@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.wrappers.Indentable;
-
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -17,6 +15,13 @@ public class Appender {
 	
 	public Appender append(String str) {
 		stringBuilder.append(str);
+		return this;
+	}
+	public Appender appendSingleQuote(String str) {
+		stringBuilder.append("'");
+		stringBuilder.append(str);
+		stringBuilder.append("'");
+		
 		return this;
 	}
 	
@@ -38,11 +43,6 @@ public class Appender {
 		return this;
 	}
 	
-	public Appender aphpend(Indentable str) {
-		indent(str.getIndentLevel());
-		stringBuilder.append(str);
-		return this;
-	}
 	
 	@Override
 	public String toString() {

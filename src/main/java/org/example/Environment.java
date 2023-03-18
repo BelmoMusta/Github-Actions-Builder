@@ -4,14 +4,13 @@ import org.example.wrappers.NameValuePair;
 
 public class Environment extends NameValuePair {
 	
-	public static Environment init() {
-		return new Environment();
+	public Environment(String name, String value) {
+		super(name, value);
 	}
 	
+	
 	public Environment env(String name, String value) {
-		this.name = name;
-		this.value = value;
-		return this;
+		return new Environment(name, value);
 	}
 	
 	@Override
