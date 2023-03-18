@@ -1,0 +1,40 @@
+name: My Workflow
+on:
+  push:
+    branches:
+      - 'releases/*'
+      - '!releases/**-alpha'
+  workflow_dispatch:
+    branches:
+      - develop
+      - main
+      - master
+env:
+  message: 'conversation'
+  my_token: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  my_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out our code
+        uses: actions/checkout@master
+      - name: Say something
+        run: |
+          echo "A little less ${message}"
+          echo "A little more action"
+  my_job:
+    needs: my_build
+    container:
+      image: node:10.16-jessie
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp
