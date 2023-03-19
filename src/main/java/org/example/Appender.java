@@ -17,6 +17,7 @@ public class Appender {
 		stringBuilder.append(str);
 		return this;
 	}
+	
 	public Appender appendSingleQuote(String str) {
 		stringBuilder.append("'");
 		stringBuilder.append(str);
@@ -31,7 +32,9 @@ public class Appender {
 	}
 	
 	public Appender append(Object str) {
-		stringBuilder.append(str);
+		if (str != null) {
+			stringBuilder.append(str);
+		}
 		return this;
 	}
 	

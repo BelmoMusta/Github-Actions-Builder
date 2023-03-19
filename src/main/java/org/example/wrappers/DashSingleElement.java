@@ -11,9 +11,7 @@ public class DashSingleElement extends NameValuePair {
 	public String toString() {
 		Appender appender = preAppend();
 		appender.append("- ");
-		appender.append("'");
-		appender.append(value);
-		appender.append("'");
+		appender.appendSingleQuote(value);
 		return appender.toString();
 	}
 }

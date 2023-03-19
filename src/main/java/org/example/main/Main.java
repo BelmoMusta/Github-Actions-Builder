@@ -34,8 +34,9 @@ public class Main {
 										.required()
 										.default_("warning")
 										.options("info", "warning", "error"),
-								Input.name("settings")
-						))
+								Input.name("settings").required()
+						)
+				)
 				
 				.env("message", "'conversation'")
 				.env("my_token", "${{ secrets.GITHUB_TOKEN }}")

@@ -66,6 +66,7 @@ public class Input extends Indentable {
 	public String toString() {
 		Appender appender = preAppend();
 		appender.append(name);
+		appender.newLine();
 		appender.append(inputElements);
 		return appender.toString();
 	}

@@ -8,13 +8,4 @@ public class Environment extends NameValuePair {
 		super(name, value);
 	}
 	
-	
-	public Environment env(String name, String value) {
-		return new Environment(name, value);
-	}
-	
-	@Override
-	public String toString() {
-		return name + ": " + value;
-	}
 }

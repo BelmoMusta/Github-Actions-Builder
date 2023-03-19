@@ -12,7 +12,6 @@ public class SingleElement extends Indentable {
 		Appender appender = preAppend();
 		appender.append(value);
 		appender.append(":");
-		appender.newLine();
 		return appender.toString();
 	}
 }

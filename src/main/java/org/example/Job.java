@@ -1,44 +1,50 @@
 package org.example;
 
+import org.example.collections.AbstractCollection;
+import org.example.collections.Needs;
 import org.example.collections.Steps;
-import org.example.wrappers.Indentable;
+import org.example.wrappers.NameValuePair;
+import org.example.wrappers.SingleElement;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Job extends Indentable {
-	String name;
-	String runsOn;
+public class Job extends AbstractCollection {
 	
-	List<String> neededJobs = new ArrayList<>();
+ 	private Needs needs = new Needs();
 	private Steps steps = new Steps();
-	Container container;
-	List<Service> services = new ArrayList<>();
+	
+	private Container container = new Container();
+ 
+	protected Job(String name) {
+		super(name);
+	}
 	
 	public static Job name(String name) {
-		Job job = new Job();
-		job.name = name;
-		return job;
+		return new Job(name);
 	}
 	
 	public Job runsOn(String s) {
-		runsOn = s;
-		return this;
+		add(new NameValuePair("runs-on", s));
+ 		return this;
 	}
 	
 	@Override
 	public void setIndentLevel(int indentLvel) {
 		super.setIndentLevel(indentLvel);
-		steps.setIndentLevel(getIndentLevel() + 1);
+		needs.setIndentLevel(getIndentLevel() + 1);
+		container.setIndentLevel(getIndentLevel() + 1);
 	}
 	
 	public Job step(Step step) {
+		if (steps.isEmpty()) {
+			steps.setIndentLevel(getIndentLevel() + 1);
+			add(steps);
+		}
 		steps.add(step);
 		return this;
 	}
 	
 	public Job needs(String name) {
-		neededJobs.add(name);
+		needs.add(new SingleElement(name));
+		add(needs);
 		return this;
 	}
 	
@@ -47,25 +53,7 @@ public class Job extends Indentable {
 		return this;
 	}
 	
-	public Job service(Service service) {
-		this.services.add(service);
-		return this;
-	}
-	
-	@Override
-	public String toString() {
-		
-		Appender appender = new Appender();
-		appender.append(name)
-				.append(":")
-				.newLine();
-		if (runsOn != null) {
-			appender.indent(getIndentLevel() + 1);
-			appender.append("runs_on: ")
-					.append(runsOn)
-					.newLine();
-		}
-		appender.append(steps);
-		return appender.toString();
+	public Job service(Service service) { // TODO
+ 		return this;
 	}
 }

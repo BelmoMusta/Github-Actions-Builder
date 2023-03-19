@@ -5,6 +5,7 @@ import org.example.Appender;
 public class Indentable implements Tag {
 	private int indentLevel;
 	
+	@Override
 	public void setIndentLevel(int indentLvel) {
 		this.indentLevel = indentLvel;
 	}

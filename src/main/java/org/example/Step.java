@@ -1,32 +1,26 @@
 package org.example;
 
-import org.example.wrappers.Indentable;
+import org.example.collections.AbstractCollection;
+import org.example.wrappers.NameValuePair;
 
-public class Step extends Indentable {
-	String name;
-	String uses;
-	String run;
+public class Step extends AbstractCollection {
+	
+	protected Step(String name) {
+		super(name, false);
+	}
 	
 	public static Step name(String name) {
-		Step job = new Step();
-		job.name = name;
-		return job;
+		return new Step(name);
 	}
 	
 	public Step uses(String s) {
-		this.uses = s;
-		return this;
-	}
-	public Step run(String s) {
-		this.run = s;
+		this.add(new NameValuePair("uses", s));
 		return this;
 	}
 	
-	@Override
-	public String toString() {
-		Appender appender = new Appender();
-		appender.indent(getIndentLevel());
-		appender.append("- name: ").append(name);
-		return appender.toString();
+	public Step run(String s) {
+		this.add( new NameValuePair("run", s));
+		return this;
 	}
+	
 }

@@ -3,7 +3,7 @@ package org.example;
 public class Service extends Container {
 	public static Service image(String image) {
 		Service service = new Service();
-		service.image = image;
+		//service.image = image; TODO
 		return service;
 	}
 	
