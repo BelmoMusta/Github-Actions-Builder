@@ -3,9 +3,9 @@ package org.example;
 import org.example.collections.Branches;
 import org.example.collections.Paths;
 import org.example.collections.Tags;
-import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.Indentable;
-import org.example.wrappers.SimpleName;
+import org.example.wrappers.SingleElement;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +14,7 @@ public class Push extends WorkflowEvent {
 	final Branches branches = new Branches();
 	final Paths paths = new Paths();
 	final Tags tags = new Tags();
-	SimpleName name = new SimpleName("push");
+	SingleElement name = new SingleElement("push");
 	
 	
 	public static Push $() {
@@ -24,7 +24,7 @@ public class Push extends WorkflowEvent {
 	public static Push branches(String... branches) {
 		final Push push = new Push();
 		for (String branch : branches) {
-			DashSingleElement br = new DashSingleElement(branch);
+			DashQuotedSingleElement br = new DashQuotedSingleElement(branch);
 			push.branches.add(br);
 		}
 		return push;
@@ -32,7 +32,7 @@ public class Push extends WorkflowEvent {
 	
 	public Push paths(String ... paths){
 		for (String path : paths) {
-			this.paths.add(new DashSingleElement(path));
+			this.paths.add(new DashQuotedSingleElement(path));
 		}
 		
 		return this;
@@ -40,7 +40,7 @@ public class Push extends WorkflowEvent {
 	
 	public Push tags(String ... tags){
 		for (String tag : tags) {
-			this.tags.add(new DashSingleElement(tag));
+			this.tags.add(new DashQuotedSingleElement(tag));
 		}
 		
 		return this;

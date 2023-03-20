@@ -6,16 +6,12 @@ public class Indentable implements Tag {
 	private int indentLevel;
 	
 	@Override
-	public void setIndentLevel(int indentLvel) {
-		this.indentLevel = indentLvel;
+	public void setIndentLevel(int indentLevel) {
+		this.indentLevel = indentLevel;
 	}
 	
 	public int getIndentLevel() {
 		return indentLevel;
-	}
-	
-	public void incrementIndentation() {
-		indentLevel++;
 	}
 	
 	@Override

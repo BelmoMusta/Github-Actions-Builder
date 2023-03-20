@@ -6,7 +6,7 @@ import org.example.wrappers.NameValuePair;
 public class Step extends AbstractCollection {
 	
 	protected Step(String name) {
-		super(name, false);
+		super(name, true);
 	}
 	
 	public static Step name(String name) {

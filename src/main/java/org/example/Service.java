@@ -8,7 +8,7 @@ public class Service extends Container {
 	}
 	
 	public Service port(String port) {
-		this.ports.add(port);
+		//this.ports.add(port);
 		return this;
 	}
 }

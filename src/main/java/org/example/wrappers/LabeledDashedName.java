@@ -1,8 +1,12 @@
 package org.example.wrappers;
 
-public class LabeledDashedName extends NameValuePair {
+public class LabeledDashedName extends LabeledName {
 	public LabeledDashedName(String value) {
-		super("- name", value);
+		super(value);
 	}
 	
+	@Override
+	public boolean addDashAtFirst() {
+		return true;
+	}
 }

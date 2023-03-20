@@ -1,10 +1,11 @@
 package org.example;
 
+import org.example.collections.AbstractCollection;
 import org.example.wrappers.Indentable;
 
 import java.util.List;
 
-public abstract class WorkflowEvent extends Indentable {
+public abstract class WorkflowEvent extends AbstractCollection {
 	protected abstract List<Indentable> getIndentables();
 	
 	@Override

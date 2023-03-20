@@ -3,9 +3,13 @@ package org.example.wrappers;
 import org.example.Appender;
 
 public class NameValuePair extends Indentable {
-	public  String name;
-	public  String value;
-	public NameValuePair(){}
+	public String name;
+	public String value;
+	
+	public NameValuePair() {
+	
+	}
+	
 	public NameValuePair(String name, String value) {
 		this.name = name;
 		this.value = value;
@@ -14,10 +18,34 @@ public class NameValuePair extends Indentable {
 	@Override
 	public String toString() {
 		Appender appender = super.preAppend();
+		if (addDashAtFirst()) {
+			appender.append("- ");
+		}
 		appender.append(name);
-		appender.append(": ");
-		appender.append(value);
+		appender.append(":");
+		if (addSpace()) {
+			appender.append(" ");
+		}
+		if (wrapValueWithQuotes()) {
+			appender.appendSingleQuote(value);
+		} else {
+			appender.append(value);
+			
+		}
 		return appender.toString();
 	}
+	
+	public boolean addDashAtFirst() {
+		return false;
+	}
+	
+	public boolean addSpace() {
+		return true;
+	}
+	
+	public boolean wrapValueWithQuotes() {
+		return false;
+	}
+	
 	
 }

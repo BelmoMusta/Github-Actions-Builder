@@ -9,4 +9,10 @@ public class InputElement<T> extends NameValuePair {
 		}
 		this.value = boundary + value.toString() + boundary;
 	}
+	
+	@Override
+	public boolean addDashAtFirst() {
+		return false;
+	}
+	
 }

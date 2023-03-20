@@ -1,14 +1,14 @@
 package org.example;
 
 import org.example.wrappers.Indentable;
-import org.example.wrappers.SimpleName;
+import org.example.wrappers.SingleElement;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class PullRequestTarget extends WorkflowEvent {
 	
-	final SimpleName name = new SimpleName("pull_request_target");
+	final SingleElement name = new SingleElement("pull_request_target");
 	
 	public static PullRequestTarget $() {
 		return new PullRequestTarget();

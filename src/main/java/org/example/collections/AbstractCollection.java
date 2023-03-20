@@ -1,8 +1,8 @@
 package org.example.collections;
 
 import org.example.Appender;
-import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.Indentable;
+import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.SingleElement;
 import org.example.wrappers.Tag;
@@ -18,15 +18,20 @@ public abstract class AbstractCollection extends Indentable {
 		collection.add(tag);
 	}
 	
+	protected AbstractCollection() {
+		this.name = null;
+	}
+	
 	protected AbstractCollection(String name) {
 		this.name = new SingleElement(name);
 	}
 	
-	protected AbstractCollection(String name, boolean withLabel) {
-		if(withLabel)
-		this.name = new LabeledName(name);
-		else
-			this.name = new DashSingleElement(name);
+	protected AbstractCollection(String name, boolean nameWithDash) {
+		if (nameWithDash) {
+			this.name = new LabeledDashedName(name);
+		} else {
+			this.name = new LabeledName(name);
+		}
 	}
 	
 	@Override
@@ -43,8 +48,10 @@ public abstract class AbstractCollection extends Indentable {
 		
 		if (!collection.isEmpty()) {
 			appender.indent(getIndentLevel());
-			appender.append(name);
-			appender.newLine();
+			if (name != null && !name.isEmpty()) {
+				appender.append(name);
+				appender.newLine();
+			}
 			appender.append(collection);
 		}
 		return appender.toString();
@@ -53,5 +60,14 @@ public abstract class AbstractCollection extends Indentable {
 	@Override
 	public boolean isEmpty() {
 		return collection.isEmpty();
+	}
+	
+	public <T extends Tag> T findTag(Class<T> cls) {
+		for (Tag tag : collection) {
+			if (cls == tag.getClass()) {
+				return (T) tag;
+			}
+		}
+		return null;
 	}
 }

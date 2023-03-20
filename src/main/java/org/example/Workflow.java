@@ -12,7 +12,7 @@ public class Workflow extends AbstractCollection {
 	private Jobs jobs = new Jobs();
 	
 	protected Workflow(String name) {
-		super(name, true);
+		super(name, false);
 		super.add(events);
 		super.add(environments);
 		super.add(jobs);
@@ -36,7 +36,12 @@ public class Workflow extends AbstractCollection {
 	
 	public Workflow on(WorkflowEvent... events) {
 		for (WorkflowEvent event : events) {
-			this.events.add(event);
+			WorkflowEvent ev = this.events.findTag(event.getClass());
+			if (ev == null) {
+				this.events.add(event);
+			} else {
+			
+			}
 		}
 		return this;
 	}

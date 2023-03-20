@@ -3,11 +3,13 @@ package org.example;
 import org.example.wrappers.NameValuePair;
 
 public class Volume extends NameValuePair {
-	public Volume() {}
-	
-	public static Volume init() {
-		return new Volume();
+	@Override
+	public boolean addDashAtFirst() {
+		return true;
 	}
 	
-	
+	@Override
+	public boolean addSpace() {
+		return false;
+	}
 }

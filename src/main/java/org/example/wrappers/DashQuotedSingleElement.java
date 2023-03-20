@@ -1,7 +1,7 @@
 package org.example.wrappers;
 
-public class DashSingleElement extends SingleElement {
-	public DashSingleElement(String value) {
+public class DashQuotedSingleElement extends DashSingleElement {
+	public DashQuotedSingleElement(String value) {
 		super(value);
 	}
 	
@@ -9,10 +9,9 @@ public class DashSingleElement extends SingleElement {
 	public boolean addDashAtFirst() {
 		return true;
 	}
-	
 	@Override
 	public boolean wrapValueWithQuotes() {
-		return false;
+		return true;
 	}
 	
 	@Override

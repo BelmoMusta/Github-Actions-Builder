@@ -2,9 +2,10 @@ package org.example;
 
 import org.example.collections.Branches;
 import org.example.collections.Types;
+import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.Indentable;
-import org.example.wrappers.SimpleName;
+import org.example.wrappers.SingleElement;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class PullRequest extends WorkflowEvent {
 	final Types types = new Types();
 	final Branches branches = new Branches();
-	final SimpleName name = new SimpleName("pull_request");
+	final SingleElement name = new SingleElement("pull_request");
 	
 	public static PullRequest $() {
 		return new PullRequest();
@@ -29,7 +30,7 @@ public class PullRequest extends WorkflowEvent {
 	
 	public PullRequest branches(String... branches) {
 		for (String branch : branches) {
-			DashSingleElement br = new DashSingleElement(branch);
+			DashQuotedSingleElement br = new DashQuotedSingleElement(branch);
 			this.branches.add(br);
 		}
 		return this;
