@@ -1,7 +1,6 @@
 package org.example;
 
-import org.example.collections.AbstractCollection;
-import org.example.wrappers.Tag;
+import org.example.wrappers.Indentable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,7 +40,7 @@ public class Appender {
 		return this;
 	}
 	
-	public Appender append(Tag str) {
+	public Appender append(Indentable str) {
 		if (str != null) {
 			indent(str.getIndentLevel());
 			stringBuilder.append(str);
@@ -49,12 +48,12 @@ public class Appender {
 		return this;
 	}
 	
-	public Appender appendCollection(Collection<Tag> elements) {
+	public Appender appendCollection(Collection<Indentable> elements) {
 		
-		ArrayList<Tag> tags = new ArrayList<>(elements);
+		ArrayList<Indentable> tags = new ArrayList<>(elements);
 		
 		for (int i = 0; i < tags.size(); i++) {
-			Tag tag = tags.get(i);
+			Indentable tag = tags.get(i);
 			append(tag);
 			if (i < tags.size() - 1) {
 				newLine();

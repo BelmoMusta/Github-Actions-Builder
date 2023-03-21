@@ -1,5 +1,6 @@
 package org.example.collections;
 
+import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 
 public class Options extends SecondLevel {
@@ -10,9 +11,8 @@ public class Options extends SecondLevel {
 	
 	public void addAll(String... options) {
 		for (String option : options) {
-			DashSingleElement element = new DashSingleElement(option);
+			DashSingleElement element = new DashQuotedSingleElement(option);
 			super.add(element);
 		}
 	}
-	
 }

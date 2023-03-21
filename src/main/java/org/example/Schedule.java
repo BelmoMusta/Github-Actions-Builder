@@ -19,4 +19,12 @@ public class Schedule extends WorkflowEvent {
 		}
 		return schedule;
 	}
+	
+	public Schedule thenCron(String... crons) {
+		
+		for (String cr : crons) {
+			add(new DashedNameValuePair("cron", cr));
+		}
+		return this;
+	}
 }

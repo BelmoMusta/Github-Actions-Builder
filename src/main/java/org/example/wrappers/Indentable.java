@@ -1,20 +1,8 @@
 package org.example.wrappers;
 
-public class Indentable implements Tag {
-	private int indentLevel;
+public interface Indentable {
+	boolean isNotEmpty();
 	
-	@Override
-	public void setIndentLevel(int indentLevel) {
-		this.indentLevel = indentLevel;
-	}
-	
-	public int getIndentLevel() {
-		return indentLevel;
-	}
-	
-	@Override
-	public boolean isEmpty() {
-		return false;
-	}
-	
+	void setIndentLevel(int level);
+	int getIndentLevel();
 }

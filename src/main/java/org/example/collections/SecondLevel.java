@@ -1,6 +1,6 @@
 package org.example.collections;
 
-import org.example.wrappers.Tag;
+import org.example.wrappers.Indentable;
 
 public abstract class SecondLevel extends AbstractCollection {
 	protected SecondLevel(String name) {
@@ -12,7 +12,7 @@ public abstract class SecondLevel extends AbstractCollection {
 	@Override
 	public void setIndentLevel(int indentLevel) {
 		super.setIndentLevel(indentLevel);
-		for (Tag tag : collection) {
+		for (Indentable tag : collection) {
 			tag.setIndentLevel(indentLevel + 1);
 		}
 	}

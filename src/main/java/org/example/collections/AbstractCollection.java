@@ -1,20 +1,20 @@
 package org.example.collections;
 
 import org.example.Appender;
-import org.example.wrappers.Indentable;
+import org.example.wrappers.Tag;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.SingleElement;
-import org.example.wrappers.Tag;
+import org.example.wrappers.Indentable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractCollection extends Indentable {
-	public final List<Tag> collection = new ArrayList<>();
-	protected final Tag name;
+public abstract class AbstractCollection extends Tag {
+	public final List<Indentable> collection = new ArrayList<>();
+	public final Indentable name;
 	
-	public void add(Tag tag) {
+	public void add(Indentable tag) {
 		collection.add(tag);
 	}
 	
@@ -34,11 +34,11 @@ public abstract class AbstractCollection extends Indentable {
 	public String toString() {
 		Appender appender = new Appender();
 		if (acceptEmptyCollection() && collection.isEmpty()) {
-			if (!name.isEmpty()) {
+			if (name.isNotEmpty()) {
 				appender.append(name);
 			}
 		} else if (!collection.isEmpty()) {
-			if (!name.isEmpty()) {
+			if (name.isNotEmpty()) {
 				appender.append(name);
 				appender.newLine();
 			}
@@ -52,12 +52,12 @@ public abstract class AbstractCollection extends Indentable {
 	}
 	
 	@Override
-	public boolean isEmpty() {
-		return collection.isEmpty();
+	public boolean isNotEmpty() {
+		return !collection.isEmpty();
 	}
 	
-	public <T extends Tag> T findTag(Class<T> cls) {
-		for (Tag tag : collection) {
+	public <T extends Indentable> T findTag(Class<T> cls) {
+		for (Indentable tag : collection) {
 			if (cls == tag.getClass()) {
 				return (T) tag;
 			}
@@ -68,7 +68,7 @@ public abstract class AbstractCollection extends Indentable {
 	@Override
 	public void setIndentLevel(int indentLevel) {
 		super.setIndentLevel(indentLevel);
-		for (Tag tag : collection) {
+		for (Indentable tag : collection) {
 			tag.setIndentLevel(indentLevel);
 		}
 	}

@@ -22,9 +22,9 @@ public class Main {
 								.tags("tag_1"),
 						PullRequest.types("auto_merge_disabled", "opened")
 								.branches("master"),
-						Schedule.cron("30 5 * * 1,3"),
-						Schedule.cron("20 9 * * 3"),
-						//Push.$(),
+						Schedule.cron("30 5 * * 1,3")
+								.thenCron("20 9 * * 3"),
+						Push.$(),
 						//WorkflowDispatch.$(),
 						PullRequestTarget.$(),
 						WorkflowDispatch.inputs(
@@ -53,7 +53,7 @@ public class Main {
 								.volume("foo", "bar")
 								.env("NODE_ENV", "development")
 								.options("--cpus 1")
-						.port("80"))
+								.port("80"))
 						.service(Service.image("redis")
 								.port("6379/tcp")));
 		System.out.println(wf.toString());

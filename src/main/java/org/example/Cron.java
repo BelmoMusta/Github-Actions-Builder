@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.wrappers.Indentable;
+import org.example.wrappers.Tag;
 
-public class Cron extends Indentable {
+public class Cron extends Tag {
 	String value;
 	
 	@Override

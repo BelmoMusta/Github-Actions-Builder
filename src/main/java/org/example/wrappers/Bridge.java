@@ -1,6 +1,6 @@
 package org.example.wrappers;
 
-public class Bridge extends Indentable {
+public class Bridge extends Tag {
 	protected boolean addColumn() {
 		return false;
 	}

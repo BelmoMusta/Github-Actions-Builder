@@ -6,7 +6,7 @@ import org.example.collections.Options;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Input extends Indentable {
+public class Input extends Tag {
 	public SingleElement name;
 	public InputElement<String> description;
 	public InputElement<Boolean> required;
@@ -14,12 +14,12 @@ public class Input extends Indentable {
 	public InputElement<Type> type;
 	public Options options = new Options();
 	public InputElement<String> default_;
-	List<Tag> inputElements = new ArrayList<>();
+	List<Indentable> inputElements = new ArrayList<>();
 	
 	@Override
 	public void setIndentLevel(int indentLvel) {
 		super.setIndentLevel(indentLvel);
-		for (Tag inputElement : inputElements) {
+		for (Indentable inputElement : inputElements) {
 			inputElement.setIndentLevel(indentLvel + 1);
 		}
 		options.setIndentLevel(indentLvel + 1);

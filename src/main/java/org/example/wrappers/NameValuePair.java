@@ -2,7 +2,7 @@ package org.example.wrappers;
 
 import org.example.Appender;
 
-public class NameValuePair extends Indentable {
+public class NameValuePair extends Tag {
 	public String name;
 	public String value;
 	

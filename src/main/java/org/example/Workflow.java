@@ -4,18 +4,13 @@ import org.example.collections.AbstractCollection;
 import org.example.collections.Environments;
 import org.example.collections.Events;
 import org.example.collections.Jobs;
+import org.example.wrappers.Indentable;
 
 
 public class Workflow extends AbstractCollection {
-	private Events events = new Events();
-	private Environments environments = new Environments();
-	private Jobs jobs = new Jobs();
 	
 	protected Workflow(String name) {
 		super(name, false);
-		super.add(events);
-		super.add(environments);
-		super.add(jobs);
 	}
 	
 	@Override
@@ -25,31 +20,47 @@ public class Workflow extends AbstractCollection {
 	}
 	
 	
-	
 	public static Workflow name(String name) {
 		return new Workflow(name);
 	}
 	
 	public Workflow on(WorkflowEvent... events) {
+		Events events_ = findTag(Events.class);
+		if (events_ == null) {
+			events_ = new Events();
+			add(events_);
+		}
+		
 		for (WorkflowEvent event : events) {
-			WorkflowEvent ev = this.events.findTag(event.getClass());
+			WorkflowEvent ev = events_.findTag(event.getClass());
 			if (ev == null) {
-				this.events.add(event);
+				events_.add(event);
 			} else {
-			
+				System.err.println("WARNING : a workflow event of type '" + ev.name + "' exists");
 			}
 		}
 		return this;
 	}
 	
-	public Workflow env(String name, String value ) {
+	public Workflow env(String name, String value) {
+		
+		Environments environments = findTag(Environments.class);
+		if (environments == null) {
+			environments = new Environments();
+			add(environments);
+		}
 		Environment environment = new Environment(name, value);
-		this.environments.add(environment);
+		environments.add(environment);
 		return this;
 	}
 	
 	public Workflow job(Job job) {
-		this.jobs.add(job);
+		Jobs jobs = findTag(Jobs.class);
+		if (jobs == null) {
+			jobs = new Jobs();
+			add(jobs);
+		}
+		jobs.add(job);
 		return this;
 	}
 }
