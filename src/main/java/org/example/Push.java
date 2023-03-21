@@ -1,11 +1,10 @@
 package org.example;
 
-import org.example.collections.Branches;
 import org.example.collections.Paths;
 import org.example.collections.Tags;
 import org.example.wrappers.DashQuotedSingleElement;
 
-public class Push extends WorkflowEvent {
+public class Push extends WorkflowEventWithBranches {
 	public Push() {
 		super("push");
 	}
@@ -13,16 +12,11 @@ public class Push extends WorkflowEvent {
 	public static Push $() {
 		return new Push();
 	}
-	
+	protected Push(String... branches) {
+		super("push", branches);
+	}
 	public static Push branches(String... branches) {
-		final Push push = new Push();
-		final Branches innerBranches = new Branches();
-		
-		for (String branch : branches) {
-			innerBranches.add(new DashQuotedSingleElement(branch));
-		}
-		push.add(innerBranches);
-		return push;
+		return new Push(branches);
 	}
 	
 	public Push paths(String... paths) {

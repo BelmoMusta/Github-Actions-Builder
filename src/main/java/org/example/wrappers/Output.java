@@ -1,38 +1,39 @@
 package org.example.wrappers;
 
-public class Input extends InOut {
-	public static Input name(String name) {
-		Input input = new Input();
+public class Output extends InOut {
+	
+	public static Output name(String name) {
+		Output input = new Output();
 		input.name = new SingleElement(name);
 		return input;
 	}
 	
-	public Input description(String description) {
+	public Output description(String description) {
 		this.description = new InOutElement<>("description", description);
 		inputElements.add(this.description);
 		return this;
 	}
 	
-	public Input required() {
+	public Output required() {
 		this.required = new InOutElement<>("required", true);
 		inputElements.add(this.required);
 		return this;
 	}
 	
 	
-	public Input type(Type type) {
+	public Output type(Type type) {
 		this.type = new InOutElement<>("type", type);
 		inputElements.add(this.type);
 		return this;
 	}
 	
-	public Input default_(String default_) {
+	public Output default_(String default_) {
 		this.default_ = new InOutElement<>("default", default_);
 		inputElements.add(this.default_);
 		return this;
 	}
 	
-	public Input options(String... options) {
+	public Output options(String... options) {
 		this.options.addAll(options);
 		inputElements.add(this.options);
 		return this;

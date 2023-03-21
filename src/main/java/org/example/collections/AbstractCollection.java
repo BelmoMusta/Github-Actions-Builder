@@ -1,11 +1,11 @@
 package org.example.collections;
 
 import org.example.Appender;
-import org.example.wrappers.Tag;
+import org.example.wrappers.Indentable;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.SingleElement;
-import org.example.wrappers.Indentable;
+import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,11 @@
 package org.example;
 
-import org.example.collections.AbstractCollection;
 import org.example.collections.Environments;
 import org.example.collections.Ports;
 import org.example.collections.SecondLevel;
 import org.example.collections.Volumes;
+import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
-import org.example.wrappers.Port;
 
 public class Container extends SecondLevel {
 	
@@ -24,7 +23,7 @@ public class Container extends SecondLevel {
 	public Container port(String... ports) {
 		Ports aPorts = new Ports();
 		for (String port : ports) {
-			aPorts.add(new Port(port));
+			aPorts.add(new DashSingleElement(port));
 		}
 		this.add(aPorts);
 		return this;

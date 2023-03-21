@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.collections.AbstractCollection;
 import org.example.collections.SecondLevel;
 import org.example.wrappers.NameValuePair;
 

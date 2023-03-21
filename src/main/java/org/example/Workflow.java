@@ -4,7 +4,6 @@ import org.example.collections.AbstractCollection;
 import org.example.collections.Environments;
 import org.example.collections.Events;
 import org.example.collections.Jobs;
-import org.example.wrappers.Indentable;
 
 
 public class Workflow extends AbstractCollection {
@@ -54,13 +53,15 @@ public class Workflow extends AbstractCollection {
 		return this;
 	}
 	
-	public Workflow job(Job job) {
-		Jobs jobs = findTag(Jobs.class);
-		if (jobs == null) {
-			jobs = new Jobs();
-			add(jobs);
+	public Workflow jobs(Job... jobs) {
+		Jobs innerJobs = findTag(Jobs.class);
+		if (innerJobs == null) {
+			innerJobs = new Jobs();
+			add(innerJobs);
 		}
-		jobs.add(job);
+		for (Job job : jobs) {
+			innerJobs.add(job);
+		}
 		return this;
 	}
 }

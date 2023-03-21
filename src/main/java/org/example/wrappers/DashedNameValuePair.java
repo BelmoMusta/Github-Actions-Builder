@@ -6,10 +6,12 @@ public class DashedNameValuePair extends NameValuePair {
 		super(name, value);
 	}
 	
+	@Override
 	public boolean addDashAtFirst() {
 		return true;
 	}
 	
+	@Override
 	public boolean wrapValueWithQuotes() {
 		return true;
 	}

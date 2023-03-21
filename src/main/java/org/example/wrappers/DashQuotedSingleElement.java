@@ -9,13 +9,9 @@ public class DashQuotedSingleElement extends DashSingleElement {
 	public boolean addDashAtFirst() {
 		return true;
 	}
+	
 	@Override
 	public boolean wrapValueWithQuotes() {
 		return true;
-	}
-	
-	@Override
-	protected boolean addColumn() {
-		return false;
 	}
 }
