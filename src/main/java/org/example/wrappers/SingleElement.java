@@ -3,8 +3,6 @@ package org.example.wrappers;
 import org.example.Appender;
 
 public class SingleElement extends NameValuePair {
-	public final String value;
-	
 	
 	public SingleElement(String value) {
 		this.value = value;

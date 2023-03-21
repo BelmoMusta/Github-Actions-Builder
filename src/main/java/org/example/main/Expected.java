@@ -13,10 +13,10 @@ import org.example.WorkflowDispatch;
 import org.example.wrappers.Input;
 import org.example.wrappers.Output;
 
-@SuppressWarnings("all")
-public class Main {
-	public static void main(String[] args) {
-		Workflow wf = Workflow.name("My Workflow")
+public class Expected {
+	
+	public static Workflow get(){
+		return Workflow.name("My Workflow")
 				.on(Push.branches("releases/*", "!releases/**-alpha")
 								.paths("path_1", "path_2")
 								.tags("tag_1"),
@@ -57,9 +57,5 @@ public class Main {
 										.port("80"))
 								.service(Service.image("redis")
 										.port("6379/tcp")));
-		System.out.println(wf.toString());
-		
-		
-		
 	}
 }

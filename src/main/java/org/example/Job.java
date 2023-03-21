@@ -3,6 +3,7 @@ package org.example;
 import org.example.collections.Needs;
 import org.example.collections.Outputs;
 import org.example.collections.SecondLevel;
+import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
@@ -67,7 +68,15 @@ public class Job extends SecondLevel {
 		return this;
 	}
 	
-	public Job service(Service service) { // TODO
+	public Job service(Service ... services) { // TODO
+		Services innerServices = findTag(Services.class);
+		if(innerServices == null){
+			innerServices = new Services();
+			add(innerServices);
+		}
+		for (Service service : services) {
+			innerServices.add(service);
+		}
 		return this;
 	}
 }
