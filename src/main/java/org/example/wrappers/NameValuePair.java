@@ -17,7 +17,7 @@ public class NameValuePair extends Indentable {
 	
 	@Override
 	public String toString() {
-		Appender appender = super.preAppend();
+		Appender appender = new Appender();
 		if (addDashAtFirst()) {
 			appender.append("- ");
 		}

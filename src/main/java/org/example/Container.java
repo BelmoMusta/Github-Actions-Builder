@@ -2,14 +2,13 @@ package org.example;
 
 import org.example.collections.AbstractCollection;
 import org.example.collections.Environments;
-import org.example.collections.Options;
 import org.example.collections.Ports;
+import org.example.collections.SecondLevel;
 import org.example.collections.Volumes;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Port;
-import org.example.wrappers.SingleElement;
 
-public class Container extends AbstractCollection {
+public class Container extends SecondLevel {
 	
 	protected Container() {
 		super("container");

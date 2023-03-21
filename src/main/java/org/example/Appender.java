@@ -1,7 +1,10 @@
 package org.example;
 
+import org.example.collections.AbstractCollection;
+import org.example.wrappers.Tag;
+
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class Appender {
 	StringBuilder stringBuilder = new StringBuilder();
@@ -38,11 +41,26 @@ public class Appender {
 		return this;
 	}
 	
-	public <T> Appender append(Collection<T> elements) {
-		String reduce = elements.stream()
-				.map(Object::toString)
-				.collect(Collectors.joining("\n"));
-		stringBuilder.append(reduce);
+	public Appender append(Tag str) {
+		if (str != null) {
+			indent(str.getIndentLevel());
+			stringBuilder.append(str);
+		}
+		return this;
+	}
+	
+	public Appender appendCollection(Collection<Tag> elements) {
+		
+		ArrayList<Tag> tags = new ArrayList<>(elements);
+		
+		for (int i = 0; i < tags.size(); i++) {
+			Tag tag = tags.get(i);
+			append(tag);
+			if (i < tags.size() - 1) {
+				newLine();
+			}
+		}
+		
 		return this;
 	}
 	

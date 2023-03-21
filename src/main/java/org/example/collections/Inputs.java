@@ -1,6 +1,6 @@
 package org.example.collections;
 
-public class Inputs extends AbstractCollection {
+public class Inputs extends SecondLevel {
 	public Inputs() {
 		super("inputs");
 	}

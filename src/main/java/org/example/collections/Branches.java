@@ -1,7 +1,8 @@
 package org.example.collections;
 
-public class Branches extends AbstractCollection {
+public class Branches extends SecondLevel {
 	public Branches() {
 		super("branches");
 	}
+	
 }

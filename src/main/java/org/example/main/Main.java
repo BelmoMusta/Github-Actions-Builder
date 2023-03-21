@@ -51,6 +51,7 @@ public class Main {
 						.container(Container.image("node:10.16-jessie")
 								.volume("my_docker_volume", "/volume_mount")
 								.volume("foo", "bar")
+								.env("NODE_ENV", "development")
 								.options("--cpus 1")
 						.port("80"))
 						.service(Service.image("redis")

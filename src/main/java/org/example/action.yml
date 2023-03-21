@@ -47,6 +47,7 @@ jobs:
         - 80
       volumes:
         - my_docker_volume:/volume_mount
+        - foo:bar
       options: --cpus 1
     services:
       redis:

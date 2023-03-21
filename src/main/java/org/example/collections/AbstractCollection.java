@@ -11,15 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractCollection extends Indentable {
-	protected final List<Tag> collection = new ArrayList<>();
+	public final List<Tag> collection = new ArrayList<>();
 	protected final Tag name;
 	
 	public void add(Tag tag) {
 		collection.add(tag);
-	}
-	
-	protected AbstractCollection() {
-		this.name = null;
 	}
 	
 	protected AbstractCollection(String name) {
@@ -35,26 +31,24 @@ public abstract class AbstractCollection extends Indentable {
 	}
 	
 	@Override
-	public void setIndentLevel(int indentLvel) {
-		super.setIndentLevel(indentLvel);
-		for (Tag element : collection) {
-			element.setIndentLevel(indentLvel + 1);
-		}
-	}
-	
-	@Override
 	public String toString() {
 		Appender appender = new Appender();
-		
-		if (!collection.isEmpty()) {
-			appender.indent(getIndentLevel());
-			if (name != null && !name.isEmpty()) {
+		if (acceptEmptyCollection() && collection.isEmpty()) {
+			if (!name.isEmpty()) {
+				appender.append(name);
+			}
+		} else if (!collection.isEmpty()) {
+			if (!name.isEmpty()) {
 				appender.append(name);
 				appender.newLine();
 			}
-			appender.append(collection);
+			appender.appendCollection(collection);
 		}
 		return appender.toString();
+	}
+	
+	protected boolean acceptEmptyCollection() {
+		return false;
 	}
 	
 	@Override
@@ -69,5 +63,13 @@ public abstract class AbstractCollection extends Indentable {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void setIndentLevel(int indentLevel) {
+		super.setIndentLevel(indentLevel);
+		for (Tag tag : collection) {
+			tag.setIndentLevel(indentLevel);
+		}
 	}
 }

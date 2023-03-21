@@ -1,9 +1,10 @@
 package org.example;
 
 import org.example.collections.AbstractCollection;
+import org.example.collections.SecondLevel;
 import org.example.wrappers.NameValuePair;
 
-public class Step extends AbstractCollection {
+public class Step extends SecondLevel {
 	
 	protected Step(String name) {
 		super(name, true);

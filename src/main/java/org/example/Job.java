@@ -1,10 +1,11 @@
 package org.example;
 
 import org.example.collections.AbstractCollection;
+import org.example.collections.SecondLevel;
 import org.example.collections.Steps;
 import org.example.wrappers.NameValuePair;
 
-public class Job extends AbstractCollection {
+public class Job extends SecondLevel {
 	
 	public Job(String name) {
 		super(name);
@@ -16,25 +17,21 @@ public class Job extends AbstractCollection {
 	
 	public Job runsOn(String s) {
 		add(new NameValuePair("runs-on", s));
- 		return this;
+		return this;
 	}
 	
 	public Job step(Step step) {
-		Steps steps =findTag(Steps.class);
-		if(steps == null) {
+		Steps steps = findTag(Steps.class);
+		if (steps == null) {
 			steps = new Steps();
 			add(steps);
 		}
-//		if (steps.isEmpty()) {
-//			steps.setIndentLevel(getIndentLevel() + 1);
-//			add(steps);
-//		}
 		steps.add(step);
 		return this;
 	}
 	
 	public Job needs(String name) {
- 		add(new NameValuePair("needs", name));
+		add(new NameValuePair("needs", name));
 		return this;
 	}
 	
@@ -44,6 +41,6 @@ public class Job extends AbstractCollection {
 	}
 	
 	public Job service(Service service) { // TODO
- 		return this;
+		return this;
 	}
 }

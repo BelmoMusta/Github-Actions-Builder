@@ -1,7 +1,5 @@
 package org.example.wrappers;
 
-import org.example.Appender;
-
 public class Indentable implements Tag {
 	private int indentLevel;
 	
@@ -19,9 +17,4 @@ public class Indentable implements Tag {
 		return false;
 	}
 	
-	public Appender preAppend() {
-		Appender appender = new Appender();
-		appender.indent(getIndentLevel());
-		return appender;
-	}
 }

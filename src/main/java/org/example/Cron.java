@@ -8,7 +8,6 @@ public class Cron extends Indentable {
 	@Override
 	public String toString() {
 		Appender appender = new Appender();
-		appender.indent(getIndentLevel());
 		appender.append("- cron: ").appendSingleQuote(value);
 		return appender.toString();
 	}

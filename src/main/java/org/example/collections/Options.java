@@ -2,7 +2,7 @@ package org.example.collections;
 
 import org.example.wrappers.DashSingleElement;
 
-public class Options extends AbstractCollection {
+public class Options extends SecondLevel {
 	
 	public Options() {
 		super("options");

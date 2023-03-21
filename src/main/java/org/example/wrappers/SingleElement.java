@@ -4,12 +4,21 @@ import org.example.Appender;
 
 public class SingleElement extends Bridge {
 	public final String value;
+	public final boolean preAppend;
 	
-	public SingleElement(String value) {this.value = value;}
+	public SingleElement(String value, boolean preAppend) {
+		this.value = value;
+		this.preAppend = preAppend;
+	}
+	
+	public SingleElement(String value) {
+		this(value, false);
+	}
 	
 	@Override
 	public String toString() {
-		Appender appender = preAppend();
+		Appender appender = new Appender();
+		
 		if (addDashAtFirst()) {
 			appender.append("- ");
 		}
@@ -24,6 +33,7 @@ public class SingleElement extends Bridge {
 		return appender.toString();
 	}
 	
+	@Override
 	protected boolean addColumn() {
 		return true;
 	}

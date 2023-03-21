@@ -4,16 +4,12 @@ import org.example.collections.Branches;
 import org.example.collections.Types;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.Indentable;
-import org.example.wrappers.SingleElement;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class PullRequest extends WorkflowEvent {
 	final Types types = new Types();
-	final Branches branches = new Branches();
-	final SingleElement name = new SingleElement("pull_request");
+	protected PullRequest() {
+		super("pull_request");
+	}
 	
 	public static PullRequest $() {
 		return new PullRequest();
@@ -21,31 +17,21 @@ public class PullRequest extends WorkflowEvent {
 	
 	public static PullRequest types(String... types) {
 		final PullRequest pullRequest = new PullRequest();
+		Types innerTypes = new Types();
 		for (String type : types) {
 			DashSingleElement element = new DashSingleElement(type);
-			pullRequest.types.add(element);
+			innerTypes.add(element);
 		}
+		pullRequest.add(innerTypes);
 		return pullRequest;
 	}
 	
 	public PullRequest branches(String... branches) {
+		final Branches innerBranches = new Branches();
 		for (String branch : branches) {
-			DashQuotedSingleElement br = new DashQuotedSingleElement(branch);
-			this.branches.add(br);
+			innerBranches.add(new DashQuotedSingleElement(branch));
 		}
+		add(innerBranches);
 		return this;
-	}
-	
-	@Override
-	public void setIndentLevel(int indentLvel) {
-		super.setIndentLevel(indentLvel);
-		name.setIndentLevel(getIndentLevel());
-		types.setIndentLevel(getIndentLevel() + 1);
-		branches.setIndentLevel(getIndentLevel() + 1);
-	}
-	
-	@Override
-	protected List<Indentable> getIndentables() {
-		return Arrays.asList(name, types, branches);
 	}
 }

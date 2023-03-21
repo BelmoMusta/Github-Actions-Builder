@@ -20,15 +20,11 @@ public class Workflow extends AbstractCollection {
 	
 	@Override
 	public String toString() {
-		adaptIndentations();
+		setIndentLevel(0);
 		return super.toString();
 	}
 	
-	private void adaptIndentations() {
-		events.setIndentLevel(0);
-		jobs.setIndentLevel(0);
-		environments.setIndentLevel(0);
-	}
+	
 	
 	public static Workflow name(String name) {
 		return new Workflow(name);
