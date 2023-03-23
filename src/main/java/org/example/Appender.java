@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.wrappers.Indentable;
+import org.example.wrappers.LabeledName;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,6 +60,34 @@ public class Appender {
 				newLine();
 			}
 		}
+		
+		return this;
+	}
+	
+	public Appender appendCollection(Collection<Indentable> elements, boolean withBrackets) {
+		
+		ArrayList<Indentable> tags = new ArrayList<>(elements);
+		if (withBrackets) {
+			indent(1);
+			append("[");
+		}
+		for (int i = 0; i < tags.size(); i++) {
+			Indentable tag = tags.get(i);
+			if (withBrackets) {
+				append(tag.get());
+			} else {
+				append(tag);
+			}
+			if (i < tags.size() - 1) {
+				if (withBrackets) {
+					append(", ");
+				} else {
+					newLine();
+				}
+			}
+		}
+		append("]");
+		
 		
 		return this;
 	}

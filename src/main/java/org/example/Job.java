@@ -6,8 +6,13 @@ import org.example.collections.SecondLevel;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Output;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Job extends SecondLevel {
 	
@@ -24,6 +29,20 @@ public class Job extends SecondLevel {
 		return this;
 	}
 	
+	public Job id(String id) {
+		class Id extends NameValuePair {
+			Id(String id) {
+				super("id", id);
+			}
+		}
+		Id existingId = findTag(Id.class);
+		if (existingId == null) {
+			Id idToBe = new Id(id);
+			add(idToBe);
+		}
+		return this;
+	}
+	
 	public Job step(Step step) {
 		Steps steps = findTag(Steps.class);
 		if (steps == null) {
@@ -34,7 +53,7 @@ public class Job extends SecondLevel {
 		return this;
 	}
 	
-	public Job needs(String... jobs) {
+	private Job needs(List<String> jobs) {
 		Needs needs = findTag(Needs.class);
 		if (needs == null) {
 			needs = new Needs();
@@ -45,6 +64,18 @@ public class Job extends SecondLevel {
 			
 		}
 		return this;
+	}
+	
+	public Job needs(String... jobs) {
+		return needs(Arrays.asList(jobs));
+	}
+	
+	public Job needs(Job... jobs) {
+		List<String> collectedJobs = Arrays.stream(jobs)
+				.map(Job::get)
+				.collect(Collectors.toList());
+		return needs(collectedJobs);
+		
 	}
 	
 	public Job if_(String condition) {
@@ -68,9 +99,9 @@ public class Job extends SecondLevel {
 		return this;
 	}
 	
-	public Job service(Service ... services) { // TODO
+	public Job service(Service... services) {
 		Services innerServices = findTag(Services.class);
-		if(innerServices == null){
+		if (innerServices == null) {
 			innerServices = new Services();
 			add(innerServices);
 		}
@@ -78,5 +109,16 @@ public class Job extends SecondLevel {
 			innerServices.add(service);
 		}
 		return this;
+	}
+	
+	public Job explicitName() {
+		String name = super.name.get();
+		add(new LabeledName(name));
+		return this;
+	}
+	
+	@Override
+	public String get() {
+		return name.get();
 	}
 }

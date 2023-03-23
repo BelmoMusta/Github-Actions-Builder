@@ -1,18 +1,16 @@
 package org.example;
 
+import org.example.collections.Ports;
 import org.example.collections.SecondLevel;
-import org.example.wrappers.SingleElement;
+import org.example.wrappers.DashSingleElement;
 
 public class Service extends SecondLevel {
 	protected Service(String name) {
 		super(name);
 	}
 	
-	public static Service image(String image) {
-		Service service = new Service(image);
-		//service.add(element);
-		//service.image = image; TODO
-		return service;
+	public static Service name(String name) {
+		return new Service(name);
 	}
 	
 	@Override
@@ -21,7 +19,17 @@ public class Service extends SecondLevel {
 	}
 	
 	public Service port(String port) {
-		//this.ports.add(port);
+		Ports ports = new Ports();
+		ports.add(new DashSingleElement(port));
+		add(ports);
+		return this;
+	}
+	
+	public Service image(String image) {
+		Image existingImage = findTag(Image.class);
+		if (existingImage == null) {
+			add(new Image(image));
+		}
 		return this;
 	}
 }

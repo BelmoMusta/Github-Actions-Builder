@@ -5,4 +5,8 @@ public interface Indentable {
 	
 	void setIndentLevel(int level);
 	int getIndentLevel();
+	
+	default String get() {
+		return "";
+	}
 }

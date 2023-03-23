@@ -1,6 +1,6 @@
 package org.example.wrappers;
 
-public class Tag implements Indentable {
+public abstract class Tag implements Indentable {
 	private int indentLevel;
 	
 	@Override

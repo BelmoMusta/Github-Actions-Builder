@@ -47,5 +47,9 @@ public class NameValuePair extends Tag {
 		return false;
 	}
 	
+	@Override
+	public String get() {
+		return value;
+	}
 	
 }

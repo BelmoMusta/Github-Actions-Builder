@@ -8,12 +8,6 @@ public class Output extends InOut {
 		return input;
 	}
 	
-	public Output description(String description) {
-		this.description = new InOutElement<>("description", description);
-		inputElements.add(this.description);
-		return this;
-	}
-	
 	public Output required() {
 		this.required = new InOutElement<>("required", true);
 		inputElements.add(this.required);

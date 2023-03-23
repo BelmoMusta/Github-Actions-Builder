@@ -9,13 +9,29 @@ import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public abstract class AbstractCollection extends Tag {
+	
+	private boolean collectionWithbrackets;
 	public final List<Indentable> collection = new ArrayList<>();
 	public final Indentable name;
 	
 	public void add(Indentable tag) {
 		collection.add(tag);
+	}
+	
+	public void add(Indentable tag, Function<Indentable, Indentable> converter) {
+		collection.add(converter.apply(tag));
+	}
+	
+	public void add(String tag, Function<String, Indentable> converter) {
+		collection.add(converter.apply(tag));
+	}
+	public void addAll(List<String> tags, Function<String, Indentable> converter) {
+		for (String tag : tags) {
+			collection.add(converter.apply(tag));
+		}
 	}
 	
 	protected AbstractCollection(String name) {
@@ -40,9 +56,15 @@ public abstract class AbstractCollection extends Tag {
 		} else if (!collection.isEmpty()) {
 			if (name.isNotEmpty()) {
 				appender.append(name);
-				appender.newLine();
+				if(!collectionWithbrackets) {
+					appender.newLine();
+				}
 			}
-			appender.appendCollection(collection);
+			if (collectionWithbrackets){
+				appender.appendCollection(collection, true);
+			} else {
+				appender.appendCollection(collection);
+			}
 		}
 		return appender.toString();
 	}
@@ -71,5 +93,10 @@ public abstract class AbstractCollection extends Tag {
 		for (Indentable tag : collection) {
 			tag.setIndentLevel(indentLevel);
 		}
+	}
+	
+	public <T extends AbstractCollection> T setCollectionWithbrackets(boolean collectionWithbrackets) {
+		this.collectionWithbrackets = collectionWithbrackets;
+		return (T) this;
 	}
 }
