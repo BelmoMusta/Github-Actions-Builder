@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.collections.Paths;
 import org.example.collections.Tags;
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashQuotedSingleElement;
 
 public class Push extends WorkflowEventWithBranches {
@@ -35,5 +36,10 @@ public class Push extends WorkflowEventWithBranches {
 			innerTags.add(new DashQuotedSingleElement(tag));
 		}
 		return this;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

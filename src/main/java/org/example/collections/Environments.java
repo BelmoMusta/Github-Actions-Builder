@@ -1,6 +1,6 @@
 package org.example.collections;
 
-public class Environments extends SecondLevel {
+public class Environments extends SubNode {
 	public Environments() {
 		super("env");
 	}

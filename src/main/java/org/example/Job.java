@@ -2,9 +2,9 @@ package org.example;
 
 import org.example.collections.Needs;
 import org.example.collections.Outputs;
-import org.example.collections.SecondLevel;
 import org.example.collections.Services;
 import org.example.collections.Steps;
+import org.example.collections.SubNode;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Job extends SecondLevel {
+public class Job extends SubNode {
 	
 	public Job(String name) {
 		super(name);

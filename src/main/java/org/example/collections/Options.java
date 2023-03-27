@@ -1,9 +1,10 @@
 package org.example.collections;
 
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 
-public class Options extends SecondLevel {
+public class Options extends SubNode {
 	
 	public Options() {
 		super("options");
@@ -14,5 +15,10 @@ public class Options extends SecondLevel {
 			DashSingleElement element = new DashQuotedSingleElement(option);
 			super.add(element);
 		}
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

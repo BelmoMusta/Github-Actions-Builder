@@ -1,9 +1,9 @@
 package org.example;
 
-import org.example.collections.SecondLevel;
+import org.example.collections.SubNode;
 import org.example.wrappers.NameValuePair;
 
-public class Step extends SecondLevel {
+public class Step extends SubNode {
 	
 	protected Step(String name) {
 		super(name, true);

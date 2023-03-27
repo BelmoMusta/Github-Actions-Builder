@@ -1,9 +1,9 @@
 package org.example;
 
-import org.example.collections.AbstractCollection;
-import org.example.wrappers.Indentable;
+import org.example.collections.Nodes;
+import org.example.wrappers.Node;
 
-public abstract class WorkflowEvent extends AbstractCollection {
+public abstract class WorkflowEvent extends Nodes {
 
 	protected WorkflowEvent(String name){
 		super(name);
@@ -16,7 +16,7 @@ public abstract class WorkflowEvent extends AbstractCollection {
 	
 	@Override
 	public int getIndentLevel() {
-		for (Indentable tag : collection) {
+		for (Node tag : children) {
 			tag.setIndentLevel(2);
 		}
 		return 1;

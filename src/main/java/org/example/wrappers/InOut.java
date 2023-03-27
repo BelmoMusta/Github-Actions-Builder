@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InOut extends Tag {
-	protected SingleElement name;
+	public SingleElement name;
 	protected InOutElement<String> description;
 	protected InOutElement<Boolean> required;
 	
 	protected InOutElement<Type> type;
 	protected Options options = new Options();
 	protected InOutElement<String> default_;
-	protected List<Indentable> inputElements = new ArrayList<>();
+	public List<Node> inputElements = new ArrayList<>();
 	
 	@Override
 	public void setIndentLevel(int indentLvel) {
 		super.setIndentLevel(indentLvel);
-		for (Indentable inputElement : inputElements) {
+		for (Node inputElement : inputElements) {
 			inputElement.setIndentLevel(indentLvel + 1);
 		}
 		options.setIndentLevel(indentLvel + 1);

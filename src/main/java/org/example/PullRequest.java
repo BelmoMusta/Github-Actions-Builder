@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.collections.Types;
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 
 public class PullRequest extends WorkflowEventWithBranches {
@@ -49,5 +50,10 @@ public class PullRequest extends WorkflowEventWithBranches {
 		public String toString() {
 			return super.toString().toLowerCase();
 		}
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

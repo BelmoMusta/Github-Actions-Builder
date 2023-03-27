@@ -1,5 +1,7 @@
 package org.example.wrappers;
 
+import org.example.visitor.Visitor;
+
 public class Input extends InOut {
 	public static Input name(String name) {
 		Input input = new Input();
@@ -36,5 +38,10 @@ public class Input extends InOut {
 		this.options.addAll(options);
 		inputElements.add(this.options);
 		return this;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

@@ -1,6 +1,8 @@
 package org.example.wrappers;
 
-public interface Indentable {
+import org.example.visitor.Visitable;
+
+public interface Node extends Visitable {
 	boolean isNotEmpty();
 	
 	void setIndentLevel(int level);

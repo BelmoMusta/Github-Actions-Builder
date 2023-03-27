@@ -1,5 +1,7 @@
 package org.example.wrappers;
 
+import org.example.visitor.Visitor;
+
 public class InOutElement<T> extends NameValuePair {
 	T inputValue;
 	public InOutElement(String name, T value) {
@@ -18,4 +20,8 @@ public class InOutElement<T> extends NameValuePair {
 		return false;
 	}
 	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
+	}
 }

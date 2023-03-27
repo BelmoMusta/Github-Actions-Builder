@@ -1,22 +1,22 @@
 package org.example.collections;
 
 import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.Indentable;
+import org.example.wrappers.Node;
 
 import java.util.Arrays;
 
-public class Needs extends SecondLevel {
+public class Needs extends SubNode {
 	public Needs() {
 		super("needs");
 	}
 	
 	@Override
-	public void add(Indentable tag) {
+	public void add(Node tag) {
 		/**
 		 * do not add the same tag more than once
 		 */
-		for (Indentable indentable : collection) {
-			if (indentable.get().equals(tag.get())) {
+		for (Node node : children) {
+			if (node.get().equals(tag.get())) {
 				return;
 			}
 		}

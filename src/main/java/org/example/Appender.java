@@ -1,18 +1,19 @@
 package org.example;
 
-import org.example.wrappers.Indentable;
-import org.example.wrappers.LabeledName;
+import org.example.wrappers.Node;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class Appender {
+	int currentIndentation = 0;
 	StringBuilder stringBuilder = new StringBuilder();
 	
 	public Appender indent(int amount) {
 		for (int i = 0; i < amount; i++) {
 			append("  ");
 		}
+		currentIndentation = amount;
 		return this;
 	}
 	
@@ -36,12 +37,13 @@ public class Appender {
 	
 	public Appender append(Object str) {
 		if (str != null) {
+			indent(currentIndentation);
 			stringBuilder.append(str);
 		}
 		return this;
 	}
 	
-	public Appender append(Indentable str) {
+	public Appender x_append(Node str) {
 		if (str != null) {
 			indent(str.getIndentLevel());
 			stringBuilder.append(str);
@@ -49,13 +51,13 @@ public class Appender {
 		return this;
 	}
 	
-	public Appender appendCollection(Collection<Indentable> elements) {
+	public Appender appendCollection(Collection<Node> elements) {
 		
-		ArrayList<Indentable> tags = new ArrayList<>(elements);
+		ArrayList<Node> tags = new ArrayList<>(elements);
 		
 		for (int i = 0; i < tags.size(); i++) {
-			Indentable tag = tags.get(i);
-			append(tag);
+			Node node = tags.get(i);
+			append(node);
 			if (i < tags.size() - 1) {
 				newLine();
 			}
@@ -64,21 +66,21 @@ public class Appender {
 		return this;
 	}
 	
-	public Appender appendCollection(Collection<Indentable> elements, boolean withBrackets) {
+	public Appender appendCollection(Collection<Node> elements, boolean withBrackets) {
 		
-		ArrayList<Indentable> tags = new ArrayList<>(elements);
+		ArrayList<Node> nodes = new ArrayList<>(elements);
 		if (withBrackets) {
 			indent(1);
 			append("[");
 		}
-		for (int i = 0; i < tags.size(); i++) {
-			Indentable tag = tags.get(i);
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
 			if (withBrackets) {
-				append(tag.get());
+				append(node.get());
 			} else {
-				append(tag);
+				append(node);
 			}
-			if (i < tags.size() - 1) {
+			if (i < nodes.size() - 1) {
 				if (withBrackets) {
 					append(", ");
 				} else {

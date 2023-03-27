@@ -1,6 +1,8 @@
 package org.example.wrappers;
 
-public abstract class Tag implements Indentable {
+import org.example.visitor.Visitor;
+
+public abstract class Tag implements Node {
 	private int indentLevel;
 	
 	@Override
@@ -17,4 +19,8 @@ public abstract class Tag implements Indentable {
 		return true;
 	}
 	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg );
+	}
 }

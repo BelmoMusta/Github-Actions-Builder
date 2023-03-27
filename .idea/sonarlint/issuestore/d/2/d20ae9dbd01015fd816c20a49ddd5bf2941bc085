@@ -1,6 +1,0 @@
-
-g	java:S116"SRename this field "default_" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ‹ƒ&
-v	java:S115("ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(žÍš 8Žü™”ð0
-v	java:S115)"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ö§ ª8Žü™”ð0
-{	java:S115*"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.( “Êøøÿÿÿÿ8Žü™”ð0
-{	java:S115+"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(§Íîõýÿÿÿÿ8Žü™”ð0

@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.collections.Inputs;
+import org.example.visitor.Visitor;
 import org.example.wrappers.Input;
 
 public class WorkflowDispatch extends WorkflowEvent {
@@ -22,6 +23,11 @@ public class WorkflowDispatch extends WorkflowEvent {
 	
 	public static WorkflowDispatch $(){
 		return new WorkflowDispatch();
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 	
 }

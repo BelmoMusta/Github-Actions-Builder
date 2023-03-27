@@ -1,25 +1,22 @@
 package org.example;
 
-import org.example.collections.AbstractCollection;
 import org.example.collections.Environments;
 import org.example.collections.Events;
 import org.example.collections.Jobs;
+import org.example.collections.Nodes;
+import org.example.visitor.Visitor;
 
-
-public class Workflow extends AbstractCollection {
+public class Workflow extends Nodes {
 	
 	protected Workflow(String name) {
 		super(name, false);
 	}
-	
-	
 	
 	@Override
 	public String toString() {
 		setIndentLevel(0);
 		return super.toString();
 	}
-	
 	
 	public static Workflow name(String name) {
 		return new Workflow(name);
@@ -65,5 +62,10 @@ public class Workflow extends AbstractCollection {
 			innerJobs.add(job);
 		}
 		return this;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg );
 	}
 }
