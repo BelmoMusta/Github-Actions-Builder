@@ -13,10 +13,6 @@ Y
 )src/test/java/example/tests/Expected.java,3/2/32db524178661498750287053d633edab13ac61b
 ]
 -src/test/java/example/tests/WorkflowTest.java,1/4/14ecc0959cb5833544941aa556373ae8608b95a3
-U
-%src/main/java/org/example/action2.yml,9/d/9dd78df40a34e6e3d7584f4572400855f55130b7
-T
-$src/main/java/org/example/action.yml,1/0/103f84d802de1af3a4d64d8c1b2d77563b6fb9b5
 `
 0src/main/java/org/example/collections/Paths.java,b/0/b09673e2a44fec08a0409b40aeb7a47ae6845259
 `

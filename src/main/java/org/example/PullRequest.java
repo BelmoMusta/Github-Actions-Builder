@@ -1,7 +1,9 @@
 package org.example;
 
+import org.example.collections.Paths;
 import org.example.collections.Types;
 import org.example.visitor.Visitor;
+import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 
 public class PullRequest extends WorkflowEventWithBranches {
@@ -21,6 +23,15 @@ public class PullRequest extends WorkflowEventWithBranches {
 			innerTypes.add(element);
 		}
 		this.add(innerTypes);
+		return this;
+	}
+	
+	public PullRequest paths(String... paths) {
+		final Paths innerPaths = new Paths();
+		for (String path : paths) {
+			innerPaths.add(new DashQuotedSingleElement(path));
+		}
+		add(innerPaths);
 		return this;
 	}
 	
