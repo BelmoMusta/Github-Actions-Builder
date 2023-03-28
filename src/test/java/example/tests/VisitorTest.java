@@ -138,7 +138,6 @@ public class VisitorTest {
 		Appender appender = new Appender();
 		wf.accept(defaultVisitor, appender);
 		Assertions.assertEquals(expected, appender.toString());
-		System.out.println(appender);
 		
 	}
 }

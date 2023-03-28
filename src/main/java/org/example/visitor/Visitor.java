@@ -42,7 +42,6 @@ import org.example.wrappers.Input;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
-import org.example.wrappers.Node;
 import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
 import org.example.wrappers.Tag;
@@ -98,7 +97,6 @@ public interface Visitor<A> {
 	void visit(LabeledDashedName labeledDashedName, A arg);
 	void visit(LabeledName labeledName, A arg);
 	void visit(NameValuePair nameValuePair, A arg);
-	<T extends Node> void visit(T node, A arg);
 	void visit(Output output, A arg);
 	void visit(SingleElement singleElement, A arg);
 	void visit(Tag tag, A arg);
@@ -118,26 +116,4 @@ public interface Visitor<A> {
 	void visit(WorkflowDispatch workflowDispatch, A arg);
 	void visit(WorkflowEventWithBranches workflowEventWithBranches, A arg);
 	
-	public static void main(String[] args) {
-		String s = "Container\n" +
-				"Environment\n" +
-				"Image\n" +
-				"Job\n" +
-				"PullRequest\n" +
-				"PullRequestTarget\n" +
-				"Push\n" +
-				"Schedule\n" +
-				"Service\n" +
-				"Step\n" +
-				"Volume\n" +
-				"Workflow\n" +
-				"WorkflowDispatch\n" +
-				"WorkflowEvent\n" +
-				"WorkflowEventWithBranches";
-		String template = "@Override\npublic void visit(%s %s, A arg){\n}\n";
-		
-		for (String entry : s.split("\n")) {
-			System.out.printf(template, entry, (entry.charAt(0) + "").toLowerCase() + entry.substring(1));
-		}
-	}
 }

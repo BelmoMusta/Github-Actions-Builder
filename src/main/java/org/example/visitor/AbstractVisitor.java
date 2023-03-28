@@ -166,9 +166,6 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	public void visit(NameValuePair nameValuePair, A arg) {
 	}
 	
-	@Override
-	public <T extends Node> void visit(T node, A arg) {
-	}
 	
 	@Override
 	public void visit(Output output, A arg) {

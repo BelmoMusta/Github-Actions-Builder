@@ -1,5 +1,6 @@
 package org.example.wrappers;
 
+import org.example.visitor.ValuedVisitor;
 import org.example.visitor.Visitor;
 
 public abstract class Tag implements Node {
@@ -11,6 +12,11 @@ public abstract class Tag implements Node {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg );
+		//
+	}
+	
+	@Override
+	public <A, R> R accept(ValuedVisitor<A, R> visitor, A arg) {
+		return null;
 	}
 }
