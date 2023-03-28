@@ -4,6 +4,7 @@ import org.example.collections.Environments;
 import org.example.collections.Ports;
 import org.example.collections.SubNode;
 import org.example.collections.Volumes;
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
 
@@ -57,5 +58,10 @@ public class Container extends SubNode {
 		String options = String.join(" ", optionsArray);
 		add(new NameValuePair("options", options));
 		return this;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

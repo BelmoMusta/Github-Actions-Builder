@@ -14,9 +14,12 @@ import org.example.WorkflowDispatch;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.wrappers.Input;
 import org.example.wrappers.Output;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class VisitorTest {
-	public static void main(String[] args) {
+	@Test
+	public void main() {
 		
 		Workflow wf = Workflow.name("My Workflow")
 				.on(Push.branches("releases/*", "!releases/**-alpha")
@@ -130,11 +133,11 @@ public class VisitorTest {
 				"      redis:\n" +
 				"        image: redis:latest\n" +
 				"        ports:\n" +
-				"          - 6379/tcp";
+				"          - 6379/tcp\n";
 		DefaultVisitorImpl defaultVisitor = new DefaultVisitorImpl();
 		Appender appender = new Appender();
 		wf.accept(defaultVisitor, appender);
-		
+		Assertions.assertEquals(expected, appender.toString());
 		System.out.println(appender);
 		
 	}

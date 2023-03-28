@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashedNameValuePair;
 
 public class Schedule extends WorkflowEvent {
@@ -26,5 +27,10 @@ public class Schedule extends WorkflowEvent {
 			add(new DashedNameValuePair("cron", cr));
 		}
 		return this;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

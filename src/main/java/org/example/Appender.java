@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Appender {
-	public int indent = 0;
+	private int indent;
 	StringBuilder stringBuilder = new StringBuilder();
 	
 	public Appender indent(int amount) {
 		for (int i = 0; i < amount; i++) {
-			stringBuilder.append("..");
+			stringBuilder.append("  ");
 		}
 		return this;
 	}
@@ -85,5 +85,12 @@ public class Appender {
 	@Override
 	public String toString() {
 		return stringBuilder.toString();
+	}
+	
+	public void increaseIndent() {
+		indent ++;
+	}
+	public void decreaseIndent() {
+		indent --;
 	}
 }

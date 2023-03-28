@@ -1,5 +1,6 @@
 package org.example.collections;
 
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.Node;
 
@@ -27,5 +28,10 @@ public class Needs extends SubNode {
 		Needs needs = new Needs();
 		needs.addAll(Arrays.asList(jobs), DashSingleElement::new);
 		return needs;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

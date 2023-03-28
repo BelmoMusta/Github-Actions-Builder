@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.collections.Ports;
 import org.example.collections.SubNode;
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 
 public class Service extends SubNode {
@@ -31,5 +32,10 @@ public class Service extends SubNode {
 			add(new Image(image));
 		}
 		return this;
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

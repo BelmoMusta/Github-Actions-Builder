@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.collections.SubNode;
+import org.example.visitor.Visitor;
 import org.example.wrappers.NameValuePair;
 
 public class Step extends SubNode {
@@ -23,4 +24,8 @@ public class Step extends SubNode {
 		return this;
 	}
 	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
+	}
 }

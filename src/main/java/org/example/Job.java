@@ -5,6 +5,7 @@ import org.example.collections.Outputs;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.SubNode;
+import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
@@ -120,5 +121,10 @@ public class Job extends SubNode {
 	@Override
 	public String get() {
 		return name.get();
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

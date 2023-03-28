@@ -53,7 +53,6 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
 	
 	protected void visitChildren(Collection<? extends Node> children, A arg) {
-		
 		for (Node child : children) {
 			child.accept(this, arg);
 		}

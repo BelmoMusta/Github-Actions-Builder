@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.visitor.Visitor;
+
 public class PullRequestTarget extends WorkflowEvent {
 	
 	protected PullRequestTarget() {
@@ -7,5 +9,10 @@ public class PullRequestTarget extends WorkflowEvent {
 	}
 	public static PullRequestTarget $() {
 		return new PullRequestTarget();
+	}
+	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }
