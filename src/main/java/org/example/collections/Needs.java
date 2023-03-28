@@ -28,10 +28,4 @@ public class Needs extends SubNode {
 		needs.addAll(Arrays.asList(jobs), DashSingleElement::new);
 		return needs;
 	}
-	
-	@Override
-	public Needs setCollectionWithbrackets(boolean collectionWithbrackets) {
-		 super.setCollectionWithbrackets(collectionWithbrackets);
-		 return this;
-	}
 }

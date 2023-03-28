@@ -47,32 +47,14 @@ import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
 import org.example.wrappers.Tag;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
-	protected void visitChildren(Collection<? extends Node> children, A arg) {
-		List<? extends Node> list = new ArrayList<>(children);
-		for (int i = 0; i < list.size(); i++) {
-			Node child = list.get(i);
-			child.setIndentLevel(child.getIndentLevel() + 1);
-			child.accept(this, arg);
-		}
-	}
-	protected void visitChildren(Collection<? extends Node> children, A arg, int indent) {
-		List<? extends Node> list = new ArrayList<>(children);
-		for (int i = 0; i < list.size(); i++) {
-			Node child = list.get(i);
-			child.setIndentLevel(indent);
-			child.accept(this, arg);
-		}
-	}
 	
-	protected void vaisitChildren(Nodes nodes, A arg, int indent) {
-		for (Node child : nodes.children) {
-			child.setIndentLevel(indent);
+	protected void visitChildren(Collection<? extends Node> children, A arg) {
+		
+		for (Node child : children) {
 			child.accept(this, arg);
 		}
 	}

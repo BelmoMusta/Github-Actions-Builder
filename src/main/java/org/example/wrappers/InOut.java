@@ -17,15 +17,6 @@ public class InOut extends Tag {
 	public List<Node> inputElements = new ArrayList<>();
 	
 	@Override
-	public void setIndentLevel(int indentLvel) {
-		super.setIndentLevel(indentLvel);
-		for (Node inputElement : inputElements) {
-			inputElement.setIndentLevel(indentLvel + 1);
-		}
-		options.setIndentLevel(indentLvel + 1);
-	}
-	
-	@Override
 	public String toString() {
 		Appender appender = new Appender();
 		appender.append(name);

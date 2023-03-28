@@ -13,7 +13,6 @@ import java.util.function.Function;
 
 public abstract class Nodes extends Tag {
 	
-	private boolean collectionWithbrackets;
 	public final Collection<Node> children = new ArrayList<>();
 	public final Node name;
 	
@@ -63,18 +62,4 @@ public abstract class Nodes extends Tag {
 		}
 		return null;
 	}
-	
-	@Override
-	public void setIndentLevel(int indentLevel) {
-		super.setIndentLevel(indentLevel);
-		for (Node tag : children) {
-			tag.setIndentLevel(indentLevel);
-		}
-	}
-	
-	public <T extends Nodes> T setCollectionWithbrackets(boolean collectionWithbrackets) {
-		this.collectionWithbrackets = collectionWithbrackets;
-		return (T) this;
-	}
-	
 }

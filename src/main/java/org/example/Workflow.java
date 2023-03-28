@@ -12,12 +12,6 @@ public class Workflow extends Nodes {
 		super(name, false);
 	}
 	
-	@Override
-	public String toString() {
-		setIndentLevel(0);
-		return super.toString();
-	}
-	
 	public static Workflow name(String name) {
 		return new Workflow(name);
 	}

@@ -1,6 +1,7 @@
 package org.example.wrappers;
 
 import org.example.Appender;
+import org.example.visitor.Visitor;
 
 public class SingleElement extends NameValuePair {
 	
@@ -28,5 +29,10 @@ public class SingleElement extends NameValuePair {
 	
 	protected boolean addColumn() {
 		return true;
+	}
+	
+	//@Override
+	public <A> void axccept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
 	}
 }

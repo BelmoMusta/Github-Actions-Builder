@@ -6,19 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Appender {
-	int currentIndentation = 0;
+	public int indent = 0;
 	StringBuilder stringBuilder = new StringBuilder();
 	
 	public Appender indent(int amount) {
 		for (int i = 0; i < amount; i++) {
-			append("  ");
+			stringBuilder.append("..");
 		}
-		currentIndentation = amount;
-		return this;
-	}
-	
-	public Appender append(String str) {
-		stringBuilder.append(str);
 		return this;
 	}
 	
@@ -32,20 +26,13 @@ public class Appender {
 	
 	
 	public Appender newLine() {
-		return append("\n");
+		  stringBuilder.append("\n");
+		  return this;
 	}
 	
 	public Appender append(Object str) {
 		if (str != null) {
-			indent(currentIndentation);
-			stringBuilder.append(str);
-		}
-		return this;
-	}
-	
-	public Appender x_append(Node str) {
-		if (str != null) {
-			indent(str.getIndentLevel());
+			indent(indent);
 			stringBuilder.append(str);
 		}
 		return this;
@@ -70,7 +57,7 @@ public class Appender {
 		
 		ArrayList<Node> nodes = new ArrayList<>(elements);
 		if (withBrackets) {
-			indent(1);
+		//	indent(1);
 			append("[");
 		}
 		for (int i = 0; i < nodes.size(); i++) {

@@ -26,7 +26,6 @@ public class ContainerTest {
 				.env("NODE_ENV", "development")
 				.options("--cpu 1", "ooo=9")
 				.port("80");
-		container.setIndentLevel(1);
 		Assertions.assertEquals(expected, container.toString());
 	}
 }

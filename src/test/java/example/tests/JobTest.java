@@ -17,7 +17,6 @@ public class JobTest {
 				.needs("b")
 				.step(Step.name("Say something")
 						.run("echo lol"));
-		job.setIndentLevel(0);
 		System.out.println(job);
 		System.out.println("_____");
 	}
