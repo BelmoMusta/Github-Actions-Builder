@@ -1,5 +1,6 @@
 package example.tests;
 
+import org.example.Appender;
 import org.example.Container;
 import org.example.Job;
 import org.example.PullRequest;
@@ -10,6 +11,7 @@ import org.example.Service;
 import org.example.Step;
 import org.example.Workflow;
 import org.example.WorkflowDispatch;
+import org.example.visitor.DefaultVisitorImpl;
 import org.example.wrappers.Input;
 import org.example.wrappers.Output;
 import org.junit.jupiter.api.Assertions;
@@ -20,47 +22,53 @@ public class WorkflowTest {
 	@Test
 	public void testWorkflow() {
 		
-		Workflow wf = Workflow.name("My Workflow")
-				.on(Push.branches("releases/*", "!releases/**-alpha")
+		Workflow wf = Workflow.$()
+				.name("My Workflow")
+				.on(Push.$().branches("releases/*", "!releases/**-alpha")
 								.paths("path_1", "path_2")
 								.tags("tag_1"),
-						PullRequest.branches("master")
+						PullRequest.$().branches("master")
 								.types(PullRequest.Type.AUTO_MERGE_DISABLED,
 										PullRequest.Type.OPENED),
-						Schedule.cron("30 5 * * 1,3")
-								.thenCron("20 9 * * 3"),
+						Schedule.$().cron("30 5 * * 1,3")
+								.cron("20 9 * * 3"),
 						Push.$(),
 						PullRequestTarget.$(),
-						WorkflowDispatch.inputs(Input.name("logLevel")
-										.description("Log Level")
-										.type(Input.Type.choice)
-										.required()
-										.default_("warning")
-										.options("info", "warning", "error"),
-								Input.name("settings")
-										.required()))
+						WorkflowDispatch.$()
+								.inputs(Input.$()
+												.name("logLevel")
+												.description("Log Level")
+												.type(Input.Type.choice)
+												.required()
+												.default_("warning")
+												.options("info", "warning", "error"),
+										Input.$()
+												.name("settings")
+												.required()))
 				.env("message", "'conversation'")
 				.env("my_token", "${{ secrets.GITHUB_TOKEN }}")
-				.jobs(Job.name("my_build")
+				.jobs(Job.$().name("my_build")
 								.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
-								.step(Step.name("my_build")
+								.step(Step.$().name("my_build")
 										.uses("actions/checkout@master"))
-								.step(Step.name("Say something")
+								.step(Step.$().name("Say something")
 										.run("echo lol"))
-								.outputs(Output.name("result")
+								.outputs(Output.$().name("result")
 										.type(Output.Type.string_)),
 						
-						Job.name("my_job")
+						Job.$()
+								.name("my_job")
 								.id("id-1")
 								.needs("my_build", "another_one")
-								.container(Container.image("node:10.16-jessie")
+								.container(Container.$().image("node:10.16-jessie")
 										.volume("my_docker_volume", "/volume_mount")
 										.volume("foo", "bar")
 										.env("NODE_ENV", "development")
 										.options("--cpus 1")
 										.port("80"))
-								.service(Service.name("redis")
+								.service(Service.$()
+										.name("redis")
 										.image("redis:latest")
 										.image("redis:latest")
 										.port("6379/tcp")));
@@ -134,6 +142,8 @@ public class WorkflowTest {
 				"        ports:\n" +
 				"          - 6379/tcp";
 		System.out.println(wf.toString());
-		Assertions.assertEquals(expected, wf.toString());
+		Appender arg = new Appender();
+		wf.accept(new DefaultVisitorImpl(), arg);
+		Assertions.assertEquals(expected, arg.toString());
 	}
 }

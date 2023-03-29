@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.collections.Branches;
 import org.example.collections.Paths;
 import org.example.collections.Tags;
 import org.example.visitor.Visitor;
@@ -16,9 +17,6 @@ public class Push extends WorkflowEventWithBranches {
 	protected Push(String... branches) {
 		super("push", branches);
 	}
-	public static Push branches(String... branches) {
-		return new Push(branches);
-	}
 	
 	public Push paths(String... paths) {
 		final Paths innerPaths = new Paths();
@@ -26,6 +24,15 @@ public class Push extends WorkflowEventWithBranches {
 			innerPaths.add(new DashQuotedSingleElement(path));
 		}
 		add(innerPaths);
+		return this;
+	}
+	
+	public Push branches(String... branches) {
+		final Branches innerBranches = new Branches();
+		for (String branch : branches) {
+			innerBranches.add(new DashQuotedSingleElement(branch));
+		}
+		add(innerBranches);
 		return this;
 	}
 	

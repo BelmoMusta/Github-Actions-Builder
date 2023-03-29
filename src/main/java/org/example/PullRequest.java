@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.collections.Branches;
 import org.example.collections.Paths;
 import org.example.collections.Types;
 import org.example.visitor.Visitor;
@@ -35,8 +36,13 @@ public class PullRequest extends WorkflowEventWithBranches {
 		return this;
 	}
 	
-	public static PullRequest branches(String... branches) {
-		return new PullRequest(branches);
+	public PullRequest branches(String... branches) {
+		final Branches innerBranches = new Branches();
+		for (String branch : branches) {
+			innerBranches.add(new DashQuotedSingleElement(branch));
+		}
+		add(innerBranches);
+		return this;
 	}
 	public enum Type {
 		ASSIGNED,

@@ -31,21 +31,24 @@ import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.Input;
 import org.example.wrappers.NameValuePair;
+import org.example.wrappers.Node;
 import org.example.wrappers.Output;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Workflow workflow, Appender arg) {
 		arg.append(workflow.name);
-		arg.newLine();
 		visitChildren(workflow.children, arg);
 	}
 	
 	@Override
 	public void visit(Events events, Appender arg) {
 		visitWithIndents(events, arg);
-		arg.newLine();
 	}
 	
 	@Override
@@ -58,11 +61,14 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(PullRequest pullRequest, Appender arg) {
-		visitWithIndents(pullRequest, arg);
+		pullRequest.name.accept(this, arg);
+		arg.increaseIndent();
+		visitChildren(pullRequest.children, arg);
+		arg.decreaseIndent();
 	}
 	
 	private void visitWithIndents(Nodes nodes, Appender arg) {
-		arg.append(nodes.name).newLine();
+		arg.append(nodes.name);
 		arg.increaseIndent();
 		visitChildren(nodes.children, arg);
 		arg.decreaseIndent();
@@ -70,17 +76,37 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(WorkflowDispatch workflowDispatch, Appender arg) {
-		visitWithIndents(workflowDispatch, arg);
+		workflowDispatch.name.accept(this, arg);
+		arg.increaseIndent();
+		visitChildren(workflowDispatch.children, arg);
+		arg.decreaseIndent();
 	}
 	
 	@Override
 	public void visit(PullRequestTarget workflowDispatch, Appender arg) {
-		visitWithIndents(workflowDispatch, arg);
+		workflowDispatch.name.accept(this, arg);
+		arg.increaseIndent();
+		visitChildren(workflowDispatch.children, arg);
+		arg.decreaseIndent();
 	}
 	
 	@Override
 	public void visit(Schedule schedule, Appender arg) {
 		visitWithIndents(schedule, arg);
+	}
+	
+	@Override
+	protected void visitChildren(Collection<? extends Node> children, Appender arg) {
+		if (!children.isEmpty()) {
+			arg.newLine();
+		}
+		List<Node> nodes = new ArrayList<>(children);
+		for (int i = 0; i < nodes.size(); i++) {
+			nodes.get(i).accept(this, arg);
+			if (i < nodes.size() - 1) {
+				arg.newLine();
+			}
+		}
 	}
 	
 	@Override
@@ -111,9 +137,6 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Options options, Appender arg) {
-		if (!options.children.isEmpty()) {
-			arg.newLine();
-		}
 		visitWithIndents(options, arg);
 	}
 	
@@ -121,6 +144,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Environments environments, Appender arg) {
 		visitWithIndents(environments, arg);
 	}
+	
 	@Override
 	public void visit(Jobs jobs, Appender arg) {
 		visitWithIndents(jobs, arg);
@@ -150,10 +174,12 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Volumes volumes, Appender arg) {
 		visitWithIndents(volumes, arg);
 	}
+	
 	@Override
 	public void visit(Services services, Appender arg) {
 		visitWithIndents(services, arg);
 	}
+	
 	@Override
 	public void visit(Service volumes, Appender arg) {
 		visitWithIndents(volumes, arg);
@@ -180,18 +206,15 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 		arg.increaseIndent();
 		visitChildren(output.inputElements, arg);
 		arg.decreaseIndent();
-		arg.newLine();
 	}
 	
 	@Override
 	public void visit(DashQuotedSingleElement dashQuotedSingleElement, Appender arg) {
 		arg.append(dashQuotedSingleElement.toString());
-		arg.newLine();
 	}
 	
 	@Override
 	public void visit(InOutElement inOutElement, Appender arg) {
-		arg.newLine();
 		arg.append(inOutElement.toString());
 	}
 	
@@ -206,7 +229,6 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	@Override
 	public void visit(NameValuePair nameValuePair, Appender arg) {
 		arg.append(nameValuePair);
-		arg.newLine();
 	}
 	
 }

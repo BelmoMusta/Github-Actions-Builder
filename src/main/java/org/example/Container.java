@@ -14,11 +14,14 @@ public class Container extends SubNode {
 		super("container");
 	}
 	
-	public static Container image(String image) {
-		Container container = new Container();
-		NameValuePair image_ = new NameValuePair("image", image);
-		container.add(image_);
-		return container;
+	public static Container $() {
+		return new Container();
+	}
+	
+	public Container image(String img) {
+		NameValuePair image = new NameValuePair("image", img);
+		this.add(image);
+		return this;
 	}
 	
 	public Container port(String... ports) {
@@ -32,7 +35,7 @@ public class Container extends SubNode {
 	
 	public Container volume(String name, String value) {
 		Volumes volumes = findTag(Volumes.class);
-		if(volumes == null){
+		if (volumes == null) {
 			volumes = new Volumes();
 			add(volumes);
 		}
@@ -43,9 +46,9 @@ public class Container extends SubNode {
 		return this;
 	}
 	
-	public Container env(String name, String value ) {
+	public Container env(String name, String value) {
 		Environments environments = findTag(Environments.class);
-		if(environments == null){
+		if (environments == null) {
 			environments = new Environments();
 			add(environments);
 		}

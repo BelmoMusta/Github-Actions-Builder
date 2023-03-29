@@ -3,10 +3,13 @@ package org.example.wrappers;
 import org.example.visitor.Visitor;
 
 public class Input extends InOut {
-	public static Input name(String name) {
-		Input input = new Input();
-		input.name = new SingleElement(name);
-		return input;
+	public static Input $() {
+		return new Input();
+	}
+	
+	public Input name(String name) {
+		this.name = new SingleElement(name);
+		return this;
 	}
 	
 	public Input description(String description) {

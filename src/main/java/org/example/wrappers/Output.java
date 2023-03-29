@@ -4,10 +4,13 @@ import org.example.visitor.Visitor;
 
 public class Output extends InOut {
 	
-	public static Output name(String name) {
-		Output input = new Output();
-		input.name = new SingleElement(name);
-		return input;
+	public static Output $() {
+		return new Output();
+	}
+
+	public Output name(String name) {
+		this.name = new SingleElement(name);
+		return this;
 	}
 	
 	public Output required() {

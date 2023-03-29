@@ -10,6 +10,7 @@ import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Output;
+import org.example.wrappers.SingleElement;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +22,23 @@ public class Job extends SubNode {
 		super(name);
 	}
 	
-	public static Job name(String name) {
-		return new Job(name);
+	public Job() {
+		super(null);
 	}
 	
+	public static Job $() {
+		return new Job();
+	}
+	
+	public Job name(String name) {
+		this.name = new SingleElement(name);
+		return this;
+	}
+	
+	public Job label(String label) {
+		this.add(new LabeledName(label));
+		return this;
+	}
 	public Job runsOn(String s) {
 		add(new NameValuePair("runs-on", s));
 		return this;

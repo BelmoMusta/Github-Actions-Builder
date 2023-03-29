@@ -21,47 +21,47 @@ public class VisitorTest {
 	@Test
 	public void main() {
 		
-		Workflow wf = Workflow.name("My Workflow")
-				.on(Push.branches("releases/*", "!releases/**-alpha")
+		Workflow wf = Workflow.$().name("My Workflow")
+				.on(Push.$().branches("releases/*", "!releases/**-alpha")
 								.paths("path_1", "path_2")
 								.tags("tag_1"),
-						PullRequest.branches("master")
+						PullRequest.$().branches("master")
 								.types(PullRequest.Type.AUTO_MERGE_DISABLED,
 										PullRequest.Type.OPENED),
-						Schedule.cron("30 5 * * 1,3")
-								.thenCron("20 9 * * 3"),
+						Schedule.$().cron("30 5 * * 1,3")
+								.cron("20 9 * * 3"),
 						Push.$(),
 						PullRequestTarget.$(),
-						WorkflowDispatch.inputs(Input.name("logLevel")
-										.description("Log Level")
+						WorkflowDispatch.$().inputs(Input.$().name("logLevel")
+										.description("log level")
 										.type(Input.Type.choice)
 										.required()
 										.default_("warning")
 										.options("info", "warning", "error"),
-								Input.name("settings")
+								Input.$().name("settings")
 										.required()))
 				.env("message", "'conversation'")
 				.env("my_token", "${{ secrets.GITHUB_TOKEN }}")
-				.jobs(Job.name("my_build")
+				.jobs(Job.$().name("my_build")
 								.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
-								.step(Step.name("my_build")
+								.step(Step.$().name("my_build")
 										.uses("actions/checkout@master"))
-								.step(Step.name("Say something")
+								.step(Step.$().name("Say something")
 										.run("echo lol"))
-								.outputs(Output.name("result")
+								.outputs(Output.$().name("result")
 										.type(Output.Type.string_)),
 						
-						Job.name("my_job")
+						Job.$().name("my_job")
 								.id("id-1")
 								.needs("my_build", "another_one")
-								.container(Container.image("node:10.16-jessie")
+								.container(Container.$().image("node:10.16-jessie")
 										.volume("my_docker_volume", "/volume_mount")
 										.volume("foo", "bar")
 										.env("NODE_ENV", "development")
 										.options("--cpus 1")
 										.port("80"))
-								.service(Service.name("redis")
+								.service(Service.$().name("redis")
 										.image("redis:latest")
 										.image("redis:latest")
 										.port("6379/tcp")));
@@ -89,7 +89,7 @@ public class VisitorTest {
 				"  workflow_dispatch:\n" +
 				"    inputs:\n" +
 				"      logLevel:\n" +
-				"        description: 'Log Level'\n" +
+				"        description: 'log level'\n" +
 				"        type: choice\n" +
 				"        required: true\n" +
 				"        default: 'warning'\n" +
@@ -133,55 +133,66 @@ public class VisitorTest {
 				"      redis:\n" +
 				"        image: redis:latest\n" +
 				"        ports:\n" +
-				"          - 6379/tcp\n";
+				"          - 6379/tcp";
 		DefaultVisitorImpl defaultVisitor = new DefaultVisitorImpl();
 		Appender appender = new Appender();
 		wf.accept(defaultVisitor, appender);
 		Assertions.assertEquals(expected, appender.toString());
 		
 	}
-	@Test public void test2() {
+	
+	@Test
+	public void test2() {
 		
-		Workflow wf = Workflow.name("generated")
-				.on(Push.branches("branch1", "branch2")
+		Workflow wf = Workflow.$().name("generated")
+				.on(Push.$().branches("branch1", "branch2")
 								.tags("tag1", "tag2")
 								.paths("path1", "path2"),
-						PullRequest.branches("branch1", "branch2")
+						PullRequest.$()
 								.types(PullRequest.Type.AUTO_MERGE_DISABLED,
 										PullRequest.Type.OPENED)
+								.branches("branch1", "branch2")
 								.paths("path1", "path2"),
-						Schedule.cron("0 0 * * *"),
-						WorkflowDispatch.inputs(Input.name("logLevel")
-										.description("Log Level")
-										.type(Input.Type.choice)
-										.required()
-										.default_("warning")
-										.options("info", "warning", "debug"),
-								Input.name("settings")
-										.required()),
+						Schedule.$().cron("0 0 * * *"),
+						WorkflowDispatch.$()
+								.inputs(Input.$()
+												.name("logLevel")
+												.description("log level")
+												.type(Input.Type.choice)
+												.required()
+												.default_("warning")
+												.options("info", "warning", "debug"),
+										Input.$().name("settings")
+												.required()),
 						PullRequestTarget.$())
 				.env("GRADLE_ENTERPRISE_ACCESS_KEY", "${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}")
 				.env("GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED", "true")
-				.jobs(Job.name("Check YAML consistency")
+				.jobs(Job.$()
+								.name("check_yaml_consistency")
+								.label("Check YAML consistency")
 								//.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
-								.step(Step.name("Check out")
+								.step(Step.$()
+										.id("step-0")
+										.name("Check out")
 										.uses("actions/checkout@v3"))
-								.step(Step.name("Say something")
-										.run("echo lol"))
-								.outputs(Output.name("result")
+								.step(Step.$()
+										.name("Install Kotlin")
+										.run("sudo snap install --classic kotlin"))
+								.outputs(Output.$().name("result")
 										.type(Output.Type.string_)),
 						
-						Job.name("my_job")
+						Job.$()
+								.name("my_job")
 								.id("id-1")
 								.needs("my_build", "another_one")
-								.container(Container.image("node:10.16-jessie")
+								.container(Container.$().image("node:10.16-jessie")
 										.volume("my_docker_volume", "/volume_mount")
 										.volume("foo", "bar")
 										.env("NODE_ENV", "development")
 										.options("--cpus 1")
 										.port("80"))
-								.service(Service.name("redis")
+								.service(Service.$().name("redis")
 										.image("redis:latest")
 										.image("redis:latest")
 										.port("6379/tcp")));
@@ -199,8 +210,8 @@ public class VisitorTest {
 				"      - 'path2'\n" +
 				"  pull_request:\n" +
 				"    types:\n" +
-				"      - 'auto_merge_disabled'\n" +
-				"      - 'opened'\n" +
+				"      - auto_merge_disabled\n" +
+				"      - opened\n" +
 				"    branches:\n" +
 				"      - 'branch1'\n" +
 				"      - 'branch2'\n" +
@@ -212,7 +223,7 @@ public class VisitorTest {
 				"  workflow_dispatch:\n" +
 				"    inputs:\n" +
 				"      logLevel:\n" +
-				"        description: 'Log level'\n" +
+				"        description: 'log level'\n" +
 				"        type: choice\n" +
 				"        required: true\n" +
 				"        default: 'warning'\n" +
@@ -220,18 +231,16 @@ public class VisitorTest {
 				"          - 'info'\n" +
 				"          - 'warning'\n" +
 				"          - 'debug'\n" +
+				"      settings:\n" +
+				"        required: true\n" +
 				"  pull_request_target:\n" +
-				"\n" +
 				"env:\n" +
-				"  # Set the GRADLE_ENTERPRISE_ACCESS_KEY so that Gradle Build Scans are generated\n" +
 				"  GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}\n" +
-				"  # Enable debug for the `gradle-build-action` cache operations\n" +
 				"  GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true\n" +
-				"\n" +
 				"jobs:\n" +
-				"  \"check_yaml_consistency\":\n" +
+				"  check_yaml_consistency:\n" +
 				"    name: Check YAML consistency\n" +
-				"    runs-on: \"ubuntu-latest\"\n" +
+				"    runs-on: ubuntu-latest\n" +
 				"    steps:\n" +
 				"      - id: step-0\n" +
 				"        name: Check out\n" +
@@ -281,7 +290,7 @@ public class VisitorTest {
 				"          driver-opts: |\n" +
 				"            hello\n" +
 				"            world\n" +
-				"          install: true\n";
+				"          install: true";
 		DefaultVisitorImpl defaultVisitor = new DefaultVisitorImpl();
 		Appender appender = new Appender();
 		wf.accept(defaultVisitor, appender);

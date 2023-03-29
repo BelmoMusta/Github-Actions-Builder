@@ -24,12 +24,6 @@ public class Needs extends SubNode {
 		super.add(tag);
 	}
 	
-	public static Needs name(String...jobs){
-		Needs needs = new Needs();
-		needs.addAll(Arrays.asList(jobs), DashSingleElement::new);
-		return needs;
-	}
-	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 		visitor.visit(this, arg);

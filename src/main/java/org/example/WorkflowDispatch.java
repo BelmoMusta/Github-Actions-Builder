@@ -10,15 +10,13 @@ public class WorkflowDispatch extends WorkflowEvent {
 		super("workflow_dispatch");
 	}
 	
-	public static WorkflowDispatch inputs(Input... inputs) {
-		final WorkflowDispatch workflowDispatch = new WorkflowDispatch();
+	public WorkflowDispatch inputs(Input... inputs) {
 		Inputs innerInputs = new Inputs();
-		
 		for (Input input : inputs) {
 			innerInputs.add(input);
 		}
-		workflowDispatch.add(innerInputs);
-		return workflowDispatch;
+		this.add(innerInputs);
+		return this;
 	}
 	
 	public static WorkflowDispatch $(){

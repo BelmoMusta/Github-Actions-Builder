@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.collections.SubNode;
 import org.example.visitor.Visitor;
+import org.example.wrappers.Id;
+import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.NameValuePair;
 
 public class Step extends SubNode {
@@ -10,8 +12,22 @@ public class Step extends SubNode {
 		super(name, true);
 	}
 	
-	public static Step name(String name) {
-		return new Step(name);
+	protected Step() {
+		super(null, true);
+	}
+	
+	public static Step $() {
+		return new Step();
+	}
+	
+	public Step id(String name) {
+		this.add(new Id(name));
+		return this;
+	}
+	
+	public Step name(String name) {
+		this.name = new LabeledDashedName(name);
+		return this;
 	}
 	
 	public Step uses(String s) {
@@ -20,7 +36,7 @@ public class Step extends SubNode {
 	}
 	
 	public Step run(String s) {
-		this.add( new NameValuePair("run", s));
+		this.add(new NameValuePair("run", s));
 		return this;
 	}
 	

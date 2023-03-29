@@ -5,6 +5,7 @@ import org.example.collections.Events;
 import org.example.collections.Jobs;
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
+import org.example.wrappers.LabeledName;
 
 public class Workflow extends Nodes {
 	
@@ -12,8 +13,13 @@ public class Workflow extends Nodes {
 		super(name, false);
 	}
 	
-	public static Workflow name(String name) {
-		return new Workflow(name);
+	public Workflow name(String name) {
+		this.name = new LabeledName(name);
+		return this;
+	}
+	
+	public static Workflow $() {
+		return new Workflow(null);
 	}
 	
 	public Workflow on(WorkflowEvent... events) {
@@ -60,6 +66,6 @@ public class Workflow extends Nodes {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg );
+		visitor.visit(this, arg);
 	}
 }

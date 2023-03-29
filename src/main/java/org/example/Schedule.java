@@ -13,18 +13,9 @@ public class Schedule extends WorkflowEvent {
 		return new Schedule();
 	}
 	
-	public static Schedule cron(String... crons) {
-		final Schedule schedule = new Schedule();
+	public Schedule cron(String... crons) {
 		for (String cr : crons) {
-			schedule.add(new DashedNameValuePair("cron", cr));
-		}
-		return schedule;
-	}
-	
-	public Schedule thenCron(String... crons) {
-		
-		for (String cr : crons) {
-			add(new DashedNameValuePair("cron", cr));
+			this.add(new DashedNameValuePair("cron", cr));
 		}
 		return this;
 	}

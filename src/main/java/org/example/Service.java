@@ -4,14 +4,20 @@ import org.example.collections.Ports;
 import org.example.collections.SubNode;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.SingleElement;
 
 public class Service extends SubNode {
 	protected Service(String name) {
 		super(name);
 	}
 	
-	public static Service name(String name) {
-		return new Service(name);
+	public static Service $() {
+		return new Service(null);
+	}
+	
+	public Service name(String name) {
+		this.name = new SingleElement(name);
+		return this;
 	}
 	
 	@Override

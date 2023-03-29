@@ -14,7 +14,7 @@ import java.util.function.Function;
 public abstract class Nodes extends Tag {
 	
 	public final Collection<Node> children = new ArrayList<>();
-	public final Node name;
+	public  Node name;
 	
 	public void add(Node tag) {
 		children.add(tag);
