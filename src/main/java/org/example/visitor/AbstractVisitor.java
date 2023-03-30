@@ -4,6 +4,7 @@ import org.example.Container;
 import org.example.Environment;
 import org.example.Image;
 import org.example.Job;
+import org.example.Pipe;
 import org.example.PullRequest;
 import org.example.PullRequestTarget;
 import org.example.Push;
@@ -13,8 +14,6 @@ import org.example.Step;
 import org.example.Volume;
 import org.example.Workflow;
 import org.example.WorkflowDispatch;
-import org.example.WorkflowEvent;
-import org.example.WorkflowEventWithBranches;
 import org.example.collections.Branches;
 import org.example.collections.BranchesIgnore;
 import org.example.collections.Environments;
@@ -22,17 +21,16 @@ import org.example.collections.Events;
 import org.example.collections.Inputs;
 import org.example.collections.Jobs;
 import org.example.collections.Needs;
-import org.example.collections.Nodes;
 import org.example.collections.Options;
 import org.example.collections.Outputs;
 import org.example.collections.Paths;
 import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
-import org.example.collections.SubNode;
 import org.example.collections.Tags;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
+import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedNameValuePair;
@@ -45,14 +43,13 @@ import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
 import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
-import org.example.wrappers.Tag;
 
 import java.util.Collection;
 
 public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
 	
-	protected void visitChildren(Collection<? extends Node> children, A arg) {
+	protected void visitChildren(Collection<? extends Node> children, A arg, boolean addNewLine) {
 		for (Node child : children) {
 			child.accept(this, arg);
 		}
@@ -69,6 +66,9 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	@Override
 	public void visit(Environments environments, A arg) {
 	}
+	@Override
+	public void visit(Withs withs, A arg) {
+	}
 	
 	@Override
 	public void visit(Events events, A arg) {
@@ -79,6 +79,10 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	}
 	
 	@Override
+	public  void visit(Pipe pipe, A arg){
+	}
+	
+	@Override
 	public void visit(Jobs jobs, A arg) {
 	}
 	
@@ -86,10 +90,7 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	public void visit(Needs needs, A arg) {
 	}
 	
-	@Override
-	public void visit(Nodes nodes, A arg) {
-	}
-	
+ 
 	@Override
 	public void visit(Options options, A arg) {
 	}
@@ -112,10 +113,6 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
 	@Override
 	public void visit(Steps steps, A arg) {
-	}
-	
-	@Override
-	public void visit(SubNode subNode, A arg) {
 	}
 	
 	@Override
@@ -175,10 +172,7 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	public void visit(SingleElement singleElement, A arg) {
 	}
 	
-	@Override
-	public void visit(Tag tag, A arg) {
-	}
-	
+
 	@Override
 	public void visit(Container container, A arg) {
 	}
@@ -229,14 +223,6 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
 	@Override
 	public void visit(WorkflowDispatch workflowDispatch, A arg) {
-	}
-	
-	@Override
-	public void visit(WorkflowEvent workflowEvent, A arg) {
-	}
-	
-	@Override
-	public void visit(WorkflowEventWithBranches workflowEventWithBranches, A arg) {
 	}
 	
 }

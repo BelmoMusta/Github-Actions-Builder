@@ -37,6 +37,12 @@ public class Appender {
 		}
 		return this;
 	}
+	public Appender append_(Object str) {
+		if (str != null) {
+			stringBuilder.append(str);
+		}
+		return this;
+	}
 	
 	public Appender appendCollection(Collection<Node> elements) {
 		

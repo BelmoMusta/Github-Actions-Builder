@@ -1,9 +1,11 @@
 package org.example.visitor;
 
+import org.example.Appender;
 import org.example.Container;
 import org.example.Environment;
 import org.example.Image;
 import org.example.Job;
+import org.example.Pipe;
 import org.example.PullRequest;
 import org.example.PullRequestTarget;
 import org.example.Push;
@@ -33,6 +35,7 @@ import org.example.collections.SubNode;
 import org.example.collections.Tags;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
+import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedNameValuePair;
@@ -49,9 +52,6 @@ import org.example.wrappers.Tag;
 public interface Visitor<A> {
 	void visit(Workflow workflow, A arg);
 	
-	
-	void visit(WorkflowEvent workflowEvent, A arg);
-	
 	void visit(Paths paths, A arg);
 	
 	void visit(Tags tags, A arg);
@@ -61,17 +61,19 @@ public interface Visitor<A> {
 	void visit(BranchesIgnore branchesIgnore, A arg);
 	
 	void visit(Environments environments, A arg);
+	void visit(Withs environments, A arg);
 	
 	void visit(Events events, A arg);
 	
 	void visit(Inputs inputs, A arg);
-
+	
+	void visit(Pipe pipe, A arg);
+	
 	void visit(Jobs jobs, A arg);
 
 	void visit(Needs needs, A arg);
 
-	void visit(Nodes nodes, A arg);
-
+ 
 	void visit(Options options, A arg);
 
 	void visit(Outputs outputs, A arg);
@@ -82,8 +84,7 @@ public interface Visitor<A> {
 
 	void visit(Steps steps, A arg);
 
-	void visit(SubNode subNode, A arg);
-
+ 
 	void visit(Types types, A arg);
 
 	void visit(Volumes volumes, A arg);
@@ -99,7 +100,7 @@ public interface Visitor<A> {
 	void visit(NameValuePair nameValuePair, A arg);
 	void visit(Output output, A arg);
 	void visit(SingleElement singleElement, A arg);
-	void visit(Tag tag, A arg);
+	
 	
 	
 	void visit(Container container, A arg);
@@ -114,6 +115,5 @@ public interface Visitor<A> {
 	void visit(Step step, A arg);
 	void visit(Volume volume, A arg);
 	void visit(WorkflowDispatch workflowDispatch, A arg);
-	void visit(WorkflowEventWithBranches workflowEventWithBranches, A arg);
-	
+ 
 }

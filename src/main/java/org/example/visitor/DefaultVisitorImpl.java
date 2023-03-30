@@ -3,6 +3,7 @@ package org.example.visitor;
 import org.example.Appender;
 import org.example.Container;
 import org.example.Job;
+import org.example.Pipe;
 import org.example.PullRequest;
 import org.example.PullRequestTarget;
 import org.example.Push;
@@ -27,6 +28,7 @@ import org.example.collections.Steps;
 import org.example.collections.Tags;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
+import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.Input;
@@ -43,7 +45,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	@Override
 	public void visit(Workflow workflow, Appender arg) {
 		arg.append(workflow.name);
-		visitChildren(workflow.children, arg);
+		visitChildren(workflow.children, arg, true);
 	}
 	
 	@Override
@@ -55,7 +57,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Push push, Appender arg) {
 		push.name.accept(this, arg);
 		arg.increaseIndent();
-		visitChildren(push.children, arg);
+		visitChildren(push.children, arg, true);
 		arg.decreaseIndent();
 	}
 	
@@ -63,14 +65,14 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(PullRequest pullRequest, Appender arg) {
 		pullRequest.name.accept(this, arg);
 		arg.increaseIndent();
-		visitChildren(pullRequest.children, arg);
+		visitChildren(pullRequest.children, arg, true);
 		arg.decreaseIndent();
 	}
 	
 	private void visitWithIndents(Nodes nodes, Appender arg) {
 		arg.append(nodes.name);
 		arg.increaseIndent();
-		visitChildren(nodes.children, arg);
+		visitChildren(nodes.children, arg, true);
 		arg.decreaseIndent();
 	}
 	
@@ -78,7 +80,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(WorkflowDispatch workflowDispatch, Appender arg) {
 		workflowDispatch.name.accept(this, arg);
 		arg.increaseIndent();
-		visitChildren(workflowDispatch.children, arg);
+		visitChildren(workflowDispatch.children, arg, true);
 		arg.decreaseIndent();
 	}
 	
@@ -86,7 +88,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(PullRequestTarget workflowDispatch, Appender arg) {
 		workflowDispatch.name.accept(this, arg);
 		arg.increaseIndent();
-		visitChildren(workflowDispatch.children, arg);
+		visitChildren(workflowDispatch.children, arg, true);
 		arg.decreaseIndent();
 	}
 	
@@ -96,8 +98,8 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
-	protected void visitChildren(Collection<? extends Node> children, Appender arg) {
-		if (!children.isEmpty()) {
+	protected void visitChildren(Collection<? extends Node> children, Appender arg, boolean addNewLine) {
+		if (addNewLine && !children.isEmpty()) {
 			arg.newLine();
 		}
 		List<Node> nodes = new ArrayList<>(children);
@@ -146,6 +148,18 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
+	public void visit(Withs withs, Appender arg) {
+		visitWithIndents(withs, arg);
+	}
+	
+	@Override
+	public void visit(Pipe pipe, Appender arg) {
+		arg.increaseIndent();
+		visitChildren(pipe.children, arg, false);
+		arg.decreaseIndent();
+	}
+	
+	@Override
 	public void visit(Jobs jobs, Appender arg) {
 		visitWithIndents(jobs, arg);
 	}
@@ -156,8 +170,25 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(Step jobs, Appender arg) {
-		visitWithIndents(jobs, arg);
+	public void visit(Step step, Appender arg) {
+		//arg.append_("- ");
+		if (!step.children.isEmpty()) {
+			//arg.newLine();
+		}
+		List<Node> nodes = new ArrayList<>(step.children);
+		for (int i = 0; i < nodes.size(); i++) {
+			if (i == 0) {
+				arg.append("- " + nodes.get(i));
+			} else {
+				arg.increaseIndent();
+				nodes.get(i).accept(this, arg);
+				arg.decreaseIndent();
+			}
+			if (i < nodes.size() - 1) {
+				arg.newLine();
+			}
+		}
+		//visitChildren(step.children, arg);
 	}
 	
 	@Override
@@ -204,7 +235,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Output output, Appender arg) {
 		arg.append(output.name);
 		arg.increaseIndent();
-		visitChildren(output.inputElements, arg);
+		visitChildren(output.inputElements, arg, true);
 		arg.decreaseIndent();
 	}
 	
@@ -222,7 +253,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Input input, Appender arg) {
 		arg.append(input.name);
 		arg.increaseIndent();
-		visitChildren(input.inputElements, arg);
+		visitChildren(input.inputElements, arg, true);
 		arg.decreaseIndent();
 	}
 	

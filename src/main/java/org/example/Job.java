@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.collections.Environments;
 import org.example.collections.Needs;
 import org.example.collections.Outputs;
 import org.example.collections.Services;
@@ -91,6 +92,18 @@ public class Job extends SubNode {
 				.collect(Collectors.toList());
 		return needs(collectedJobs);
 		
+	}
+	
+	public Job env(String name, String value) {
+		
+		Environments environments = findTag(Environments.class);
+		if (environments == null) {
+			environments = new Environments();
+			add(environments);
+		}
+		Environment environment = new Environment(name, value);
+		environments.add(environment);
+		return this;
 	}
 	
 	public Job if_(String condition) {

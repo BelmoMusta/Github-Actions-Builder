@@ -10,8 +10,5 @@ public abstract class SubNode extends Nodes {
 		super(name, nameWithDash);
 	}
 	
-	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
-	}
+	
 }
