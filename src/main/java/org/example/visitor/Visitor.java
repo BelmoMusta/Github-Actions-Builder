@@ -1,6 +1,5 @@
 package org.example.visitor;
 
-import org.example.Appender;
 import org.example.Container;
 import org.example.Environment;
 import org.example.Image;
@@ -15,8 +14,6 @@ import org.example.Step;
 import org.example.Volume;
 import org.example.Workflow;
 import org.example.WorkflowDispatch;
-import org.example.WorkflowEvent;
-import org.example.WorkflowEventWithBranches;
 import org.example.collections.Branches;
 import org.example.collections.BranchesIgnore;
 import org.example.collections.Environments;
@@ -24,14 +21,12 @@ import org.example.collections.Events;
 import org.example.collections.Inputs;
 import org.example.collections.Jobs;
 import org.example.collections.Needs;
-import org.example.collections.Nodes;
 import org.example.collections.Options;
 import org.example.collections.Outputs;
 import org.example.collections.Paths;
 import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
-import org.example.collections.SubNode;
 import org.example.collections.Tags;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
@@ -47,7 +42,6 @@ import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
-import org.example.wrappers.Tag;
 
 public interface Visitor<A> {
 	void visit(Workflow workflow, A arg);

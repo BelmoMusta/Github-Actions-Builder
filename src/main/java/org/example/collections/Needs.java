@@ -1,10 +1,7 @@
 package org.example.collections;
 
 import org.example.visitor.Visitor;
-import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.Node;
-
-import java.util.Arrays;
 
 public class Needs extends SubNode {
 	public Needs() {

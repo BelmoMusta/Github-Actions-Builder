@@ -6,7 +6,6 @@ import org.example.collections.SubNode;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.SimpleSingleElement;
-import org.example.wrappers.SingleElement;
 
 import java.util.Arrays;
 import java.util.List;
