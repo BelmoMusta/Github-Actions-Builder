@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.visitor.Visitor;
 import org.example.wrappers.NameValuePair;
 
 public class Environment extends NameValuePair {
@@ -8,4 +9,8 @@ public class Environment extends NameValuePair {
 		super(name, value);
 	}
 	
+	@Override
+	public <A> void accept(Visitor<A> visitor, A arg) {
+		visitor.visit(this, arg);
+	}
 }

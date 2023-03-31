@@ -10,14 +10,8 @@ public class InOutElement<T> extends NameValuePair {
 		super.value = String.valueOf(value);
 	}
 	
-	@Override
-	public boolean wrapValueWithQuotes() {
+	public boolean isString() {
 		return inputValue instanceof String;
-	}
-	
-	@Override
-	public boolean addDashAtFirst() {
-		return false;
 	}
 	
 	@Override

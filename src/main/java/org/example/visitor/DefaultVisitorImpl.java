@@ -2,6 +2,7 @@ package org.example.visitor;
 
 import org.example.Appender;
 import org.example.Container;
+import org.example.Environment;
 import org.example.Job;
 import org.example.Pipe;
 import org.example.PullRequest;
@@ -10,6 +11,7 @@ import org.example.Push;
 import org.example.Schedule;
 import org.example.Service;
 import org.example.Step;
+import org.example.Volume;
 import org.example.Workflow;
 import org.example.WorkflowDispatch;
 import org.example.collections.Branches;
@@ -30,11 +32,18 @@ import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
+import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.DashedId;
+import org.example.wrappers.DashedNameValuePair;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.Input;
+import org.example.wrappers.LabeledDashedName;
+import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
 import org.example.wrappers.Output;
+import org.example.wrappers.SimpleEntry;
+import org.example.wrappers.SingleElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +53,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Workflow workflow, Appender arg) {
-		arg.append(workflow.name);
+		workflow.name.accept(this, arg);
 		visitChildren(workflow.children, arg, true);
 	}
 	
@@ -70,7 +79,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	private void visitWithIndents(Nodes nodes, Appender arg) {
-		arg.append(nodes.name);
+		nodes.name.accept(this, arg);
 		arg.increaseIndent();
 		visitChildren(nodes.children, arg, true);
 		arg.decreaseIndent();
@@ -171,24 +180,20 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Step step, Appender arg) {
-		//arg.append_("- ");
-		if (!step.children.isEmpty()) {
-			//arg.newLine();
-		}
 		List<Node> nodes = new ArrayList<>(step.children);
 		for (int i = 0; i < nodes.size(); i++) {
+			Node node = nodes.get(i);
 			if (i == 0) {
-				arg.append("- " + nodes.get(i));
+				node.accept(this, arg);
 			} else {
 				arg.increaseIndent();
-				nodes.get(i).accept(this, arg);
+				node.accept(this, arg);
 				arg.decreaseIndent();
 			}
 			if (i < nodes.size() - 1) {
 				arg.newLine();
 			}
 		}
-		//visitChildren(step.children, arg);
 	}
 	
 	@Override
@@ -202,9 +207,35 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
+	public void visit(Environment environment, Appender appender) {
+		appender.indent();
+		appender.append(environment.name);
+		appender.append(": ");
+		appender.append(environment.value);
+	}
+	
+	@Override
 	public void visit(Volumes volumes, Appender arg) {
 		visitWithIndents(volumes, arg);
 	}
+	@Override
+	public void visit(Volume volumes, Appender appender) {
+		appender.indent();
+		appender.append("- ");
+		appender.append(volumes.name);
+		appender.append(":");
+		appender.append(volumes.value);
+	}
+	
+	@Override
+	public void visit(DashedId id, Appender appender) {
+		appender.indent();
+		appender.append("- ");
+		appender.append(id.name);
+		appender.append(": ");
+		appender.append(id.value);
+	}
+	
 	
 	@Override
 	public void visit(Services services, Appender arg) {
@@ -233,33 +264,90 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Output output, Appender arg) {
-		arg.append(output.name);
+		output.name.accept(this, arg);
 		arg.increaseIndent();
 		visitChildren(output.inputElements, arg, true);
 		arg.decreaseIndent();
 	}
 	
 	@Override
-	public void visit(DashQuotedSingleElement dashQuotedSingleElement, Appender arg) {
-		arg.append(dashQuotedSingleElement.toString());
+	public void visit(DashQuotedSingleElement dashQuotedSingleElement, Appender appender) {
+		appender.indent();
+		appender.append("- ");
+		appender.appendSingleQuote(dashQuotedSingleElement.value);
 	}
 	
 	@Override
-	public void visit(InOutElement inOutElement, Appender arg) {
-		arg.append(inOutElement.toString());
+	public void visit(DashSingleElement dashQuotedSingleElement, Appender appender) {
+		appender.indent();
+		appender.append("- ");
+		appender.append(dashQuotedSingleElement.value);
+	}
+	
+	@Override
+	public void visit(DashedNameValuePair dashedNameValuePair, Appender appender) {
+		appender.indent();
+		appender.append("- ");
+		appender.append(dashedNameValuePair.name);
+		appender.append(": ");
+		appender.appendSingleQuote(dashedNameValuePair.value);
+	}
+	@Override
+	public void visit(LabeledDashedName labeledDashedName, Appender appender) {
+		appender.indent();
+		appender.append("- ");
+		appender.append(labeledDashedName.name);
+		appender.append(": ");
+		appender.append(labeledDashedName.value);
+	}
+	
+	@Override
+	public void visit(SingleElement singleElement, Appender appender) {
+		appender.indent();
+		appender.append(singleElement.value);
+		appender.append(":");
+	}
+	
+	@Override
+	public void visit(SimpleEntry simpleEntry, Appender appender) {
+		appender.indent();
+		appender.append(simpleEntry.value);
+	}
+	
+	@Override
+	public void visit(InOutElement<?> inOutElement, Appender appender) {
+		appender.indent();
+		appender.append(inOutElement.name);
+		appender.append(": ");
+		if (inOutElement.isString()) {
+			appender.appendSingleQuote(inOutElement.value);
+		} else {
+			appender.append(inOutElement.value);
+		}
+	}
+	
+	@Override
+	public void visit(LabeledName labeledName, Appender appender) {
+		appender.indent();
+		appender.append(labeledName.name);
+		appender.append(": ");
+		appender.append(labeledName.value);
 	}
 	
 	@Override
 	public void visit(Input input, Appender arg) {
-		arg.append(input.name);
+		input.name.accept(this, arg);
 		arg.increaseIndent();
 		visitChildren(input.inputElements, arg, true);
 		arg.decreaseIndent();
 	}
 	
 	@Override
-	public void visit(NameValuePair nameValuePair, Appender arg) {
-		arg.append(nameValuePair);
+	public void visit(NameValuePair nameValuePair, Appender appender) {
+		appender.indent();
+		appender.append(nameValuePair.name);
+		appender.append(": ");
+		appender.append(nameValuePair.value);
 	}
 	
 }

@@ -2,8 +2,8 @@ package org.example.wrappers;
 
 import org.example.visitor.Visitor;
 
-public class DashQuotedSingleElement extends DashSingleElement {
-	public DashQuotedSingleElement(String value) {
+public class SimpleEntry extends SingleElement {
+	public SimpleEntry(String value) {
 		super(value);
 	}
 	

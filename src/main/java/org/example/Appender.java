@@ -8,7 +8,10 @@ import java.util.Collection;
 public class Appender {
 	private int indent;
 	StringBuilder stringBuilder = new StringBuilder();
-	
+	public Appender indent() {
+		indent(indent);
+		return this;
+	}
 	public Appender indent(int amount) {
 		for (int i = 0; i < amount; i++) {
 			stringBuilder.append("  ");
@@ -30,10 +33,16 @@ public class Appender {
 		  return this;
 	}
 	
-	public Appender append(Object str) {
+	public Appender append(String str) {
 		if (str != null) {
-			indent(indent);
 			stringBuilder.append(str);
+		}
+		return this;
+	}
+	public Appender append(Node node) {
+		if (node != null) {
+			indent(indent);
+			stringBuilder.append(node);
 		}
 		return this;
 	}

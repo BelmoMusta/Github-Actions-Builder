@@ -46,9 +46,12 @@ import org.example.wrappers.Output;
 import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SingleElement;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-public abstract class AbstractVisitor<A> implements Visitor<A> {
+public class SubVisitor<A> extends AbstractVisitor<A> {
+	List<Visitor<A>> visitors = new ArrayList<>();
 	
 	
 	protected void visitChildren(Collection<? extends Node> children, A arg, boolean addNewLine) {
@@ -59,6 +62,9 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
 	@Override
 	public void visit(Branches branches, A arg) {
+		for (Visitor<A> visitor : visitors) {
+			visitor.visit(branches, arg);
+		}
 	}
 	
 	@Override

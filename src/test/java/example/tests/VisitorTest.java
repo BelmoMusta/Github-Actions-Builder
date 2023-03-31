@@ -284,6 +284,7 @@ public class VisitorTest {
 								.name("Consistency check")
 								.run("diff -u '.github/workflows/build.yaml' <('.github/workflows/build.main.kts')")
 								.env("HELLO", "ok")
+								.comment("")
 								.env("PAT", "rick")
 						),
 						

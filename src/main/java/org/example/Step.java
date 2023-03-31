@@ -4,9 +4,13 @@ import org.example.collections.Environments;
 import org.example.collections.SubNode;
 import org.example.collections.Withs;
 import org.example.visitor.Visitor;
+import org.example.wrappers.DashedId;
+import org.example.wrappers.DashedNameValuePair;
 import org.example.wrappers.Id;
+import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
+import org.example.wrappers.Node;
 
 public class Step extends SubNode {
 	
@@ -23,7 +27,14 @@ public class Step extends SubNode {
 	}
 	
 	public Step id(String name) {
-		this.add(new Id(name));
+		final Node id;
+		if (children.isEmpty()) {
+			id = new DashedId(name);
+		} else {
+			id = new Id(name);
+		}
+		
+		this.add(id);
 		return this;
 	}
 	
@@ -31,6 +42,8 @@ public class Step extends SubNode {
 		add(new NameValuePair("if", condition));
 		return this;
 	}
+	
+	public Step comment(String value) {return this;}
 	
 	public Step env(String name, String value) {
 		
@@ -55,7 +68,8 @@ public class Step extends SubNode {
 		withs.add(with);
 		return this;
 	}
-		public Step with(String name, Pipe value) {
+	
+	public Step with(String name, Pipe value) {
 		
 		Withs withs = findTag(Withs.class);
 		if (withs == null) {
@@ -69,7 +83,12 @@ public class Step extends SubNode {
 	}
 	
 	public Step name(String name) {
-		this.add(new LabeledName(name));
+		if (children.isEmpty()) {
+			this.add(new LabeledDashedName(name));
+		} else {
+			this.add(new LabeledName(name));
+			
+		}
 		return this;
 	}
 	

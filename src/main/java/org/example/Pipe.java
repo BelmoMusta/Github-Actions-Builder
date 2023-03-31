@@ -5,6 +5,7 @@ import org.example.collections.Needs;
 import org.example.collections.SubNode;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SimpleSingleElement;
 
 import java.util.Arrays;
@@ -13,12 +14,8 @@ import java.util.stream.Collectors;
 
 public class Pipe extends SubNode {
 	
-	public Pipe(String name) {
-		super(name);
-	}
-	
 	public Pipe() {
-		super("null");
+		super(null); // not needed
 	}
 	
 	public static Pipe $() {
@@ -27,7 +24,7 @@ public class Pipe extends SubNode {
 	
 	public Pipe entries(String... entries) {
 		for (String entry : entries) {
-			add(new SimpleSingleElement(entry));
+			add(new SimpleEntry(entry));
 		}
 		return this;
 	}

@@ -33,6 +33,7 @@ import org.example.collections.Volumes;
 import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.DashedId;
 import org.example.wrappers.DashedNameValuePair;
 import org.example.wrappers.InOut;
 import org.example.wrappers.InOutElement;
@@ -41,6 +42,7 @@ import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Output;
+import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SingleElement;
 
 public interface Visitor<A> {
@@ -87,15 +89,15 @@ public interface Visitor<A> {
 	void visit(DashQuotedSingleElement dashQuotedSingleElement, A arg);
 	void visit(DashSingleElement dashSingleElement, A arg);
 	void visit(InOut inOut, A arg);
-	void visit(InOutElement inOutElement, A arg);
+	void visit(InOutElement<?> inOutElement, A arg);
 	void visit(Input input, A arg);
 	void visit(LabeledDashedName labeledDashedName, A arg);
 	void visit(LabeledName labeledName, A arg);
 	void visit(NameValuePair nameValuePair, A arg);
 	void visit(Output output, A arg);
 	void visit(SingleElement singleElement, A arg);
-	
-	
+	void visit(SimpleEntry simpleEntry, A arg);
+	void visit(DashedId dashedId, A arg);
 	
 	void visit(Container container, A arg);
 	void visit(Environment environment, A arg);
@@ -109,5 +111,6 @@ public interface Visitor<A> {
 	void visit(Step step, A arg);
 	void visit(Volume volume, A arg);
 	void visit(WorkflowDispatch workflowDispatch, A arg);
+	
  
 }
