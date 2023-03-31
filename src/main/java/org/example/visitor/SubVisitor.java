@@ -34,6 +34,7 @@ import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
+import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.DashedNameValuePair;
 import org.example.wrappers.InOut;
 import org.example.wrappers.InOutElement;
@@ -142,7 +143,10 @@ public class SubVisitor<A> extends AbstractVisitor<A> {
 	}
 	
 	@Override
-	public void visit(DashedNameValuePair dashedNameValuePair, A arg) {
+	public void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair, A arg) {
+	}
+	@Override
+	public void visit(DashedNameValuePair dashedNameQuotedValuePair, A arg) {
 	}
 	
 	@Override

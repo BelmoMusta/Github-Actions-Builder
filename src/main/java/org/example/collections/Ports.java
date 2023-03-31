@@ -2,7 +2,7 @@ package org.example.collections;
 
 import org.example.visitor.Visitor;
 
-public class Ports extends SubNode {
+public class Ports extends Nodes {
 	public Ports() {
 		super("ports");
 	}

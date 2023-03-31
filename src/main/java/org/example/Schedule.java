@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.visitor.Visitor;
-import org.example.wrappers.DashedNameValuePair;
+import org.example.wrappers.DashedNameQuotedValuePair;
 
 public class Schedule extends WorkflowEvent {
 	
@@ -15,7 +15,7 @@ public class Schedule extends WorkflowEvent {
 	
 	public Schedule cron(String... crons) {
 		for (String cr : crons) {
-			this.add(new DashedNameValuePair("cron", cr));
+			this.add(new DashedNameQuotedValuePair("cron", cr));
 		}
 		return this;
 	}

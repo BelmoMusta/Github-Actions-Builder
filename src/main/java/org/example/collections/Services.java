@@ -2,7 +2,7 @@ package org.example.collections;
 
 import org.example.visitor.Visitor;
 
-public class Services extends SubNode {
+public class Services extends Nodes {
 	public Services() {
 		super("services");
 	}

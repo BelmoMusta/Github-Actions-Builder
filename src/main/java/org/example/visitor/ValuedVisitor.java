@@ -29,13 +29,12 @@ import org.example.collections.Paths;
 import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
-import org.example.collections.SubNode;
 import org.example.collections.Tags;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.DashedNameValuePair;
+import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.InOut;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.Input;
@@ -81,13 +80,11 @@ public interface ValuedVisitor<A, R> {
 	
 	R visit(Steps steps, A arg);
 	
-	R visit(SubNode subNode, A arg);
-	
 	R visit(Types types, A arg);
 	
 	R visit(Volumes volumes, A arg);
 	
-	R visit(DashedNameValuePair dashedNameValuePair, A arg);
+	R visit(DashedNameQuotedValuePair dashedNameQuotedValuePair, A arg);
 	
 	R visit(DashQuotedSingleElement dashQuotedSingleElement, A arg);
 	

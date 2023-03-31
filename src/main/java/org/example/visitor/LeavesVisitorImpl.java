@@ -6,7 +6,7 @@ import org.example.Volume;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
-import org.example.wrappers.DashedNameValuePair;
+import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
@@ -59,12 +59,12 @@ public class LeavesVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(DashedNameValuePair dashedNameValuePair, Appender appender) {
+	public void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair, Appender appender) {
 		appender.indent();
 		appender.append("- ");
-		appender.append(dashedNameValuePair.name);
+		appender.append(dashedNameQuotedValuePair.name);
 		appender.append(": ");
-		appender.appendSingleQuote(dashedNameValuePair.value);
+		appender.appendSingleQuote(dashedNameQuotedValuePair.value);
 	}
 	
 	@Override

@@ -1,8 +1,7 @@
 package org.example;
 
-import org.example.collections.Environments;
 import org.example.collections.Needs;
-import org.example.collections.SubNode;
+import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.SimpleEntry;
@@ -11,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Pipe extends SubNode {
+public class Pipe extends Nodes {
 	
 	public Pipe() {
 		super(null); // not needed
@@ -54,15 +53,7 @@ public class Pipe extends SubNode {
 	}
 	
 	public Pipe env(String name, String value) {
-		
-		Environments environments = findTag(Environments.class);
-		if (environments == null) {
-			environments = new Environments();
-			add(environments);
-		}
-		Environment environment = new Environment(name, value);
-		environments.add(environment);
-		return this;
+		return getEnv(this, name, value);
 	}
 	
 	@Override

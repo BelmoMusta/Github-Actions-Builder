@@ -2,7 +2,7 @@ package org.example.collections;
 
 import org.example.visitor.Visitor;
 
-public class Withs extends SubNode {
+public class Withs extends Nodes {
 	public Withs() {
 		super("with");
 	}

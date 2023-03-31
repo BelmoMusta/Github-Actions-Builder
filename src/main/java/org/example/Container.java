@@ -1,14 +1,13 @@
 package org.example;
 
-import org.example.collections.Environments;
+import org.example.collections.Nodes;
 import org.example.collections.Ports;
-import org.example.collections.SubNode;
 import org.example.collections.Volumes;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
 
-public class Container extends SubNode {
+public class Container extends Nodes {
 	
 	protected Container() {
 		super("container");
@@ -47,14 +46,7 @@ public class Container extends SubNode {
 	}
 	
 	public Container env(String name, String value) {
-		Environments environments = findTag(Environments.class);
-		if (environments == null) {
-			environments = new Environments();
-			add(environments);
-		}
-		Environment environment = new Environment(name, value);
-		environments.add(environment);
-		return this;
+		return getEnv(this, name, value);
 	}
 	
 	public Container options(String... optionsArray) {

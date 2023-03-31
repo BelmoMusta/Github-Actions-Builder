@@ -4,7 +4,7 @@ import org.example.visitor.Visitor;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 
-public class Options extends SubNode {
+public class Options extends Nodes {
 	
 	public Options() {
 		super("options");

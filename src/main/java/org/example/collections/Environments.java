@@ -2,7 +2,7 @@ package org.example.collections;
 
 import org.example.visitor.Visitor;
 
-public class Environments extends SubNode {
+public class Environments extends Nodes {
 	public Environments() {
 		super("env");
 	}

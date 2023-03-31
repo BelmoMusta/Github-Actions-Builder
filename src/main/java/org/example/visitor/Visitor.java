@@ -34,6 +34,7 @@ import org.example.collections.Withs;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
+import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.DashedNameValuePair;
 import org.example.wrappers.InOut;
 import org.example.wrappers.InOutElement;
@@ -86,7 +87,10 @@ public interface Visitor<A> {
 
 	void visit(Volumes volumes, A arg);
 	
-	void visit(DashedNameValuePair dashedNameValuePair, A arg);
+	void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair, A arg);
+	
+	void visit(DashedNameValuePair dashedNameQuotedValuePair, A arg);
+	
 	void visit(DashQuotedSingleElement dashQuotedSingleElement, A arg);
 	void visit(DashSingleElement dashSingleElement, A arg);
 	void visit(InOut inOut, A arg);

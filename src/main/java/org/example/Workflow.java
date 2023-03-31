@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.collections.Environments;
 import org.example.collections.Events;
 import org.example.collections.Jobs;
 import org.example.collections.Nodes;
@@ -41,15 +40,7 @@ public class Workflow extends Nodes {
 	}
 	
 	public Workflow env(String name, String value) {
-		
-		Environments environments = findTag(Environments.class);
-		if (environments == null) {
-			environments = new Environments();
-			add(environments);
-		}
-		Environment environment = new Environment(name, value);
-		environments.add(environment);
-		return this;
+		return getEnv(this, name, value);
 	}
 	
 	public Workflow jobs(Job... jobs) {

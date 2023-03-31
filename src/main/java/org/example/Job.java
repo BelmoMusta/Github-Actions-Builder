@@ -1,11 +1,10 @@
 package org.example;
 
-import org.example.collections.Environments;
 import org.example.collections.Needs;
+import org.example.collections.Nodes;
 import org.example.collections.Outputs;
 import org.example.collections.Services;
 import org.example.collections.Steps;
-import org.example.collections.SubNode;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
@@ -17,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Job extends SubNode {
+public class Job extends Nodes {
 	
 	public Job(String name) {
 		super(name);
@@ -95,15 +94,7 @@ public class Job extends SubNode {
 	}
 	
 	public Job env(String name, String value) {
-		
-		Environments environments = findTag(Environments.class);
-		if (environments == null) {
-			environments = new Environments();
-			add(environments);
-		}
-		Environment environment = new Environment(name, value);
-		environments.add(environment);
-		return this;
+		return getEnv(this, name, value);
 	}
 	
 	public Job if_(String condition) {

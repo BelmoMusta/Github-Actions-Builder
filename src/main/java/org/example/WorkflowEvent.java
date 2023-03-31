@@ -8,8 +8,4 @@ public abstract class WorkflowEvent extends Nodes {
 		super(name);
 	}
 	
-	@Override
-	protected boolean acceptEmptyCollection() {
-		return true;
-	}
 }

@@ -1,17 +1,19 @@
 package org.example;
 
-import org.example.collections.Environments;
-import org.example.collections.SubNode;
+import org.example.collections.Nodes;
 import org.example.collections.Withs;
 import org.example.visitor.Visitor;
+import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
+import org.example.wrappers.DashedNameQuotedValuePair;
+import org.example.wrappers.DashedNameValuePair;
 import org.example.wrappers.Id;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
 
-public class Step extends SubNode {
+public class Step extends Nodes {
 	
 	protected Step(String name) {
 		super(name, true);
@@ -32,7 +34,6 @@ public class Step extends SubNode {
 		} else {
 			id = new Id(name);
 		}
-		
 		this.add(id);
 		return this;
 	}
@@ -42,19 +43,10 @@ public class Step extends SubNode {
 		return this;
 	}
 	
-	public Step comment(String value) {return this;}
-	
 	public Step env(String name, String value) {
-		
-		Environments environments = findTag(Environments.class);
-		if (environments == null) {
-			environments = new Environments();
-			add(environments);
-		}
-		Environment environment = new Environment(name, value);
-		environments.add(environment);
-		return this;
+		return getEnv(this, name, value);
 	}
+	
 	
 	public Step with(String name, String value) {
 		
@@ -92,12 +84,33 @@ public class Step extends SubNode {
 	}
 	
 	public Step uses(String s) {
-		this.add(new NameValuePair("uses", s));
+		if (children.isEmpty()) {
+			this.add(new DashedNameValuePair("uses", s));
+		} else {
+			this.add(new NameValuePair("uses", s));
+		}
+		
 		return this;
 	}
 	
 	public Step run(String s) {
-		this.add(new NameValuePair("run", s));
+		if (children.isEmpty()) {
+			this.add(new DashedNameQuotedValuePair("run", s));
+		} else {
+			this.add(new NameValuePair("run", s));
+		}
+		return this;
+	}
+	
+	public Step run(Pipe pipe) {
+		final Node run;
+		if (children.isEmpty()) {
+			run = new DashSingleElement("run: |");
+		} else {
+			run = new NameValuePair("run", "|");
+		}
+		this.add(run);
+		this.add(pipe);
 		return this;
 	}
 	

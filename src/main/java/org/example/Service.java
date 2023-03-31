@@ -1,12 +1,12 @@
 package org.example;
 
+import org.example.collections.Nodes;
 import org.example.collections.Ports;
-import org.example.collections.SubNode;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.SingleElement;
 
-public class Service extends SubNode {
+public class Service extends Nodes {
 	protected Service(String name) {
 		super(name);
 	}
@@ -20,10 +20,6 @@ public class Service extends SubNode {
 		return this;
 	}
 	
-	@Override
-	protected boolean acceptEmptyCollection() {
-		return true;
-	}
 	
 	public Service port(String port) {
 		Ports ports = new Ports();

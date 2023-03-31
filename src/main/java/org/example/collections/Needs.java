@@ -3,7 +3,7 @@ package org.example.collections;
 import org.example.visitor.Visitor;
 import org.example.wrappers.Node;
 
-public class Needs extends SubNode {
+public class Needs extends Nodes {
 	public Needs() {
 		super("needs");
 	}

@@ -1,5 +1,6 @@
 package org.example.collections;
 
+import org.example.Environment;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.Node;
@@ -8,8 +9,6 @@ import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.function.Function;
 
 public abstract class Nodes extends Tag {
 	
@@ -18,19 +17,6 @@ public abstract class Nodes extends Tag {
 	
 	public void add(Node tag) {
 		children.add(tag);
-	}
-	
-	public void add(Node tag, Function<Node, Node> converter) {
-		children.add(converter.apply(tag));
-	}
-	
-	public void add(String tag, Function<String, Node> converter) {
-		children.add(converter.apply(tag));
-	}
-	public void addAll(List<String> tags, Function<String, Node> converter) {
-		for (String tag : tags) {
-			children.add(converter.apply(tag));
-		}
 	}
 	
 	protected Nodes(String name) {
@@ -45,10 +31,6 @@ public abstract class Nodes extends Tag {
 		}
 	}
 	
-	protected boolean acceptEmptyCollection() {
-		return false;
-	}
-	
 	@Override
 	public boolean isNotEmpty() {
 		return !children.isEmpty();
@@ -61,5 +43,16 @@ public abstract class Nodes extends Tag {
 			}
 		}
 		return null;
+	}
+	
+	protected static <N extends Nodes> N getEnv(N node, String name, String value){
+		Environments environments = node.findTag(Environments.class);
+		if (environments == null) {
+			environments = new Environments();
+			node.add(environments);
+		}
+		Environment environment = new Environment(name, value);
+		environments.add(environment);
+		return node;
 	}
 }
