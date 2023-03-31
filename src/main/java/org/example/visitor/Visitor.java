@@ -46,6 +46,7 @@ import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SingleElement;
 
 public interface Visitor<A> {
+	void support(Visitor<A> anotherVisitor);
 	void visit(Workflow workflow, A arg);
 	
 	void visit(Paths paths, A arg);

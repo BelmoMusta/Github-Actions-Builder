@@ -49,7 +49,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
+public class DefaultVisitorImpl extends SubVisitor<Appender> {
+	
+	public DefaultVisitorImpl(){
+	//	support(new LeavesVisitorImpl());
+	}
 	
 	@Override
 	public void visit(Workflow workflow, Appender arg) {
@@ -118,6 +122,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 				arg.newLine();
 			}
 		}
+		super.visitChildren(children, arg, addNewLine);
 	}
 	
 	@Override

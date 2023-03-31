@@ -53,10 +53,16 @@ import java.util.List;
 public class SubVisitor<A> extends AbstractVisitor<A> {
 	List<Visitor<A>> visitors = new ArrayList<>();
 	
+	@Override
+	public void support(Visitor<A> anotherVisitor) {
+		visitors.add(anotherVisitor);
+	}
 	
 	protected void visitChildren(Collection<? extends Node> children, A arg, boolean addNewLine) {
 		for (Node child : children) {
-			child.accept(this, arg);
+			for (Visitor<A> visitor : visitors) {
+				child.accept(visitor, arg);
+			}
 		}
 	}
 	

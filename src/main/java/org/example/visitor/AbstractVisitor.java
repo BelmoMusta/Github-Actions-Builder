@@ -228,6 +228,11 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	}
 	
 	@Override
+	public void support(Visitor<A> anotherVisitor) {
+	
+	}
+	
+	@Override
 	public void visit(Workflow workflow, A arg) {
 	}
 	
