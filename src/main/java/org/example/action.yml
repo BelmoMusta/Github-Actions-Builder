@@ -1,56 +1,371 @@
-name: My Workflow
+name: Concourse Tasks Tag Update
+
 on:
-  pull_request:
+  release:
     types:
-      - 'auto_merge_disabled'
-      - 'opened'
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        type: choice
-        required: true
-        default: 'warning'
-        options:
-          - 'info'
-          - 'warning'
-          - 'debug'
+      - created
+      - deleted
+      - edited
+      - prereleased
+      - published
+      - released
+      - unpublished
+  branch_protection_rule:
+    types:
+      - created
+      - deleted
+      - edited
+  check_run:
+    types:
+      - completed
+      - created
+      - requested_action
+      - rerequested
+  create:
+  check_suite:
+    types:
+      - completed
+  delete:
+  deployment:
+  deployment_status:
+  discussion:
+    types:
+      - unlocked
+      - answered
+      - category_changed
+      - created
+      - deleted
+      - edited
+      - labeled
+      - locked
+      - pinned
+      - transferred
+      - unanswered
+      - unlabeled
+      - unpinned
+
+  discussion_comment:
+    types:
+      - created
+      - deleted
+      - edited
+  fork:
+
+  gollum:
+
+  issue_comment:
+    types:
+      - created
+      - deleted
+      - edited
+  issues:
+    types:
+      - assigned
+      - closed
+      - deleted
+      - demilestoned
+      - edited
+      - labeled
+      - locked
+      - milestoned
+      - opened
+      - pinned
+      - reopened
+      - transferred
+      - unassigned
+      - unlabeled
+      - unlocked
+      - unpinned
+
+  label:
+    types:
+      - created
+      - deleted
+      - edited
+  merge_group:
+    types:
+      - checks_requested
+  milestone:
+    types:
+      - closed
+      - created
+      - deleted
+      - edited
+      - opened
+  page_build:
+
+  project:
+    types:
+      - closed
+      - created
+      - deleted
+      - edited
+      - reopened
+  project_card:
+    types:
+      - converted
+      - created
+      - deleted
+      - edited
+      - moved
+  project_column:
+    types:
+      - created
+      - deleted
+      - moved
+      - updated
+  public:
+
+  pull_request:
+    branches:
+      - a
+      - b
+    branches-ignore:
+      - c
+      - d
+    paths:
+      - a/n
+      - b/c
+    paths-ignore:
+      - a/n
+      - b/c
+    types:
+      - assigned
+      - auto_merge_disabled
+      - auto_merge_enabled
+      - closed
+      - converted_to_draft
+      - edited
+      - labeled
+      - locked
+      - opened
+      - ready_for_review
+      - reopened
+      - review_request_removed
+      - review_requested
+      - synchronize
+      - unassigned
+      - unlabeled
+      - unlocked
+  pull_request_comment:
+    types:
+      - created
+      - deleted
+      - edited
+  pull_request_review:
+    types:
+      - dismissed
+      - edited
+      - submitted
+  pull_request_review_comment:
+    types:
+      - created
+      - deleted
+      - edited
+  pull_request_target:
+    branches:
+      - a
+      - b
+    branches-ignore:
+      - c
+      - d
+    paths:
+      - a/n
+      - b/c
+    paths-ignore:
+      - a/n
+      - b/c
+    types:
+      - assigned
+      - auto_merge_disabled
+      - auto_merge_enabled
+      - closed
+      - converted_to_draft
+      - edited
+      - labeled
+      - locked
+      - opened
+      - ready_for_review
+      - reopened
+      - review_request_removed
+      - review_requested
+      - synchronize
+      - unassigned
+      - unlabeled
+      - unlocked
   push:
     branches:
-      - 'releases/*'
-      - '!releases/**-alpha'
+      - a
+      - b
+    branches-ignore:
+      - c
+      - d
+    paths:
+      - a/n
+      - b/c
+    paths-ignore:
+      - a/n
+      - b/c
+    tags:
+      - a/n
+      - b/c
+    tags-ignore:
+      - a/n
+      - b/c
+
+  registry_package:
+    types:
+      - published
+      - updated
+  repository_dispatch:
+    types:
+      - start-example-workflow
+  schedule:
+    - cron: "0 0 * * *"
+    - cron: "0 0 * * *"
+
+  status:
+
+  watch:
+    types:
+      started
+  workflow_call:
+    inputs:
+      in:
+        type: boolean
+        default: true
+        description: "description"
+        required: false
+    outputs:
+      out:
+        description: "description"
+        value: 1
+
+    secrets:
+      pass:
+        description: "pass"
+        required: true
+
   workflow_dispatch:
-    branches:
-      - develop
-      - main
-      - master
-env:
-  message: 'conversation'
-  my_token: ${{ secrets.GITHUB_TOKEN }}
+    inputs:
+      in:
+        type: boolean
+        default: true
+        description: "description"
+        required: false
+      outputs:
+        type: choice
+        default : "q"
+        description: "ds"
+        options:
+          - 'a'
+          - 'b'
+        required: false
+  workflow_run:
+    branches :
+      -a
+    branches-ignore:
+      - b
+    types:
+      - completed
+      - in_progress
+      - requested
+    workflows:
+      - e
+      - f
+
 jobs:
-  my_build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checking out our code
-        uses: actions/checkout@master
-      - name: Say something
-        run: |
-          echo "A little less ${message}"
-          echo "A little more action"
-  my_job:
-    needs: my_build
+  update-concourse-tasks:
+    cancel-timeout-minutes: 5
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     container:
-      image: node:10.16-jessie
+      image: ubuntu
       env:
-        NODE_ENV: development
+        h : "h"
+      options: --cpu1
       ports:
         - 80
       volumes:
-        - my_docker_volume:/volume_mount
-        - foo:bar
-      options: --cpus 1
+        - env:/
+      credentials:
+        username: "s"
+        password: "ee"
+
+    environment: NonProd
+    runs-on: self-hosted
+    continue-on-error: false
+    defaults:
+      run:
+        shell: echo 1
+        working-directory: .
+    env:
+      ok: true
+    if: "${{github.inputs.id}}"
+    name: toto
+    permissions:
+      actions: read #|write|none
+      checks: read #|write|none
+      contents: read #|write|none
+      deployments: read #|write|none
+      id-token: none #|write|none
+      issues: read #|write|none
+      discussions: read #|write|none
+      packages: read #|write|none
+      pages: read #|write|none
+      pull-requests: read #|write|none
+      repository-projects: read #|write|none
+      security-events: read #|write|none
+      statuses: read #|write|none
     services:
       redis:
-        image: redis
         ports:
-          - 6379/tcp
+          - 90
+        image: ubuntu
+        env:
+          h: ok
+        options: --ls
+        volumes:
+          - v:/
+        credentials:
+          username: "s"
+          password: "ee"
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        continue-on-error: false
+        id: eee
+        if: dsd
+        timeout-minutes: 2
+
+        with:
+          d: sd
+        env:
+          f: ok
+
+
+      - name: Import Secrets
+        id: secrets
+        uses: hashicorp/vault-action@v2.5.0
+        with:
+          url: https://vault.cfzcea.dev.desjardins.com
+          method: approle
+          roleId:  ${{secrets.ROLEID}}
+          secretId:  ${{secrets.SECRETID}}
+          path: jenkins
+          secrets: |
+            concourse/cloud-pipelines/github-access-token-pr value | RECETTES_TOKEN ;
+
+      - name: Set Up Python
+        run: echo 1
+        shell: a
+
+      - name: Install Python Dependencies
+        run: python -m pip install pygithub pyYaml
+
+      - name: Update concourse-tasks tags
+        run: python .github/workflows/scripts/maj-concourse-tasks.py
+        env:
+          RECETTES_TOKEN: ${{ steps.secrets.outputs.RECETTES_TOKEN }}

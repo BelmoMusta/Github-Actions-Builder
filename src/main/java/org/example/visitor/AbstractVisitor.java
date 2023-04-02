@@ -1,6 +1,16 @@
 package org.example.visitor;
 
+import org.example.Appender;
+import org.example.BranchProtectionRule;
+import org.example.CheckRun;
+import org.example.CheckSuite;
 import org.example.Container;
+import org.example.Create;
+import org.example.Delete;
+import org.example.Deployment;
+import org.example.DeploymentStatus;
+import org.example.Discussion;
+import org.example.DiscussionComment;
 import org.example.Environment;
 import org.example.Image;
 import org.example.Job;
@@ -8,6 +18,7 @@ import org.example.Pipe;
 import org.example.PullRequest;
 import org.example.PullRequestTarget;
 import org.example.Push;
+import org.example.Release;
 import org.example.Schedule;
 import org.example.Service;
 import org.example.Step;
@@ -213,6 +224,50 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	@Override
 	public void visit(Push push, A arg) {
 	}
+	
+	@Override
+	public void visit(Release release, A arg) {
+	
+	}
+	@Override
+	public void visit(Delete release, A arg) {
+	
+	}
+	
+	@Override
+	public void visit(DeploymentStatus deploymentStatus, A arg) {
+	
+	}
+	@Override
+	public void visit(Discussion discussion, A arg) {
+	
+	}
+	
+	@Override
+	public void visit(DiscussionComment discussionComment, A arg) {
+ 	}
+	@Override
+	public void visit(BranchProtectionRule branchProtectionRule, A arg) {
+	
+	}
+	
+	@Override
+	public void visit(CheckRun checkRun, A arg) {
+	
+	}
+	@Override
+	public void visit(Create create, A arg) {
+	
+	}
+	@Override
+	public void visit(CheckSuite checkSuite, A arg) {
+	
+	}
+	@Override
+	public void visit(Deployment deployment, A arg) {
+	
+	}
+	
 	@Override
 	public void visit(DashedId dashedId, A arg) {
 	}

@@ -1,13 +1,23 @@
 package org.example.visitor;
 
 import org.example.Appender;
+import org.example.BranchProtectionRule;
+import org.example.CheckRun;
+import org.example.CheckSuite;
 import org.example.Container;
+import org.example.Create;
+import org.example.Delete;
+import org.example.Deployment;
+import org.example.DeploymentStatus;
+import org.example.Discussion;
+import org.example.DiscussionComment;
 import org.example.Environment;
 import org.example.Job;
 import org.example.Pipe;
 import org.example.PullRequest;
 import org.example.PullRequestTarget;
 import org.example.Push;
+import org.example.Release;
 import org.example.Schedule;
 import org.example.Service;
 import org.example.Step;
@@ -52,8 +62,8 @@ import java.util.List;
 
 public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
-	public DefaultVisitorImpl(){
-	//	support(new LeavesVisitorImpl());
+	public DefaultVisitorImpl() {
+		//	support(new LeavesVisitorImpl());
 	}
 	
 	@Override
@@ -64,26 +74,45 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	@Override
 	public void visit(Events events, Appender arg) {
-		visitWithIndents(events, arg);
+		refactored(events, arg);
 	}
 	
 	@Override
 	public void visit(Push push, Appender arg) {
-		push.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(push.children, arg, true);
-		arg.decreaseIndent();
+		refactored(push, arg);
 	}
 	
 	@Override
-	public void visit(PullRequest pullRequest, Appender arg) {
-		pullRequest.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(pullRequest.children, arg, true);
-		arg.decreaseIndent();
+	public void visit(Release release, Appender arg) {
+		refactored(release, arg);
 	}
 	
-	private void visitWithIndents(Nodes nodes, Appender arg) {
+	@Override
+	public void visit(Delete delete, Appender arg) {
+		refactored(delete, arg);
+	}
+	
+	@Override
+	public void visit(DiscussionComment discussionComment, Appender arg) {
+		refactored(discussionComment, arg);
+	}
+	
+	@Override
+	public void visit(DeploymentStatus deploymentStatus, Appender arg) {
+		refactored(deploymentStatus, arg);
+	}
+	
+	@Override
+	public void visit(Discussion discussion, Appender arg) {
+		refactored(discussion, arg);
+	}
+	
+	@Override
+	public void visit(BranchProtectionRule branchProtectionRule, Appender arg) {
+		refactored(branchProtectionRule, arg);
+	}
+	
+	public void refactored(Nodes nodes, Appender arg) {
 		nodes.name.accept(this, arg);
 		arg.increaseIndent();
 		visitChildren(nodes.children, arg, true);
@@ -91,24 +120,43 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(WorkflowDispatch workflowDispatch, Appender arg) {
-		workflowDispatch.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(workflowDispatch.children, arg, true);
-		arg.decreaseIndent();
+	public void visit(CheckRun checkRun, Appender arg) {
+		refactored(checkRun, arg);
 	}
 	
 	@Override
-	public void visit(PullRequestTarget workflowDispatch, Appender arg) {
-		workflowDispatch.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(workflowDispatch.children, arg, true);
-		arg.decreaseIndent();
+	public void visit(Create create, Appender arg) {
+		refactored(create, arg);
+	}
+	
+	@Override
+	public void visit(CheckSuite checkSuite, Appender arg) {
+		refactored(checkSuite, arg);
+	}
+	
+	@Override
+	public void visit(Deployment deployment, Appender arg) {
+		refactored(deployment, arg);
+	}
+	
+	@Override
+	public void visit(PullRequest pullRequest, Appender arg) {
+		refactored(pullRequest, arg);
+	}
+	
+	@Override
+	public void visit(WorkflowDispatch workflowDispatch, Appender arg) {
+		refactored(workflowDispatch, arg);
+	}
+	
+	@Override
+	public void visit(PullRequestTarget pullRequestTarget, Appender arg) {
+		refactored(pullRequestTarget, arg);
 	}
 	
 	@Override
 	public void visit(Schedule schedule, Appender arg) {
-		visitWithIndents(schedule, arg);
+		refactored(schedule, arg);
 	}
 	
 	@Override
@@ -128,43 +176,42 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	@Override
 	public void visit(Branches branches, Appender arg) {
-		visitWithIndents(branches, arg);
-		
+		refactored(branches, arg);
 	}
 	
 	@Override
 	public void visit(Paths paths, Appender arg) {
-		visitWithIndents(paths, arg);
+		refactored(paths, arg);
 	}
 	
 	@Override
 	public void visit(Tags tags, Appender arg) {
-		visitWithIndents(tags, arg);
+		refactored(tags, arg);
 	}
 	
 	@Override
 	public void visit(Types types, Appender arg) {
-		visitWithIndents(types, arg);
+		refactored(types, arg);
 	}
 	
 	@Override
 	public void visit(Inputs inputs, Appender arg) {
-		visitWithIndents(inputs, arg);
+		refactored(inputs, arg);
 	}
 	
 	@Override
 	public void visit(Options options, Appender arg) {
-		visitWithIndents(options, arg);
+		refactored(options, arg);
 	}
 	
 	@Override
 	public void visit(Environments environments, Appender arg) {
-		visitWithIndents(environments, arg);
+		refactored(environments, arg);
 	}
 	
 	@Override
 	public void visit(Withs withs, Appender arg) {
-		visitWithIndents(withs, arg);
+		refactored(withs, arg);
 	}
 	
 	@Override
@@ -176,12 +223,12 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	@Override
 	public void visit(Jobs jobs, Appender arg) {
-		visitWithIndents(jobs, arg);
+		refactored(jobs, arg);
 	}
 	
 	@Override
 	public void visit(Steps jobs, Appender arg) {
-		visitWithIndents(jobs, arg);
+		refactored(jobs, arg);
 	}
 	
 	@Override
@@ -204,12 +251,12 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	@Override
 	public void visit(Needs jobs, Appender arg) {
-		visitWithIndents(jobs, arg);
+		refactored(jobs, arg);
 	}
 	
 	@Override
 	public void visit(Container container, Appender arg) {
-		visitWithIndents(container, arg);
+		refactored(container, arg);
 	}
 	
 	@Override
@@ -222,8 +269,9 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	@Override
 	public void visit(Volumes volumes, Appender arg) {
-		visitWithIndents(volumes, arg);
+		refactored(volumes, arg);
 	}
+	
 	@Override
 	public void visit(Volume volumes, Appender appender) {
 		appender.indent();
@@ -245,27 +293,27 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	@Override
 	public void visit(Services services, Appender arg) {
-		visitWithIndents(services, arg);
+		refactored(services, arg);
 	}
 	
 	@Override
 	public void visit(Service volumes, Appender arg) {
-		visitWithIndents(volumes, arg);
+		refactored(volumes, arg);
 	}
 	
 	@Override
 	public void visit(Ports ports, Appender arg) {
-		visitWithIndents(ports, arg);
+		refactored(ports, arg);
 	}
 	
 	@Override
 	public void visit(Job job, Appender arg) {
-		visitWithIndents(job, arg);
+		refactored(job, arg);
 	}
 	
 	@Override
 	public void visit(Outputs outputs, Appender arg) {
-		visitWithIndents(outputs, arg);
+		refactored(outputs, arg);
 	}
 	
 	@Override
@@ -298,6 +346,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 		appender.append(": ");
 		appender.appendSingleQuote(dashedNameQuotedValuePair.value);
 	}
+	
 	@Override
 	public void visit(DashedNameValuePair dashedNameQuotedValuePair, Appender appender) {
 		appender.indent();
@@ -306,6 +355,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 		appender.append(": ");
 		appender.append(dashedNameQuotedValuePair.value);
 	}
+	
 	@Override
 	public void visit(LabeledDashedName labeledDashedName, Appender appender) {
 		appender.indent();

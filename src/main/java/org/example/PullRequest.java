@@ -18,13 +18,7 @@ public class PullRequest extends WorkflowEventWithBranches {
 	}
 	
 	public PullRequest types(Type... types) {
-		Types innerTypes = new Types();
-		for (Type type : types) {
-			DashSingleElement element = new DashSingleElement(type.toString());
-			innerTypes.add(element);
-		}
-		this.add(innerTypes);
-		return this;
+		return addTypes(this, types);
 	}
 	
 	public PullRequest paths(String... paths) {
@@ -44,7 +38,7 @@ public class PullRequest extends WorkflowEventWithBranches {
 		add(innerBranches);
 		return this;
 	}
-	public enum Type {
+	public enum Type implements TypeI{
 		ASSIGNED,
 		UNASSIGNED,
 		LABELED,

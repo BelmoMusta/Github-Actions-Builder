@@ -83,6 +83,16 @@ public class Step extends Nodes {
 		return this;
 	}
 	
+	public Step workingDirectory(String directory) {
+		if (children.isEmpty()) {
+			this.add(new DashedNameValuePair("working-directory", directory));
+		} else {
+			this.add(new NameValuePair("working-directory", directory));
+		}
+		
+		return this;
+	}
+	
 	public Step uses(String s) {
 		if (children.isEmpty()) {
 			this.add(new DashedNameValuePair("uses", s));
