@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.CheckSuite;
-import org.example.Release;
+import org.example.yy.CheckSuite;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

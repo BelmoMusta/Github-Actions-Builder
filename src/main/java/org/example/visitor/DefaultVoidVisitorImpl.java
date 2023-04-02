@@ -60,207 +60,214 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DefaultVisitorImpl extends SubVisitor<Appender> {
+public class DefaultVoidVisitorImpl extends AbstractVoidVisitor<String> {
 	
-	public DefaultVisitorImpl() {
-		//	support(new LeavesVisitorImpl());
+	
+	
+	private final Appender appender;
+	
+	@Override
+	public String getFinalResult() {
+		return appender.toString();
+	}
+	
+	public DefaultVoidVisitorImpl() {
+		appender = new Appender();
 	}
 	
 	@Override
-	public void visit(Workflow workflow, Appender arg) {
-		workflow.name.accept(this, arg);
-		visitChildren(workflow.children, arg, true);
+	public void visit(Workflow workflow) {
+		workflow.name.accept(this);
+		visitChildren(workflow.children, appender, true);
 	}
 	
 	@Override
-	public void visit(Events events, Appender arg) {
-		refactored(events, arg);
+	public void visit(Events events) {
+		refactored(events);
 	}
 	
 	@Override
-	public void visit(Push push, Appender arg) {
-		refactored(push, arg);
+	public void visit(Push push) {
+		refactored(push);
 	}
 	
 	@Override
-	public void visit(Release release, Appender arg) {
-		refactored(release, arg);
+	public void visit(Release release) {
+		refactored(release);
 	}
 	
 	@Override
-	public void visit(Delete delete, Appender arg) {
-		refactored(delete, arg);
+	public void visit(Delete delete) {
+		refactored(delete);
 	}
 	
 	@Override
-	public void visit(DiscussionComment discussionComment, Appender arg) {
-		refactored(discussionComment, arg);
+	public void visit(DiscussionComment discussionComment) {
+		refactored(discussionComment);
 	}
 	
 	@Override
-	public void visit(DeploymentStatus deploymentStatus, Appender arg) {
-		refactored(deploymentStatus, arg);
+	public void visit(DeploymentStatus deploymentStatus) {
+		refactored(deploymentStatus);
 	}
 	
 	@Override
-	public void visit(Discussion discussion, Appender arg) {
-		refactored(discussion, arg);
+	public void visit(Discussion discussion) {
+		refactored(discussion);
 	}
 	
 	@Override
-	public void visit(BranchProtectionRule branchProtectionRule, Appender arg) {
-		refactored(branchProtectionRule, arg);
+	public void visit(BranchProtectionRule branchProtectionRule) {
+		refactored(branchProtectionRule);
 	}
 	
-	public void refactored(Nodes nodes, Appender arg) {
-		nodes.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(nodes.children, arg, true);
-		arg.decreaseIndent();
-	}
-	
-	@Override
-	public void visit(CheckRun checkRun, Appender arg) {
-		refactored(checkRun, arg);
+	public void refactored(Nodes nodes) {
+		nodes.name.accept(this);
+		appender.increaseIndent();
+		visitChildren(nodes.children, appender, true);
+		appender.decreaseIndent();
 	}
 	
 	@Override
-	public void visit(Create create, Appender arg) {
-		refactored(create, arg);
+	public void visit(CheckRun checkRun) {
+		refactored(checkRun);
 	}
 	
 	@Override
-	public void visit(CheckSuite checkSuite, Appender arg) {
-		refactored(checkSuite, arg);
+	public void visit(Create create) {
+		refactored(create);
 	}
 	
 	@Override
-	public void visit(Deployment deployment, Appender arg) {
-		refactored(deployment, arg);
+	public void visit(CheckSuite checkSuite) {
+		refactored(checkSuite);
 	}
 	
 	@Override
-	public void visit(PullRequest pullRequest, Appender arg) {
-		refactored(pullRequest, arg);
+	public void visit(Deployment deployment) {
+		refactored(deployment);
 	}
 	
 	@Override
-	public void visit(WorkflowDispatch workflowDispatch, Appender arg) {
-		refactored(workflowDispatch, arg);
+	public void visit(PullRequest pullRequest) {
+		refactored(pullRequest);
 	}
 	
 	@Override
-	public void visit(PullRequestTarget pullRequestTarget, Appender arg) {
-		refactored(pullRequestTarget, arg);
+	public void visit(WorkflowDispatch workflowDispatch) {
+		refactored(workflowDispatch);
 	}
 	
 	@Override
-	public void visit(Schedule schedule, Appender arg) {
-		refactored(schedule, arg);
+	public void visit(PullRequestTarget pullRequestTarget) {
+		refactored(pullRequestTarget);
 	}
 	
 	@Override
+	public void visit(Schedule schedule) {
+		refactored(schedule);
+	}
+	
 	protected void visitChildren(Collection<? extends Node> children, Appender arg, boolean addNewLine) {
 		if (addNewLine && !children.isEmpty()) {
 			arg.newLine();
 		}
 		List<Node> nodes = new ArrayList<>(children);
 		for (int i = 0; i < nodes.size(); i++) {
-			nodes.get(i).accept(this, arg);
+			nodes.get(i).accept(this);
 			if (i < nodes.size() - 1) {
 				arg.newLine();
 			}
 		}
-		super.visitChildren(children, arg, addNewLine);
 	}
 	
 	@Override
-	public void visit(Branches branches, Appender arg) {
-		refactored(branches, arg);
+	public void visit(Branches branches) {
+		refactored(branches);
 	}
 	
 	@Override
-	public void visit(Paths paths, Appender arg) {
-		refactored(paths, arg);
+	public void visit(Paths paths) {
+		refactored(paths);
 	}
 	
 	@Override
-	public void visit(Tags tags, Appender arg) {
-		refactored(tags, arg);
+	public void visit(Tags tags) {
+		refactored(tags);
 	}
 	
 	@Override
-	public void visit(Types types, Appender arg) {
-		refactored(types, arg);
+	public void visit(Types types) {
+		refactored(types);
 	}
 	
 	@Override
-	public void visit(Inputs inputs, Appender arg) {
-		refactored(inputs, arg);
+	public void visit(Inputs inputs) {
+		refactored(inputs);
 	}
 	
 	@Override
-	public void visit(Options options, Appender arg) {
-		refactored(options, arg);
+	public void visit(Options options) {
+		refactored(options);
 	}
 	
 	@Override
-	public void visit(Environments environments, Appender arg) {
-		refactored(environments, arg);
+	public void visit(Environments environments) {
+		refactored(environments);
 	}
 	
 	@Override
-	public void visit(Withs withs, Appender arg) {
-		refactored(withs, arg);
+	public void visit(Withs withs) {
+		refactored(withs);
 	}
 	
 	@Override
-	public void visit(Pipe pipe, Appender arg) {
-		arg.increaseIndent();
-		visitChildren(pipe.children, arg, false);
-		arg.decreaseIndent();
+	public void visit(Pipe pipe) {
+		appender.increaseIndent();
+		visitChildren(pipe.children, appender, false);
+		appender.decreaseIndent();
 	}
 	
 	@Override
-	public void visit(Jobs jobs, Appender arg) {
-		refactored(jobs, arg);
+	public void visit(Jobs jobs) {
+		refactored(jobs);
 	}
 	
 	@Override
-	public void visit(Steps jobs, Appender arg) {
-		refactored(jobs, arg);
+	public void visit(Steps jobs) {
+		refactored(jobs);
 	}
 	
 	@Override
-	public void visit(Step step, Appender arg) {
+	public void visit(Step step) {
 		List<Node> nodes = new ArrayList<>(step.children);
 		for (int i = 0; i < nodes.size(); i++) {
 			Node node = nodes.get(i);
 			if (i == 0) {
-				node.accept(this, arg);
+				node.accept(this);
 			} else {
-				arg.increaseIndent();
-				node.accept(this, arg);
-				arg.decreaseIndent();
+				appender.increaseIndent();
+				node.accept(this);
+				appender.decreaseIndent();
 			}
 			if (i < nodes.size() - 1) {
-				arg.newLine();
+				appender.newLine();
 			}
 		}
 	}
 	
 	@Override
-	public void visit(Needs jobs, Appender arg) {
-		refactored(jobs, arg);
+	public void visit(Needs jobs) {
+		refactored(jobs);
 	}
 	
 	@Override
-	public void visit(Container container, Appender arg) {
-		refactored(container, arg);
+	public void visit(Container container) {
+		refactored(container);
 	}
 	
 	@Override
-	public void visit(Environment environment, Appender appender) {
+	public void visit(Environment environment) {
 		appender.indent();
 		appender.append(environment.name);
 		appender.append(": ");
@@ -268,12 +275,12 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(Volumes volumes, Appender arg) {
-		refactored(volumes, arg);
+	public void visit(Volumes volumes) {
+		refactored(volumes);
 	}
 	
 	@Override
-	public void visit(Volume volumes, Appender appender) {
+	public void visit(Volume volumes) {
 		appender.indent();
 		appender.append("- ");
 		appender.append(volumes.name);
@@ -282,7 +289,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(DashedId id, Appender appender) {
+	public void visit(DashedId id) {
 		appender.indent();
 		appender.append("- ");
 		appender.append(id.name);
@@ -292,54 +299,54 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	
 	
 	@Override
-	public void visit(Services services, Appender arg) {
-		refactored(services, arg);
+	public void visit(Services services) {
+		refactored(services);
 	}
 	
 	@Override
-	public void visit(Service volumes, Appender arg) {
-		refactored(volumes, arg);
+	public void visit(Service volumes) {
+		refactored(volumes);
 	}
 	
 	@Override
-	public void visit(Ports ports, Appender arg) {
-		refactored(ports, arg);
+	public void visit(Ports ports) {
+		refactored(ports);
 	}
 	
 	@Override
-	public void visit(Job job, Appender arg) {
-		refactored(job, arg);
+	public void visit(Job job) {
+		refactored(job);
 	}
 	
 	@Override
-	public void visit(Outputs outputs, Appender arg) {
-		refactored(outputs, arg);
+	public void visit(Outputs outputs) {
+		refactored(outputs);
 	}
 	
 	@Override
-	public void visit(Output output, Appender arg) {
-		output.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(output.inputElements, arg, true);
-		arg.decreaseIndent();
+	public void visit(Output output) {
+		output.name.accept(this);
+		appender.increaseIndent();
+		visitChildren(output.inputElements, appender, true);
+		appender.decreaseIndent();
 	}
 	
 	@Override
-	public void visit(DashQuotedSingleElement dashQuotedSingleElement, Appender appender) {
+	public void visit(DashQuotedSingleElement dashQuotedSingleElement) {
 		appender.indent();
 		appender.append("- ");
 		appender.appendSingleQuote(dashQuotedSingleElement.value);
 	}
 	
 	@Override
-	public void visit(DashSingleElement dashQuotedSingleElement, Appender appender) {
+	public void visit(DashSingleElement dashQuotedSingleElement) {
 		appender.indent();
 		appender.append("- ");
 		appender.append(dashQuotedSingleElement.value);
 	}
 	
 	@Override
-	public void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair, Appender appender) {
+	public void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair) {
 		appender.indent();
 		appender.append("- ");
 		appender.append(dashedNameQuotedValuePair.name);
@@ -348,7 +355,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(DashedNameValuePair dashedNameQuotedValuePair, Appender appender) {
+	public void visit(DashedNameValuePair dashedNameQuotedValuePair) {
 		appender.indent();
 		appender.append("- ");
 		appender.append(dashedNameQuotedValuePair.name);
@@ -357,7 +364,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(LabeledDashedName labeledDashedName, Appender appender) {
+	public void visit(LabeledDashedName labeledDashedName) {
 		appender.indent();
 		appender.append("- ");
 		appender.append(labeledDashedName.name);
@@ -366,20 +373,20 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(SingleElement singleElement, Appender appender) {
+	public void visit(SingleElement singleElement) {
 		appender.indent();
 		appender.append(singleElement.value);
 		appender.append(":");
 	}
 	
 	@Override
-	public void visit(SimpleEntry simpleEntry, Appender appender) {
+	public void visit(SimpleEntry simpleEntry) {
 		appender.indent();
 		appender.append(simpleEntry.value);
 	}
 	
 	@Override
-	public void visit(InOutElement<?> inOutElement, Appender appender) {
+	public void visit(InOutElement<?> inOutElement) {
 		appender.indent();
 		appender.append(inOutElement.name);
 		appender.append(": ");
@@ -391,7 +398,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(LabeledName labeledName, Appender appender) {
+	public void visit(LabeledName labeledName) {
 		appender.indent();
 		appender.append(labeledName.name);
 		appender.append(": ");
@@ -399,19 +406,23 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
-	public void visit(Input input, Appender arg) {
-		input.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(input.inputElements, arg, true);
-		arg.decreaseIndent();
+	public void visit(Input input) {
+		input.name.accept(this);
+		appender.increaseIndent();
+		visitChildren(input.inputElements, appender, true);
+		appender.decreaseIndent();
 	}
 	
 	@Override
-	public void visit(NameValuePair nameValuePair, Appender appender) {
+	public void visit(NameValuePair nameValuePair) {
 		appender.indent();
 		appender.append(nameValuePair.name);
 		appender.append(": ");
 		appender.append(nameValuePair.value);
 	}
 	
+	@Override
+	public String toString() {
+		return appender.toString();
+	}
 }

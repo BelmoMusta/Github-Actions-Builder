@@ -1,20 +1,5 @@
 package org.example.visitor;
 
-import org.example.Container;
-import org.example.Environment;
-import org.example.Image;
-import org.example.Job;
-import org.example.PullRequest;
-import org.example.PullRequestTarget;
-import org.example.Push;
-import org.example.Schedule;
-import org.example.Service;
-import org.example.Step;
-import org.example.Volume;
-import org.example.Workflow;
-import org.example.WorkflowDispatch;
-import org.example.WorkflowEvent;
-import org.example.WorkflowEventWithBranches;
 import org.example.collections.Branches;
 import org.example.collections.BranchesIgnore;
 import org.example.collections.Environments;
@@ -44,6 +29,21 @@ import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
 import org.example.wrappers.Tag;
+import org.example.yy.Container;
+import org.example.yy.Environment;
+import org.example.yy.Image;
+import org.example.yy.Job;
+import org.example.yy.PullRequest;
+import org.example.yy.PullRequestTarget;
+import org.example.yy.Push;
+import org.example.yy.Schedule;
+import org.example.yy.Service;
+import org.example.yy.Step;
+import org.example.yy.Volume;
+import org.example.yy.Workflow;
+import org.example.yy.WorkflowDispatch;
+import org.example.yy.WorkflowEvent;
+import org.example.yy.WorkflowEventWithBranches;
 
 public interface ValuedVisitor<A, R> {
 	R visit(Workflow workflow, A arg);

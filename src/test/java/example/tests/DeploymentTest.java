@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Delete;
-import org.example.Deployment;
+import org.example.yy.Deployment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

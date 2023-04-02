@@ -1,9 +1,7 @@
 package example.tests;
 
 import org.example.Appender;
-import org.example.Job;
-import org.example.PullRequestTarget;
-import org.example.Step;
+import org.example.yy.PullRequestTarget;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
 import org.junit.jupiter.api.Assertions;

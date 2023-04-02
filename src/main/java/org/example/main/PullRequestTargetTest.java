@@ -1,6 +1,6 @@
 package org.example.main;
 
-import org.example.PullRequestTarget;
+import org.example.yy.PullRequestTarget;
 
 public class PullRequestTargetTest {
 	public static void main(String[] args) {

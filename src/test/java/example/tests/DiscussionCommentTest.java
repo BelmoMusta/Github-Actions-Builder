@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.BranchProtectionRule;
-import org.example.DiscussionComment;
+import org.example.yy.DiscussionComment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

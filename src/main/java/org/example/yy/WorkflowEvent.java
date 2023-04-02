@@ -1,4 +1,4 @@
-package org.example;
+package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.collections.Types;

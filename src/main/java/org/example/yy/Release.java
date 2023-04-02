@@ -1,6 +1,7 @@
-package org.example;
+package org.example.yy;
 
 import org.example.visitor.Visitor;
+import org.example.visitor.VoidVisitor;
 
 public class Release extends WorkflowEventWithBranches {
 	public Release() {
@@ -17,7 +18,10 @@ public class Release extends WorkflowEventWithBranches {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+visitor.visit(this, arg);
+	}@Override
+	public void accept(VoidVisitor visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {

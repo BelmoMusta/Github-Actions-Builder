@@ -1,8 +1,9 @@
-package org.example;
+package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.collections.Withs;
 import org.example.visitor.Visitor;
+import org.example.visitor.VoidVisitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
 import org.example.wrappers.DashedNameQuotedValuePair;
@@ -126,6 +127,9 @@ public class Step extends Nodes {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+visitor.visit(this, arg);
+	}@Override
+	public void accept(VoidVisitor visitor) {
+		visitor.visit(this);
 	}
 }

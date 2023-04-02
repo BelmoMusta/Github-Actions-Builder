@@ -1,8 +1,6 @@
 package org.example.visitor;
 
 import org.example.Appender;
-import org.example.Environment;
-import org.example.Volume;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
@@ -13,6 +11,8 @@ import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SingleElement;
+import org.example.yy.Environment;
+import org.example.yy.Volume;
 
 public class LeavesVisitorImpl extends AbstractVisitor<Appender> {
 	

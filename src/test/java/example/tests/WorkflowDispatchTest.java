@@ -1,7 +1,7 @@
 package example.tests;
 
 import org.example.Appender;
-import org.example.WorkflowDispatch;
+import org.example.yy.WorkflowDispatch;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
 import org.example.wrappers.Input;

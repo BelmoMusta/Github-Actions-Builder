@@ -1,11 +1,10 @@
-package org.example;
+package org.example.yy;
 
 import org.example.collections.Branches;
 import org.example.collections.Paths;
-import org.example.collections.Types;
 import org.example.visitor.Visitor;
+import org.example.visitor.VoidVisitor;
 import org.example.wrappers.DashQuotedSingleElement;
-import org.example.wrappers.DashSingleElement;
 
 public class PullRequest extends WorkflowEventWithBranches {
 	
@@ -65,6 +64,9 @@ public class PullRequest extends WorkflowEventWithBranches {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+visitor.visit(this, arg);
+	}@Override
+	public void accept(VoidVisitor visitor) {
+		visitor.visit(this);
 	}
 }

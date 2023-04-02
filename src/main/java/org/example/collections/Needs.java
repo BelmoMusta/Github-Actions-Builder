@@ -1,6 +1,7 @@
 package org.example.collections;
 
 import org.example.visitor.Visitor;
+import org.example.visitor.VoidVisitor;
 import org.example.wrappers.Node;
 
 public class Needs extends Nodes {
@@ -24,5 +25,10 @@ public class Needs extends Nodes {
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 		visitor.visit(this, arg);
+	}
+	
+	@Override
+	public void accept(VoidVisitor visitor) {
+		visitor.visit(this);
 	}
 }

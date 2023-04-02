@@ -1,4 +1,4 @@
-package org.example;
+package org.example.yy;
 
 import org.example.collections.Needs;
 import org.example.collections.Nodes;
@@ -6,6 +6,7 @@ import org.example.collections.Outputs;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.visitor.Visitor;
+import org.example.visitor.VoidVisitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
@@ -143,6 +144,9 @@ public class Job extends Nodes {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+visitor.visit(this, arg);
+	}@Override
+	public void accept(VoidVisitor visitor) {
+		visitor.visit(this);
 	}
 }

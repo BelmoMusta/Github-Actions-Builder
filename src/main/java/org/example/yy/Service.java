@@ -1,8 +1,9 @@
-package org.example;
+package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.collections.Ports;
 import org.example.visitor.Visitor;
+import org.example.visitor.VoidVisitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.SingleElement;
 
@@ -38,6 +39,9 @@ public class Service extends Nodes {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+visitor.visit(this, arg);
+	}@Override
+	public void accept(VoidVisitor visitor) {
+		visitor.visit(this);
 	}
 }

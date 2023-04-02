@@ -1,8 +1,8 @@
 package example.tests;
 
 import org.example.Appender;
-import org.example.Job;
-import org.example.Step;
+import org.example.yy.Job;
+import org.example.yy.Step;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.wrappers.InOut;
 import org.example.wrappers.Output;

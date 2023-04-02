@@ -1,6 +1,6 @@
 package example.tests;
 
-import org.example.Release;
+import org.example.yy.Release;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

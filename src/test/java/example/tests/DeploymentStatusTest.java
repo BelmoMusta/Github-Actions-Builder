@@ -1,6 +1,6 @@
 package example.tests;
 
-import org.example.DeploymentStatus;
+import org.example.yy.DeploymentStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 public class DeploymentStatusTest extends AbstracTest {

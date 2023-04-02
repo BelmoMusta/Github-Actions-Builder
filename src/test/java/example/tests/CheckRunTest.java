@@ -1,6 +1,6 @@
 package example.tests;
 
-import org.example.CheckRun;
+import org.example.yy.CheckRun;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

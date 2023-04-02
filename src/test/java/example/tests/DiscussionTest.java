@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Discussion;
-import org.example.Release;
+import org.example.yy.Discussion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
