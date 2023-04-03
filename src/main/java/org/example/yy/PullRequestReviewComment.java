@@ -4,18 +4,18 @@ import org.example.visitor.Visitor;
 import org.example.visitor.VoidVisitor;
 import org.example.yy.support.TypesSupport;
 
-public class PullRequestComment extends WorkflowEvent implements  TypesSupport {
+public class PullRequestReviewComment extends WorkflowEvent implements TypesSupport {
 	
-	protected PullRequestComment() {
-		super("pull_request_comment");
+	protected PullRequestReviewComment() {
+		super("pull_request_review_comment");
 	}
 	
-	public PullRequestComment types(Type ... types){
+	public PullRequestReviewComment types(Type... types) {
 		return addTypes(this, types);
 	}
 	
-	public static PullRequestComment $() {
-		return new PullRequestComment();
+	public static PullRequestReviewComment $() {
+		return new PullRequestReviewComment();
 	}
 	
 	@Override
@@ -27,6 +27,7 @@ public class PullRequestComment extends WorkflowEvent implements  TypesSupport {
 	public void accept(VoidVisitor<?> visitor) {
 		visitor.visit(this);
 	}
+	
 	public enum Type implements TypeI {
 		CREATED,
 		DELETED,
@@ -38,5 +39,5 @@ public class PullRequestComment extends WorkflowEvent implements  TypesSupport {
 		public String toString() {
 			return super.toString().toLowerCase();
 		}
-	}
+		}
 }

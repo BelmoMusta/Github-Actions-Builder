@@ -14,6 +14,7 @@ import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.Tags;
+import org.example.collections.TagsIgnore;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
@@ -54,6 +55,8 @@ import org.example.yy.Milestone;
 import org.example.yy.Pipe;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestComment;
+import org.example.yy.PullRequestReview;
+import org.example.yy.PullRequestReviewComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.Release;
@@ -73,6 +76,11 @@ public abstract class AbstractVoidVisitor<R> implements VoidVisitor<R> {
 	
 	@Override
 	public void visit(BranchesIgnore branchesIgnore) {
+	}
+	
+	@Override
+	public void visit(TagsIgnore tagsIgnore) {
+	
 	}
 	
 	@Override
@@ -242,6 +250,16 @@ public abstract class AbstractVoidVisitor<R> implements VoidVisitor<R> {
 	
 	@Override
 	public void visit(PullRequestComment pullRequestComment) {
+	
+	}
+	
+	@Override
+	public void visit(PullRequestReview pullRequestReview) {
+	
+	}
+	
+	@Override
+	public void visit(PullRequestReviewComment pullRequestReviewComment) {
 	
 	}
 	

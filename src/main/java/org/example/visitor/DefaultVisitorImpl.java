@@ -17,6 +17,7 @@ import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.Tags;
+import org.example.collections.TagsIgnore;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
@@ -61,8 +62,11 @@ import org.example.yy.ProjectColumn;
 import org.example.yy.Public;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestComment;
+import org.example.yy.PullRequestReview;
+import org.example.yy.PullRequestReviewComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
+import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
@@ -208,6 +212,16 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
+	public void visit(PullRequestReview pullRequestReview, Appender arg) {
+		refactored(pullRequestReview, arg);
+	}
+	
+	@Override
+	public void visit(PullRequestReviewComment pullRequestReviewComment, Appender arg) {
+		refactored(pullRequestReviewComment, arg);
+	}
+	
+	@Override
 	public void visit(CheckSuite checkSuite, Appender arg) {
 		refactored(checkSuite, arg);
 	}
@@ -259,6 +273,16 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	@Override
 	public void visit(BranchesIgnore branchesIgnore, Appender arg) {
 		refactored(branchesIgnore, arg);
+	}
+	
+	@Override
+	public void visit(TagsIgnore tagsIgnore, Appender arg) {
+		refactored(tagsIgnore, arg);
+	}
+	
+	@Override
+	public void visit(RegistryPackage registryPackage, Appender arg) {
+		refactored(registryPackage, arg);
 	}
 	
 	@Override

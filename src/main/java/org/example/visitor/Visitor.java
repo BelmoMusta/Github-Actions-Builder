@@ -15,6 +15,7 @@ import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.Tags;
+import org.example.collections.TagsIgnore;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
@@ -60,8 +61,11 @@ import org.example.yy.ProjectColumn;
 import org.example.yy.Public;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestComment;
+import org.example.yy.PullRequestReview;
+import org.example.yy.PullRequestReviewComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
+import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
@@ -82,6 +86,8 @@ public interface Visitor<A> {
 	void visit(Branches branches, A arg);
 	
 	void visit(BranchesIgnore branchesIgnore, A arg);
+	void visit(TagsIgnore tagsIgnore, A arg);
+	void visit(RegistryPackage registryPackage, A arg);
 	
 	void visit(Environments environments, A arg);
 	void visit(Withs environments, A arg);
@@ -157,6 +163,8 @@ public interface Visitor<A> {
 	void visit(ProjectColumn projectColumn, A arg);
 	void visit(Public aPublic, A arg);
 	void visit(PullRequestComment pullRequestComment, A arg);
+	void visit(PullRequestReview pullRequestReview, A arg);
+	void visit(PullRequestReviewComment pullRequestReviewComment, A arg);
 	void visit(CheckSuite checkSuite, A arg);
 	void visit(Deployment deployment, A arg);
 	void visit(Schedule schedule, A arg);

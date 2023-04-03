@@ -4,34 +4,33 @@ import org.example.Appender;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
 import org.example.yy.PullRequestComment;
-import org.example.yy.PullRequestTarget;
+import org.example.yy.RegistryPackage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class PullRequestCommentTest {
+public class RegistryPackageTest {
 	@Test
 	public void test() {
-		PullRequestComment pullRequestComment = PullRequestComment.$();
+		RegistryPackage registryPackage = RegistryPackage.$();
 		Appender appender = new Appender();
 		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestComment.accept(visitor, appender);
-		String expected = "pull_request_comment:";
+		registryPackage.accept(visitor, appender);
+		String expected = "registry_package:";
 		Assertions.assertEquals(expected, appender.toString());
 	}
 	
 	@Test
 	public void testTypes() {
-		PullRequestComment pullRequestComment = PullRequestComment.$()
-				.types(PullRequestComment.Type.values());
+		RegistryPackage registryPackage = RegistryPackage.$()
+				.types(RegistryPackage.Type.values());
 		
 		Appender appender = new Appender();
 		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestComment.accept(visitor, appender);
-		String expected = "pull_request_comment:\n" +
+		registryPackage.accept(visitor, appender);
+		String expected = "registry_package:\n" +
 				"  types:\n" +
-				"    - created\n" +
-				"    - deleted\n" +
-				"    - edited";
+				"    - published\n" +
+				"    - updated";
 		Assertions.assertEquals(expected, appender.toString());
 	}
 }

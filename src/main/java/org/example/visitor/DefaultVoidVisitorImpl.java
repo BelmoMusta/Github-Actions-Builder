@@ -58,6 +58,7 @@ import org.example.yy.Public;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
+import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
@@ -330,6 +331,11 @@ public class DefaultVoidVisitorImpl extends AbstractVoidVisitor<String> {
 	
 	@Override
 	public void visit(Public aPublic) {
+	
+	}
+	
+	@Override
+	public void visit(RegistryPackage registryPackage) {
 	
 	}
 	

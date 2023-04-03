@@ -4,34 +4,34 @@ import org.example.Appender;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
 import org.example.yy.PullRequestComment;
-import org.example.yy.PullRequestTarget;
+import org.example.yy.PullRequestReview;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class PullRequestCommentTest {
+public class PullRequestReviewTest {
 	@Test
 	public void test() {
-		PullRequestComment pullRequestComment = PullRequestComment.$();
+		PullRequestReview pullRequestReview = PullRequestReview.$();
 		Appender appender = new Appender();
 		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestComment.accept(visitor, appender);
-		String expected = "pull_request_comment:";
+		pullRequestReview.accept(visitor, appender);
+		String expected = "pull_request_review:";
 		Assertions.assertEquals(expected, appender.toString());
 	}
 	
 	@Test
 	public void testTypes() {
-		PullRequestComment pullRequestComment = PullRequestComment.$()
-				.types(PullRequestComment.Type.values());
+		PullRequestReview pullRequestComment = PullRequestReview.$()
+				.types(PullRequestReview.Type.values());
 		
 		Appender appender = new Appender();
 		Visitor<Appender> visitor = new DefaultVisitorImpl();
 		pullRequestComment.accept(visitor, appender);
-		String expected = "pull_request_comment:\n" +
+		String expected = "pull_request_review:\n" +
 				"  types:\n" +
-				"    - created\n" +
-				"    - deleted\n" +
-				"    - edited";
+				"    - dismissed\n" +
+				"    - edited\n" +
+				"    - submitted";
 		Assertions.assertEquals(expected, appender.toString());
 	}
 }

@@ -15,6 +15,7 @@ import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.Tags;
+import org.example.collections.TagsIgnore;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
@@ -60,8 +61,11 @@ import org.example.yy.ProjectColumn;
 import org.example.yy.Public;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestComment;
+import org.example.yy.PullRequestReview;
+import org.example.yy.PullRequestReviewComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
+import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
@@ -78,6 +82,7 @@ public interface VoidVisitor<R> {
 	void visit(Branches branches);
 	
 	void visit(BranchesIgnore branchesIgnore);
+	void visit(TagsIgnore tagsIgnore);
 	
 	void visit(CheckRun checkRun);
 	
@@ -128,6 +133,9 @@ public interface VoidVisitor<R> {
 	void visit(ProjectColumn projectColumn);
 	void visit(Public aPublic);
 	void visit(PullRequestComment pullRequestComment);
+	void visit(PullRequestReview pullRequestReview);
+	void visit(PullRequestReviewComment pullRequestReviewComment);
+	void visit(RegistryPackage registryPackage);
 	
 	void visit(InOut inOut);
 	
