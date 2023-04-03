@@ -1,7 +1,6 @@
 package org.example.visitor;
 
 import org.example.collections.Branches;
-import org.example.collections.BranchesIgnore;
 import org.example.collections.Environments;
 import org.example.collections.Events;
 import org.example.collections.Inputs;
@@ -43,8 +42,13 @@ import org.example.yy.DeploymentStatus;
 import org.example.yy.Discussion;
 import org.example.yy.DiscussionComment;
 import org.example.yy.Environment;
+import org.example.yy.Fork;
+import org.example.yy.Gollum;
 import org.example.yy.Image;
+import org.example.yy.IssueComment;
+import org.example.yy.Issues;
 import org.example.yy.Job;
+import org.example.yy.Label;
 import org.example.yy.Pipe;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestTarget;
@@ -62,18 +66,10 @@ import java.util.Collection;
 public abstract class AbstractVisitor<A> implements Visitor<A> {
 	
 	
-	protected void visitChildren(Collection<? extends Node> children, A arg, boolean addNewLine) {
-		for (Node child : children) {
-			child.accept(this, arg);
-		}
-	}
+	protected abstract void visitChildren(Collection<? extends Node> children, A arg, boolean addNewLine);
 	
 	@Override
 	public void visit(Branches branches, A arg) {
-	}
-	
-	@Override
-	public void visit(BranchesIgnore branchesIgnore, A arg) {
 	}
 	
 	@Override
@@ -258,6 +254,30 @@ public abstract class AbstractVisitor<A> implements Visitor<A> {
 	public void visit(Create create, A arg) {
 	
 	}
+	
+	@Override
+	public void visit(Fork fork, A arg) {
+	
+	}
+	@Override
+	public void visit(Gollum fork, A arg) {
+	
+	}
+	
+	@Override
+	public void visit(IssueComment issueComment, A arg) {
+	
+	}
+	
+	@Override
+	public void visit(Issues issueComment, A arg) {
+	
+	}
+	@Override
+	public void visit(Label issueComment, A arg) {
+	
+	}
+	
 	@Override
 	public void visit(CheckSuite checkSuite, A arg) {
 	

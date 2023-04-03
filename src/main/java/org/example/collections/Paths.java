@@ -13,7 +13,7 @@ public class Paths extends Nodes {
 	}
 	
 	@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 		visitor.visit(this);
 	}
 }

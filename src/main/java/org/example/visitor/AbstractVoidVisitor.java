@@ -42,10 +42,18 @@ import org.example.yy.DeploymentStatus;
 import org.example.yy.Discussion;
 import org.example.yy.DiscussionComment;
 import org.example.yy.Environment;
+import org.example.yy.Fork;
+import org.example.yy.Gollum;
 import org.example.yy.Image;
+import org.example.yy.IssueComment;
+import org.example.yy.Issues;
 import org.example.yy.Job;
+import org.example.yy.Label;
+import org.example.yy.MergeGroup;
+import org.example.yy.Milestone;
 import org.example.yy.Pipe;
 import org.example.yy.PullRequest;
+import org.example.yy.PullRequestComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.Release;
@@ -76,6 +84,15 @@ public abstract class AbstractVoidVisitor<R> implements VoidVisitor<R> {
 	
 	@Override
 	public void visit(Events events) {
+	}
+	
+	@Override
+	public void visit(Fork fork) {
+	
+	}
+	@Override
+	public void visit(Gollum gollum) {
+	
 	}
 	
 	@Override
@@ -197,6 +214,35 @@ public abstract class AbstractVoidVisitor<R> implements VoidVisitor<R> {
 	
 	@Override
 	public void visit(Image image) {
+	}
+	
+	@Override
+	public void visit(IssueComment issueComment) {
+	
+	}
+	@Override
+	public void visit(Issues issues) {
+	
+	}
+	
+	@Override
+	public void visit(Label label) {
+	
+	}
+	
+	@Override
+	public void visit(MergeGroup mergeGroup) {
+	
+	}
+	
+	@Override
+	public void visit(Milestone milestone) {
+	
+	}
+	
+	@Override
+	public void visit(PullRequestComment pullRequestComment) {
+	
 	}
 	
 	@Override

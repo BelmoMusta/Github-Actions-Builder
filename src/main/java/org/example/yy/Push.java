@@ -1,13 +1,12 @@
 package org.example.yy;
 
-import org.example.collections.Branches;
-import org.example.collections.Paths;
-import org.example.collections.Tags;
 import org.example.visitor.Visitor;
 import org.example.visitor.VoidVisitor;
-import org.example.wrappers.DashQuotedSingleElement;
+import org.example.yy.support.BranchesSupport;
+import org.example.yy.support.TagsSupport;
 
-public class Push extends WorkflowEventWithBranches {
+public class Push extends WorkflowEvent implements BranchesSupport, TagsSupport,
+		PathsSupport {
 	public Push() {
 		super("push");
 	}
@@ -15,42 +14,26 @@ public class Push extends WorkflowEventWithBranches {
 	public static Push $() {
 		return new Push();
 	}
-	protected Push(String... branches) {
-		super("push", branches);
-	}
 	
 	public Push paths(String... paths) {
-		final Paths innerPaths = new Paths();
-		for (String path : paths) {
-			innerPaths.add(new DashQuotedSingleElement(path));
-		}
-		add(innerPaths);
-		return this;
+		return addPaths(this, paths);
 	}
 	
 	public Push branches(String... branches) {
-		final Branches innerBranches = new Branches();
-		for (String branch : branches) {
-			innerBranches.add(new DashQuotedSingleElement(branch));
-		}
-		add(innerBranches);
-		return this;
+		return addBranches(this, branches);
 	}
 	
 	public Push tags(String... tags) {
-		final Tags innerTags = new Tags();
-		add(innerTags);
-		for (String tag : tags) {
-			innerTags.add(new DashQuotedSingleElement(tag));
-		}
-		return this;
+		return addTags(this, tags);
 	}
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
-	}@Override
-	public void accept(VoidVisitor visitor) {
+		visitor.visit(this, arg);
+	}
+	
+	@Override
+	public void accept(VoidVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 }

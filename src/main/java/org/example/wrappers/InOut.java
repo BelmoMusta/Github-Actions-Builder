@@ -29,7 +29,7 @@ public class InOut extends Tag {
 	}
 	
 	@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 	
 	}
 	

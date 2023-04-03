@@ -16,7 +16,7 @@ public class DashedNameQuotedValuePair extends DashedNameValuePair {
 	}
 	
 	@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 		visitor.visit(this);
 	}
 }

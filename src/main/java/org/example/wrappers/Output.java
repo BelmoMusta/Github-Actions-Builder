@@ -45,7 +45,7 @@ public class Output extends InOut {
 	}
 	
 	@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 		visitor.visit(this);
 	}
 }

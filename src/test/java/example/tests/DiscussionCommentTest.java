@@ -15,7 +15,7 @@ public class DiscussionCommentTest extends AbstracTest {
 	}
 	
 	@Test
-	public void branchProtectionRuleTest() {
+	public void testTypes() {
 		DiscussionComment discussionComment = DiscussionComment.$()
 				.types(DiscussionComment.Type.CREATED)
 				.types(DiscussionComment.Type.DELETED)

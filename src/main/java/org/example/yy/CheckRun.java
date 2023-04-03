@@ -2,8 +2,9 @@ package org.example.yy;
 
 import org.example.visitor.Visitor;
 import org.example.visitor.VoidVisitor;
+import org.example.yy.support.TypesSupport;
 
-public class CheckRun extends WorkflowEvent {
+public class CheckRun extends WorkflowEvent implements TypesSupport {
 	public CheckRun() {
 		super("check_run");
 	}
@@ -20,7 +21,7 @@ public class CheckRun extends WorkflowEvent {
 	public <A> void accept(Visitor<A> visitor, A arg) {
 visitor.visit(this, arg);
 	}@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 		visitor.visit(this);
 	}
 	

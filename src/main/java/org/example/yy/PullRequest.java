@@ -1,19 +1,25 @@
 package org.example.yy;
 
-import org.example.collections.Branches;
-import org.example.collections.Paths;
 import org.example.visitor.Visitor;
 import org.example.visitor.VoidVisitor;
-import org.example.wrappers.DashQuotedSingleElement;
+import org.example.yy.support.BranchesIgnoreSupport;
+import org.example.yy.support.BranchesSupport;
+import org.example.yy.support.PathsIgnoreSupport;
+import org.example.yy.support.TagsSupport;
+import org.example.yy.support.TypesSupport;
 
-public class PullRequest extends WorkflowEventWithBranches {
+public class PullRequest extends WorkflowEvent implements BranchesSupport,
+		TagsSupport,
+		PathsSupport,
+		BranchesIgnoreSupport,
+		PathsIgnoreSupport, TypesSupport {
 	
-	protected PullRequest(String... branches) {
-		super("pull_request", branches);
+	protected PullRequest() {
+		super("pull_request");
 	}
 	
-	public static PullRequest $(String... branches) {
-		return new PullRequest(branches);
+	public static PullRequest $() {
+		return new PullRequest();
 	}
 	
 	public PullRequest types(Type... types) {
@@ -21,41 +27,45 @@ public class PullRequest extends WorkflowEventWithBranches {
 	}
 	
 	public PullRequest paths(String... paths) {
-		final Paths innerPaths = new Paths();
-		for (String path : paths) {
-			innerPaths.add(new DashQuotedSingleElement(path));
-		}
-		add(innerPaths);
-		return this;
+		return addPaths(this, paths);
+	}
+	
+	public PullRequest pathsIgnore(String... paths) {
+		return addPathsIgnore(this, paths);
+	}
+	
+	public PullRequest tags(String... paths) {
+		return addTags(this, paths);
 	}
 	
 	public PullRequest branches(String... branches) {
-		final Branches innerBranches = new Branches();
-		for (String branch : branches) {
-			innerBranches.add(new DashQuotedSingleElement(branch));
-		}
-		add(innerBranches);
-		return this;
+		return addBranches(this, branches);
 	}
-	public enum Type implements TypeI{
+	
+	public PullRequest branchesIgnore(String... branches) {
+		return addBranchesIgnore(this, branches);
+	}
+	
+	public enum Type implements TypeI {
 		ASSIGNED,
-		UNASSIGNED,
-		LABELED,
-		UNLABELED,
-		OPENED,
-		EDITED,
+		AUTO_MERGE_DISABLED,
+		AUTO_MERGE_ENABLED,
 		CLOSED,
-		REOPENED,
-		SYNCHRONIZE,
 		CONVERTED_TO_DRAFT,
-		READY_FOR_REVIEW,
+		EDITED,
+		LABELED,
 		LOCKED,
-		UNLOCKED,
+		OPENED,
+		READY_FOR_REVIEW,
+		REOPENED,
 		REVIEW_REQUESTED,
 		REVIEW_REQUEST_REMOVED,
-		AUTO_MERGE_ENABLED,
-		AUTO_MERGE_DISABLED;
+		SYNCHRONIZE,
+		UNASSIGNED,
+		UNLABELED,
+		UNLOCKED,
 		
+		;
 		@Override
 		public String toString() {
 			return super.toString().toLowerCase();
@@ -64,9 +74,11 @@ public class PullRequest extends WorkflowEventWithBranches {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
-	}@Override
-	public void accept(VoidVisitor visitor) {
+		visitor.visit(this, arg);
+	}
+	
+	@Override
+	public void accept(VoidVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 }

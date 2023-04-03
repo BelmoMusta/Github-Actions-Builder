@@ -11,6 +11,7 @@ import org.example.collections.Nodes;
 import org.example.collections.Options;
 import org.example.collections.Outputs;
 import org.example.collections.Paths;
+import org.example.collections.PathsIgnore;
 import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
@@ -43,8 +44,17 @@ import org.example.yy.DeploymentStatus;
 import org.example.yy.Discussion;
 import org.example.yy.DiscussionComment;
 import org.example.yy.Environment;
+import org.example.yy.Fork;
+import org.example.yy.Gollum;
+import org.example.yy.Issues;
 import org.example.yy.Job;
+import org.example.yy.Label;
+import org.example.yy.PageBuild;
 import org.example.yy.Pipe;
+import org.example.yy.Project;
+import org.example.yy.ProjectCard;
+import org.example.yy.ProjectColumn;
+import org.example.yy.Public;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
@@ -84,6 +94,15 @@ public class DefaultVoidVisitorImpl extends AbstractVoidVisitor<String> {
 	@Override
 	public void visit(Events events) {
 		refactored(events);
+	}
+	
+	@Override
+	public void visit(Fork fork) {
+		refactored(fork);
+	}
+	@Override
+	public void visit(Gollum fork) {
+		refactored(fork);
 	}
 	
 	@Override
@@ -192,6 +211,11 @@ public class DefaultVoidVisitorImpl extends AbstractVoidVisitor<String> {
 	}
 	
 	@Override
+	public void visit(PathsIgnore paths) {
+	
+	}
+	
+	@Override
 	public void visit(Tags tags) {
 		refactored(tags);
 	}
@@ -272,6 +296,41 @@ public class DefaultVoidVisitorImpl extends AbstractVoidVisitor<String> {
 		appender.append(environment.name);
 		appender.append(": ");
 		appender.append(environment.value);
+	}
+	
+	@Override
+	public void visit(Issues issues) {
+		super.visit(issues);
+	}
+	
+	@Override
+	public void visit(Label label) {
+	
+	}
+	
+	@Override
+	public void visit(PageBuild pageBuild) {
+	
+	}
+	
+	@Override
+	public void visit(Project project) {
+		refactored(project);
+	}
+	
+	@Override
+	public void visit(ProjectCard projectCard) {
+	
+	}
+	
+	@Override
+	public void visit(ProjectColumn projectColumn) {
+	
+	}
+	
+	@Override
+	public void visit(Public aPublic) {
+	
 	}
 	
 	@Override

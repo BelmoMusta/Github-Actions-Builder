@@ -43,7 +43,7 @@ import org.example.yy.Volume;
 import org.example.yy.Workflow;
 import org.example.yy.WorkflowDispatch;
 import org.example.yy.WorkflowEvent;
-import org.example.yy.WorkflowEventWithBranches;
+import org.example.yy.support.BranchesSupport;
 
 public interface ValuedVisitor<A, R> {
 	R visit(Workflow workflow, A arg);
@@ -133,6 +133,6 @@ public interface ValuedVisitor<A, R> {
 	
 	R visit(WorkflowDispatch workflowDispatch, A arg);
 	
-	R visit(WorkflowEventWithBranches workflowEventWithBranches, A arg);
+	R visit(BranchesSupport branchesSupport, A arg);
 	
 }

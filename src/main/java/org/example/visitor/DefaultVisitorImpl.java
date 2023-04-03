@@ -2,6 +2,7 @@ package org.example.visitor;
 
 import org.example.Appender;
 import org.example.collections.Branches;
+import org.example.collections.BranchesIgnore;
 import org.example.collections.Environments;
 import org.example.collections.Events;
 import org.example.collections.Inputs;
@@ -11,6 +12,7 @@ import org.example.collections.Nodes;
 import org.example.collections.Options;
 import org.example.collections.Outputs;
 import org.example.collections.Paths;
+import org.example.collections.PathsIgnore;
 import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
@@ -43,9 +45,22 @@ import org.example.yy.DeploymentStatus;
 import org.example.yy.Discussion;
 import org.example.yy.DiscussionComment;
 import org.example.yy.Environment;
+import org.example.yy.Fork;
+import org.example.yy.Gollum;
+import org.example.yy.IssueComment;
+import org.example.yy.Issues;
 import org.example.yy.Job;
+import org.example.yy.Label;
+import org.example.yy.MergeGroup;
+import org.example.yy.Milestone;
+import org.example.yy.PageBuild;
 import org.example.yy.Pipe;
+import org.example.yy.Project;
+import org.example.yy.ProjectCard;
+import org.example.yy.ProjectColumn;
+import org.example.yy.Public;
 import org.example.yy.PullRequest;
+import org.example.yy.PullRequestComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.Release;
@@ -60,7 +75,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DefaultVisitorImpl extends SubVisitor<Appender> {
+public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	public DefaultVisitorImpl() {
 		//	support(new LeavesVisitorImpl());
@@ -130,6 +145,69 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
+	public void visit(Fork fork, Appender arg) {
+		refactored(fork, arg);
+	}
+	
+	@Override
+	public void visit(Gollum fork, Appender arg) {
+		refactored(fork, arg);
+	}
+	
+	@Override
+	public void visit(IssueComment issueComment, Appender arg) {
+		refactored(issueComment, arg);
+	}
+	@Override
+	public void visit(Issues issues, Appender arg) {
+		refactored(issues, arg);
+	}
+	
+	@Override
+	public void visit(Label label, Appender arg) {
+		refactored(label, arg);
+	}
+	
+	@Override
+	public void visit(MergeGroup mergeGroup, Appender arg) {
+		refactored(mergeGroup, arg);
+	}
+	
+	@Override
+	public void visit(Milestone milestone, Appender arg) {
+		refactored(milestone, arg);
+	}
+	
+	@Override
+	public void visit(PageBuild pageBuild, Appender arg) {
+		refactored(pageBuild, arg);
+	}
+	
+	@Override
+	public void visit(Project project, Appender arg) {
+		refactored(project, arg);
+	}
+	@Override
+	public void visit(ProjectCard projectCard, Appender arg) {
+		refactored(projectCard, arg);
+	}
+	
+	@Override
+	public void visit(ProjectColumn projectColumn, Appender arg) {
+		refactored(projectColumn, arg);
+	}
+	
+	@Override
+	public void visit(Public aPublic, Appender arg) {
+		refactored(aPublic, arg);
+	}
+	
+	@Override
+	public void visit(PullRequestComment pullRequestComment, Appender arg) {
+		refactored(pullRequestComment, arg);
+	}
+	
+	@Override
 	public void visit(CheckSuite checkSuite, Appender arg) {
 		refactored(checkSuite, arg);
 	}
@@ -171,8 +249,7 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 				arg.newLine();
 			}
 		}
-		super.visitChildren(children, arg, addNewLine);
-	}
+ 	}
 	
 	@Override
 	public void visit(Branches branches, Appender arg) {
@@ -180,7 +257,17 @@ public class DefaultVisitorImpl extends SubVisitor<Appender> {
 	}
 	
 	@Override
+	public void visit(BranchesIgnore branchesIgnore, Appender arg) {
+		refactored(branchesIgnore, arg);
+	}
+	
+	@Override
 	public void visit(Paths paths, Appender arg) {
+		refactored(paths, arg);
+	}
+	
+	@Override
+	public void visit(PathsIgnore paths, Appender arg) {
 		refactored(paths, arg);
 	}
 	

@@ -15,7 +15,7 @@ public class BranchProtectionRuleTest extends AbstracTest {
 	}
 	
 	@Test
-	public void branchProtectionRuleTest() {
+	public void testTypes() {
 		BranchProtectionRule release = BranchProtectionRule.$()
 				.types(BranchProtectionRule.Type.CREATED)
 				.types(BranchProtectionRule.Type.DELETED)

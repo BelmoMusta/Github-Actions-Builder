@@ -13,7 +13,7 @@ public class Environments extends Nodes {
 		visitor.visit(this, arg);
 	}
 	@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 		visitor.visit(this);
 	}
 }

@@ -20,7 +20,7 @@ public class Events extends Nodes {
 	}
 	
 	@Override
-	public void accept(VoidVisitor visitor) {
+	public void accept(VoidVisitor<?>visitor) {
 		visitor.visit(this);
 	}
 }

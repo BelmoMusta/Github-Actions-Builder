@@ -50,7 +50,7 @@ public class StepRunTest {
 						.required())
 				.step(Step.$()
 						.run(Pipe.$().entries("echo", "lol"))
-						.workingDirectory(".")
+						//.workingDirectory(".") // TODO
 						.name("Say something")
 				);
 		DefaultVisitorImpl visitor = new DefaultVisitorImpl();

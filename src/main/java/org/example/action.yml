@@ -85,13 +85,13 @@ on:
   merge_group:
     types:
       - checks_requested
-  milestone:
-    types:
-      - closed
-      - created
-      - deleted
-      - edited
-      - opened
+milestone:
+  types:
+    - closed
+    - created
+    - deleted
+    - edited
+    - opened
   page_build:
 
   project:
@@ -108,27 +108,27 @@ on:
       - deleted
       - edited
       - moved
-  project_column:
-    types:
-      - created
-      - deleted
-      - moved
-      - updated
+project_column:
+  types:
+    - created
+    - deleted
+    - moved
+    - updated
   public:
 
   pull_request:
     branches:
-      - a
-      - b
+      - 'a'
+      - 'b'
     branches-ignore:
-      - c
-      - d
+      - 'c'
+      - 'd'
     paths:
-      - a/n
-      - b/c
+      - 'a/n'
+      - 'b/c'
     paths-ignore:
-      - a/n
-      - b/c
+      - 'a/n'
+      - 'b/c'
     types:
       - assigned
       - auto_merge_disabled

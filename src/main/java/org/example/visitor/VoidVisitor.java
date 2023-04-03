@@ -10,6 +10,7 @@ import org.example.collections.Needs;
 import org.example.collections.Options;
 import org.example.collections.Outputs;
 import org.example.collections.Paths;
+import org.example.collections.PathsIgnore;
 import org.example.collections.Ports;
 import org.example.collections.Services;
 import org.example.collections.Steps;
@@ -42,10 +43,23 @@ import org.example.yy.DeploymentStatus;
 import org.example.yy.Discussion;
 import org.example.yy.DiscussionComment;
 import org.example.yy.Environment;
+import org.example.yy.Fork;
+import org.example.yy.Gollum;
 import org.example.yy.Image;
+import org.example.yy.IssueComment;
+import org.example.yy.Issues;
 import org.example.yy.Job;
+import org.example.yy.Label;
+import org.example.yy.MergeGroup;
+import org.example.yy.Milestone;
+import org.example.yy.PageBuild;
 import org.example.yy.Pipe;
+import org.example.yy.Project;
+import org.example.yy.ProjectCard;
+import org.example.yy.ProjectColumn;
+import org.example.yy.Public;
 import org.example.yy.PullRequest;
+import org.example.yy.PullRequestComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.Release;
@@ -98,8 +112,22 @@ public interface VoidVisitor<R> {
 	void visit(Environments environments);
 	
 	void visit(Events events);
+	void visit(Fork fork);
+	void visit(Gollum gollum);
 	
 	void visit(Image image);
+	void visit(IssueComment issueComment);
+	void visit(Issues issues);
+	void visit(Label label);
+	void visit(MergeGroup mergeGroup);
+	void visit(Milestone milestone);
+	void visit(PageBuild pageBuild);
+	void visit(Project project);
+	
+	void visit(ProjectCard projectCard);
+	void visit(ProjectColumn projectColumn);
+	void visit(Public aPublic);
+	void visit(PullRequestComment pullRequestComment);
 	
 	void visit(InOut inOut);
 	
@@ -128,6 +156,7 @@ public interface VoidVisitor<R> {
 	void visit(Outputs outputs);
 	
 	void visit(Paths paths);
+	void visit(PathsIgnore paths);
 	
 	void visit(Pipe pipe);
 	
