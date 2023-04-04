@@ -40,6 +40,7 @@ import org.example.yy.CheckRun;
 import org.example.yy.CheckSuite;
 import org.example.yy.Container;
 import org.example.yy.Create;
+import org.example.yy.Cron;
 import org.example.yy.Delete;
 import org.example.yy.Deployment;
 import org.example.yy.DeploymentStatus;
@@ -68,6 +69,7 @@ import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
+import org.example.yy.RepositoryDispatch;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Step;
@@ -247,6 +249,11 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	}
 	
 	@Override
+	public void visit(RepositoryDispatch repositoryDispatch, Appender arg) {
+		refactored(repositoryDispatch, arg);
+	}
+	
+	@Override
 	public void visit(Schedule schedule, Appender arg) {
 		refactored(schedule, arg);
 	}
@@ -288,6 +295,11 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	@Override
 	public void visit(Paths paths, Appender arg) {
 		refactored(paths, arg);
+	}
+	
+	@Override
+	public void visit(Cron cron, Appender arg) {
+		throw new RuntimeException();
 	}
 	
 	@Override

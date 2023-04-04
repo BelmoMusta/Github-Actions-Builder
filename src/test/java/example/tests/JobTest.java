@@ -33,6 +33,7 @@ public class JobTest {
 				)
 				.needs(Job.$().name("a"))
 				.needs("w")
+				.needs("w")
 				.needs("b")
 				.step(Step.$().name("Say something")
 						.run("echo lol"));

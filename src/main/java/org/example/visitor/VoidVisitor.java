@@ -38,6 +38,7 @@ import org.example.yy.CheckRun;
 import org.example.yy.CheckSuite;
 import org.example.yy.Container;
 import org.example.yy.Create;
+import org.example.yy.Cron;
 import org.example.yy.Delete;
 import org.example.yy.Deployment;
 import org.example.yy.DeploymentStatus;
@@ -67,6 +68,7 @@ import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
+import org.example.yy.RepositoryDispatch;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Step;
@@ -78,6 +80,7 @@ public interface VoidVisitor<R> {
 	
 	R getFinalResult();
 	void visit(BranchProtectionRule branchProtectionRule);
+	void visit(Cron cron);
 	
 	void visit(Branches branches);
 	
@@ -136,6 +139,7 @@ public interface VoidVisitor<R> {
 	void visit(PullRequestReview pullRequestReview);
 	void visit(PullRequestReviewComment pullRequestReviewComment);
 	void visit(RegistryPackage registryPackage);
+	void visit(RepositoryDispatch repositoryDispatch);
 	
 	void visit(InOut inOut);
 	

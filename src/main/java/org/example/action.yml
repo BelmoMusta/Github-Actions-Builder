@@ -222,7 +222,7 @@ project_column:
       - start-example-workflow
   schedule:
     - cron: "0 0 * * *"
-    - cron: "0 0 * * *"
+    - cron: "0 1 * * *"
 
   status:
 

@@ -21,11 +21,20 @@ public class Schedule extends WorkflowEvent {
 		return this;
 	}
 	
+	public Schedule cron(Cron... crons) {
+		for (Cron cr : crons) {
+			this.add(new DashedNameQuotedValuePair("cron", cr.toString()));
+		}
+		return this;
+	}
+	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
-	}@Override
-	public void accept(VoidVisitor<?>visitor) {
+		visitor.visit(this, arg);
+	}
+	
+	@Override
+	public void accept(VoidVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 }

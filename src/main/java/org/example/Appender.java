@@ -4,6 +4,7 @@ import org.example.wrappers.Node;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 public class Appender {
 	private int indent;
@@ -46,9 +47,12 @@ public class Appender {
 		}
 		return this;
 	}
-	public Appender append_(Object str) {
-		if (str != null) {
+	
+	public <T, R> Appender appendIfOrElse(T str, Predicate<T> predicate, R orElse) {
+		if (predicate.test(str)) {
 			stringBuilder.append(str);
+		} else {
+			append(orElse.toString());
 		}
 		return this;
 	}
@@ -67,35 +71,6 @@ public class Appender {
 		
 		return this;
 	}
-	
-	public Appender appendCollection(Collection<Node> elements, boolean withBrackets) {
-		
-		ArrayList<Node> nodes = new ArrayList<>(elements);
-		if (withBrackets) {
-		//	indent(1);
-			append("[");
-		}
-		for (int i = 0; i < nodes.size(); i++) {
-			Node node = nodes.get(i);
-			if (withBrackets) {
-				append(node.get());
-			} else {
-				append(node);
-			}
-			if (i < nodes.size() - 1) {
-				if (withBrackets) {
-					append(", ");
-				} else {
-					newLine();
-				}
-			}
-		}
-		append("]");
-		
-		
-		return this;
-	}
-	
 	
 	@Override
 	public String toString() {

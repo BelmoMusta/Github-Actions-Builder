@@ -38,6 +38,7 @@ import org.example.yy.CheckRun;
 import org.example.yy.CheckSuite;
 import org.example.yy.Container;
 import org.example.yy.Create;
+import org.example.yy.Cron;
 import org.example.yy.Delete;
 import org.example.yy.Deployment;
 import org.example.yy.DeploymentStatus;
@@ -67,6 +68,7 @@ import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
+import org.example.yy.RepositoryDispatch;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Step;
@@ -79,6 +81,7 @@ public interface Visitor<A> {
 	void visit(Workflow workflow, A arg);
 	
 	void visit(Paths paths, A arg);
+	void visit(Cron cron, A arg);
 	void visit(PathsIgnore paths, A arg);
 	
 	void visit(Tags tags, A arg);
@@ -141,6 +144,7 @@ public interface Visitor<A> {
 	void visit(Job job, A arg);
 	void visit(PullRequest pullRequest, A arg);
 	void visit(PullRequestTarget pullRequestTarget, A arg);
+	void visit(RepositoryDispatch repositoryDispatch, A arg);
 	void visit(Push push, A arg);
 	void visit(Release release, A arg);
 	void visit(Delete release, A arg);

@@ -37,6 +37,7 @@ import org.example.yy.CheckRun;
 import org.example.yy.CheckSuite;
 import org.example.yy.Container;
 import org.example.yy.Create;
+import org.example.yy.Cron;
 import org.example.yy.Delete;
 import org.example.yy.Deployment;
 import org.example.yy.DeploymentStatus;
@@ -60,6 +61,7 @@ import org.example.yy.PullRequestReviewComment;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.Release;
+import org.example.yy.RepositoryDispatch;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Step;
@@ -264,6 +266,11 @@ public abstract class AbstractVoidVisitor<R> implements VoidVisitor<R> {
 	}
 	
 	@Override
+	public void visit(RepositoryDispatch repositoryDispatch) {
+	
+	}
+	
+	@Override
 	public void visit(Job job) {
 	}
 	
@@ -308,6 +315,11 @@ public abstract class AbstractVoidVisitor<R> implements VoidVisitor<R> {
 	
 	@Override
 	public void visit(BranchProtectionRule branchProtectionRule) {
+	
+	}
+	
+	@Override
+	public void visit(Cron cron) {
 	
 	}
 	
