@@ -48,16 +48,33 @@ public class ScheduleTest extends AbstracTest {
 								.from(20)
 								.every(15)))
 				.cron(Cron.$()
+						.minutes(30)
+						.hours(Cron.Range.$()
+								.from(4)
+								.to(6)))
+				.cron(Cron.$()
 						.minutes(0)
 						.hours(1)
-						.dayOfweek(3));
+						.dayOfweek(3))
+				.cron(Cron.$().minutes(23)
+						.hours(Cron.Range.$()
+								.from(0)
+								.to(20)
+								.pastEvery(2)))
+				.cron(Cron.$()
+						.minutes(5)
+						.hours(4)
+						.dayOfweek(Cron.DaysOfWeek.SUN));
 		release.accept(visitor, appender);
 		String expected = "schedule:\n" +
 				"  - cron: '0 0 * * *'\n" +
 				"  - cron: '2,10 4,5 * * *'\n" +
+				"  - cron: '0-20 * * * *'\n" +
 				"  - cron: '20/15 * * * *'\n" +
 				"  - cron: '30 4-6 * * *'\n" +
-				"  - cron: '0 1 * * 3'";
+				"  - cron: '0 1 * * 3'\n" +
+				"  - cron: '23 0-20/2 * * *'\n" +
+				"  - cron: '5 4 * * SUN'";
 		Assertions.assertEquals(expected, appender.toString());
 	}
 }

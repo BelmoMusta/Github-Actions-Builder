@@ -6,6 +6,7 @@ import org.example.visitor.VoidVisitor;
 import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -140,6 +141,11 @@ public class Cron extends Tag {
 	
 	public Cron dayOfweek(Integer... dayOfweek) {
 		List<CronItem> elements = getCronItems(dayOfweek, dayOfTheWeekPredicate);
+		this.daysOfWeek.addAll(elements);
+		return this;
+	}
+	public Cron dayOfweek(DaysOfWeek... dayOfweek) {
+		List<CronItem> elements = Arrays.asList(dayOfweek);
 		this.daysOfWeek.addAll(elements);
 		return this;
 	}
@@ -294,6 +300,7 @@ public class Cron extends Tag {
 	public static class Range implements CronItem {
 		int from;
 		int to;
+		int pastEvery;
 		
 		public static Range $() {
 			return new Range();
@@ -309,8 +316,15 @@ public class Cron extends Tag {
 			return this;
 		}
 		
+		public Range pastEvery(int pastEvery) {
+			this.pastEvery = pastEvery;
+			return this;
+		}
+		
 		@Override
 		public String toString() {
+			if (pastEvery > 0)
+				return from + "-" + to + "/" + pastEvery;
 			return from + "-" + to;
 		}
 		
@@ -319,7 +333,8 @@ public class Cron extends Tag {
 		public boolean apply(Predicate<Integer> predicate) {
 			return from >= 0 && from <= to
 					&& predicate.test(from)
-					&& predicate.test(to);
+					&& predicate.test(to)
+					&& pastEvery >= 0;
 		}
 	}
 	
@@ -344,7 +359,7 @@ public class Cron extends Tag {
 		boolean apply(Predicate<Integer> predicate);
 	}
 	
-	public enum DaysOfWeek {
+	public enum DaysOfWeek implements CronItem{
 		SUN,
 		MON,
 		TUE,
@@ -353,6 +368,11 @@ public class Cron extends Tag {
 		FRI,
 		SAT,
 		;
+		
+		@Override
+		public boolean apply(Predicate<Integer> predicate) {
+			return true;
+		}
 	}
 	
 	public enum Month {
