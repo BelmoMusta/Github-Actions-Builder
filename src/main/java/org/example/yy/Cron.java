@@ -6,10 +6,8 @@ import org.example.visitor.VoidVisitor;
 import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -132,6 +130,10 @@ public class Cron extends Tag {
 		return conditionalAdd(monthsPredicate, this.months, ranges);
 	}
 	
+	public Cron month(MonthRange... ranges) {
+		return conditionalAdd(monthsPredicate, this.months, ranges);
+	}
+	
 	public Cron month(CronItem... cronItems) {
 		return conditionalAdd(monthsPredicate, this.months, cronItems);
 	}
@@ -143,6 +145,10 @@ public class Cron extends Tag {
 	}
 	
 	public Cron dayOfweek(Range... ranges) {
+		return conditionalAdd(dayOfTheWeekPredicate, this.daysOfWeek, ranges);
+	}
+	
+	public Cron dayOfweek(DayRange... ranges) {
 		return conditionalAdd(dayOfTheWeekPredicate, this.daysOfWeek, ranges);
 	}
 	
@@ -227,6 +233,64 @@ public class Cron extends Tag {
 		}
 	}
 	
+	public static class DayRange implements CronItem {
+		DaysOfWeek from;
+		DaysOfWeek to;
+		
+		public static DayRange $() {
+			return new DayRange();
+		}
+		
+		public DayRange from(DaysOfWeek from) {
+			this.from = from;
+			return this;
+		}
+		
+		public DayRange to(DaysOfWeek to) {
+			this.to = to;
+			return this;
+		}
+		
+		@Override
+		public String toString() {
+			return from + "-" + to;
+		}
+		
+		@Override
+		public boolean apply(Predicate<Integer> predicate) {
+			return from.compareTo(to) < 0;
+		}
+	}
+	
+	public static class MonthRange implements CronItem {
+		Month from;
+		Month to;
+		
+		public static MonthRange $() {
+			return new MonthRange();
+		}
+		
+		public MonthRange from(Month from) {
+			this.from = from;
+			return this;
+		}
+		
+		public MonthRange to(Month to) {
+			this.to = to;
+			return this;
+		}
+		
+		@Override
+		public String toString() {
+			return from + "-" + to;
+		}
+		
+		@Override
+		public boolean apply(Predicate<Integer> predicate) {
+			return from.compareTo(to) < 0;
+		}
+	}
+	
 	public static class Range implements CronItem {
 		int from;
 		int to;
@@ -280,7 +344,7 @@ public class Cron extends Tag {
 		boolean apply(Predicate<Integer> predicate);
 	}
 	
-	enum DaysOfWeek implements CronItem {
+	public enum DaysOfWeek {
 		SUN,
 		MON,
 		TUE,
@@ -289,10 +353,21 @@ public class Cron extends Tag {
 		FRI,
 		SAT,
 		;
-		
-		@Override
-		public boolean apply(Predicate<Integer> predicate) {
-			return true;
-		}
+	}
+	
+	public enum Month {
+		JAN,
+		FEB,
+		MAR,
+		APR,
+		MAY,
+		JUM,
+		JUL,
+		AUG,
+		SEP,
+		OCT,
+		NOV,
+		DEC,
+		;
 	}
 }
