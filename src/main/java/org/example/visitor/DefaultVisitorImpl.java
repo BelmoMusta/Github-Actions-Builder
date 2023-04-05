@@ -299,7 +299,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Cron cron, Appender arg) {
-		throw new RuntimeException();
+		 arg.append(cron.toString());
 	}
 	
 	@Override
