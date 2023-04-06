@@ -66,13 +66,14 @@ public class VisitorTest {
 			"    name: Check YAML consistency\n" +
 			"    runs-on: ubuntu-latest\n" +
 			"    steps:\n" +
-			"      - id: step-0\n" +
-			"        name: Check out\n" +
+			"      - name: Check out\n" +
+			"        id: step-0\n" +
 			"        uses: actions/checkout@v3\n" +
 			"      - id: step-1\n" +
 			"        name: Install Kotlin\n" +
 			"        run: sudo snap install --classic kotlin\n" +
 			"      - id: step-2\n" +
+			"        working-directory: .\n" +
 			"        if: \"true\"\n" +
 			"        name: Consistency check\n" +
 			"        run: diff -u '.github/workflows/build.yaml' <('.github/workflows/build.main.kts')\n" +
@@ -143,7 +144,13 @@ public class VisitorTest {
 				.jobs(Job.$().name("my_build")
 								.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
-								.step(Step.$().name("my_build")
+								.step(Step.$().run("pwd"))
+								.step(Step.$().run(Pipe.$().entries("hi", "there")))
+								.step(Step.$().name("pipe")
+										.run(Pipe.$().entries("hi", "there")))
+								.step(Step.$()
+										.workingDirectory(".")
+										.name("my_build")
 										.uses("actions/checkout@master"))
 								.step(Step.$().name("Say something")
 										.run("echo lol"))
@@ -205,7 +212,16 @@ public class VisitorTest {
 				"    if: ${{ input.echo == 'true' }}\n" +
 				"    runs-on: ubuntu-latest\n" +
 				"    steps:\n" +
-				"      - name: my_build\n" +
+				"      - run: 'pwd'\n" +
+				"      - run: |\n" +
+				"          hi\n" +
+				"          there\n" +
+				"      - name: pipe\n" +
+				"        run: |\n" +
+				"          hi\n" +
+				"          there\n" +
+				"      - working-directory: .\n" +
+				"        name: my_build\n" +
 				"        uses: actions/checkout@master\n" +
 				"      - name: Say something\n" +
 				"        run: echo lol\n" +
@@ -266,26 +282,28 @@ public class VisitorTest {
 				.env("GRADLE_ENTERPRISE_ACCESS_KEY", "${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}")
 				.env("GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED", "true")
 				.jobs(Job.$()
-						.name("check_yaml_consistency")
-						.label("Check YAML consistency")
-						//.if_("${{ input.echo == 'true' }}")
-						.runsOn("ubuntu-latest")
-						.step(Step.$()
-								.id("step-0")
-								.name("Check out")
-								.uses("actions/checkout@v3"))
-						.step(Step.$()
-								.id("step-1")
-								.name("Install Kotlin")
-								.run("sudo snap install --classic kotlin"))
-						.step(Step.$()
-								.id("step-2")
-								.if_("\"true\"")
-								.name("Consistency check")
-								.run("diff -u '.github/workflows/build.yaml' <('.github/workflows/build.main.kts')")
-								.env("HELLO", "ok")
-								.env("PAT", "rick")
-						),
+								.name("check_yaml_consistency")
+								.label("Check YAML consistency")
+								//.if_("${{ input.echo == 'true' }}")
+								.runsOn("ubuntu-latest")
+								.step(Step.$()
+										.name("Check out")
+										.id("step-0")
+										.uses("actions/checkout@v3"))
+								.step(Step.$()
+										.id("step-1")
+										.name("Install Kotlin")
+										.run("sudo snap install --classic kotlin"))
+								.step(Step.$()
+										.id("step-2")
+										.workingDirectory(".")
+										.if_("\"true\"")
+										.name("Consistency check")
+										.run("diff -u '.github/workflows/build.yaml' <('.github/workflows/build.main" +
+												".kts')")
+										.env("HELLO", "ok")
+										.env("PAT", "rick")
+								),
 						
 						Job.$()
 								.name("build_for_UbuntuLatest")

@@ -14,6 +14,7 @@ import org.example.collections.Outputs;
 import org.example.collections.Paths;
 import org.example.collections.PathsIgnore;
 import org.example.collections.Ports;
+import org.example.collections.Secrets;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.Tags;
@@ -21,6 +22,7 @@ import org.example.collections.TagsIgnore;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
+import org.example.collections.Workflows;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
@@ -33,6 +35,7 @@ import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
 import org.example.wrappers.Output;
+import org.example.wrappers.Secret;
 import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SingleElement;
 import org.example.yy.BranchProtectionRule;
@@ -72,16 +75,20 @@ import org.example.yy.Release;
 import org.example.yy.RepositoryDispatch;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
+import org.example.yy.Status;
 import org.example.yy.Step;
 import org.example.yy.Volume;
+import org.example.yy.Watch;
 import org.example.yy.Workflow;
+import org.example.yy.WorkflowCall;
 import org.example.yy.WorkflowDispatch;
+import org.example.yy.WorkflowRun;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
+public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	public DefaultVisitorImpl() {
 		//	support(new LeavesVisitorImpl());
@@ -91,6 +98,11 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Workflow workflow, Appender arg) {
 		workflow.name.accept(this, arg);
 		visitChildren(workflow.children, arg, true);
+	}
+	
+	@Override
+	public void visit(Workflows workflows, Appender arg) {
+		refactored(workflows, arg);
 	}
 	
 	@Override
@@ -164,6 +176,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(IssueComment issueComment, Appender arg) {
 		refactored(issueComment, arg);
 	}
+	
 	@Override
 	public void visit(Issues issues, Appender arg) {
 		refactored(issues, arg);
@@ -193,6 +206,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	public void visit(Project project, Appender arg) {
 		refactored(project, arg);
 	}
+	
 	@Override
 	public void visit(ProjectCard projectCard, Appender arg) {
 		refactored(projectCard, arg);
@@ -206,6 +220,29 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	@Override
 	public void visit(Public aPublic, Appender arg) {
 		refactored(aPublic, arg);
+	}
+	
+	@Override
+	public void visit(Status status, Appender arg) {
+		refactored(status, arg);
+	}
+	
+	@Override
+	public void visit(Watch watch, Appender arg) {
+		refactored(watch, arg);
+	}
+	
+	@Override
+	public void visit(WorkflowCall workflowCall, Appender arg) {
+		refactored(workflowCall, arg);
+	}
+	
+	@Override
+	public void visit(Secret secret, Appender arg) {
+		secret.name.accept(this, arg);
+		arg.increaseIndent();
+		visitChildren(secret.inputElements, arg, true);
+		arg.decreaseIndent();
 	}
 	
 	@Override
@@ -258,7 +295,6 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 		refactored(schedule, arg);
 	}
 	
-	@Override
 	protected void visitChildren(Collection<? extends Node> children, Appender arg, boolean addNewLine) {
 		if (addNewLine && !children.isEmpty()) {
 			arg.newLine();
@@ -270,7 +306,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 				arg.newLine();
 			}
 		}
- 	}
+	}
 	
 	@Override
 	public void visit(Branches branches, Appender arg) {
@@ -299,7 +335,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	
 	@Override
 	public void visit(Cron cron, Appender arg) {
-		 arg.append(cron.toString());
+		arg.append(cron.toString());
 	}
 	
 	@Override
@@ -320,6 +356,16 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 	@Override
 	public void visit(Inputs inputs, Appender arg) {
 		refactored(inputs, arg);
+	}
+	
+	@Override
+	public void visit(Secrets secrets, Appender arg) {
+		refactored(secrets, arg);
+	}
+	
+	@Override
+	public void visit(WorkflowRun workflowRun, Appender arg) {
+		refactored(workflowRun, arg);
 	}
 	
 	@Override
@@ -460,6 +506,7 @@ public class DefaultVisitorImpl extends AbstractVisitor<Appender> {
 		appender.append("- ");
 		appender.append(dashQuotedSingleElement.value);
 	}
+	
 	
 	@Override
 	public void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair, Appender appender) {

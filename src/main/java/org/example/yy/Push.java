@@ -1,7 +1,6 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.yy.support.BranchesIgnoreSupport;
 import org.example.yy.support.BranchesSupport;
 import org.example.yy.support.PathsIgnoreSupport;
@@ -51,8 +50,4 @@ public class Push extends WorkflowEvent implements BranchesSupport,
 		visitor.visit(this, arg);
 	}
 	
-	@Override
-	public void accept(VoidVisitor<?> visitor) {
-		visitor.visit(this);
-	}
 }

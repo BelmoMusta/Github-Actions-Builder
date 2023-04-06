@@ -1,11 +1,10 @@
 package example.tests;
 
 import org.example.Appender;
+import org.example.visitor.DefaultVisitorImpl;
+import org.example.wrappers.Output;
 import org.example.yy.Job;
 import org.example.yy.Step;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.InOut;
-import org.example.wrappers.Output;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +41,7 @@ public class JobOutputTest {
 				.needs("w")
 				.needs("b")
 				.outputs(Output.$().name("completed")
-						.type(InOut.Type.boolean_)
+						.type(Output.Type.boolean_)
 						.required())
 				.step(Step.$()
 						.name("Say something")

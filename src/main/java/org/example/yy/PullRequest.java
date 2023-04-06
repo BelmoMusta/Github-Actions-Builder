@@ -1,15 +1,12 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.yy.support.BranchesIgnoreSupport;
 import org.example.yy.support.BranchesSupport;
 import org.example.yy.support.PathsIgnoreSupport;
-import org.example.yy.support.TagsSupport;
 import org.example.yy.support.TypesSupport;
 
 public class PullRequest extends WorkflowEvent implements BranchesSupport,
-		TagsSupport,
 		PathsSupport,
 		BranchesIgnoreSupport,
 		PathsIgnoreSupport, TypesSupport {
@@ -32,10 +29,6 @@ public class PullRequest extends WorkflowEvent implements BranchesSupport,
 	
 	public PullRequest pathsIgnore(String... paths) {
 		return addPathsIgnore(this, paths);
-	}
-	
-	public PullRequest tags(String... paths) {
-		return addTags(this, paths);
 	}
 	
 	public PullRequest branches(String... branches) {
@@ -75,10 +68,5 @@ public class PullRequest extends WorkflowEvent implements BranchesSupport,
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 		visitor.visit(this, arg);
-	}
-	
-	@Override
-	public void accept(VoidVisitor<?> visitor) {
-		visitor.visit(this);
 	}
 }

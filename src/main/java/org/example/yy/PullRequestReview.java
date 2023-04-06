@@ -1,7 +1,6 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.yy.support.TypesSupport;
 
 public class PullRequestReview extends WorkflowEvent implements TypesSupport {
@@ -21,11 +20,6 @@ public class PullRequestReview extends WorkflowEvent implements TypesSupport {
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 		visitor.visit(this, arg);
-	}
-	
-	@Override
-	public void accept(VoidVisitor<?> visitor) {
-		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {

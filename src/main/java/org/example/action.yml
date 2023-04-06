@@ -240,7 +240,6 @@ project_column:
       out:
         description: "description"
         value: 1
-
     secrets:
       pass:
         description: "pass"
@@ -261,18 +260,18 @@ project_column:
           - 'a'
           - 'b'
         required: false
-  workflow_run:
-    branches :
-      -a
-    branches-ignore:
-      - b
-    types:
-      - completed
-      - in_progress
-      - requested
-    workflows:
-      - e
-      - f
+workflow_run:
+  branches :
+    -a
+  branches-ignore:
+    - b
+  types:
+    - completed
+    - in_progress
+    - requested
+  workflows:
+    - e
+    - f
 
 jobs:
   update-concourse-tasks:

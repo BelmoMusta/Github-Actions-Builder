@@ -1,5 +1,6 @@
 package org.example.visitor;
 
+import org.example.Appender;
 import org.example.collections.Branches;
 import org.example.collections.BranchesIgnore;
 import org.example.collections.Environments;
@@ -12,6 +13,7 @@ import org.example.collections.Outputs;
 import org.example.collections.Paths;
 import org.example.collections.PathsIgnore;
 import org.example.collections.Ports;
+import org.example.collections.Secrets;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.collections.Tags;
@@ -19,18 +21,19 @@ import org.example.collections.TagsIgnore;
 import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
+import org.example.collections.Workflows;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
 import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.DashedNameValuePair;
-import org.example.wrappers.InOut;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.Input;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Output;
+import org.example.wrappers.Secret;
 import org.example.wrappers.SimpleEntry;
 import org.example.wrappers.SingleElement;
 import org.example.yy.BranchProtectionRule;
@@ -71,14 +74,18 @@ import org.example.yy.Release;
 import org.example.yy.RepositoryDispatch;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
+import org.example.yy.Status;
 import org.example.yy.Step;
 import org.example.yy.Volume;
+import org.example.yy.Watch;
 import org.example.yy.Workflow;
+import org.example.yy.WorkflowCall;
 import org.example.yy.WorkflowDispatch;
+import org.example.yy.WorkflowRun;
 
 public interface Visitor<A> {
-	void support(Visitor<A> anotherVisitor);
 	void visit(Workflow workflow, A arg);
+	void visit(Workflows workflow, A arg);
 	
 	void visit(Paths paths, A arg);
 	void visit(Cron cron, A arg);
@@ -98,6 +105,8 @@ public interface Visitor<A> {
 	void visit(Events events, A arg);
 	
 	void visit(Inputs inputs, A arg);
+	void visit(Secrets secrets, A arg);
+	void visit(WorkflowRun workflowRun, A arg);
 	
 	void visit(Pipe pipe, A arg);
 	
@@ -127,7 +136,6 @@ public interface Visitor<A> {
 	
 	void visit(DashQuotedSingleElement dashQuotedSingleElement, A arg);
 	void visit(DashSingleElement dashSingleElement, A arg);
-	void visit(InOut inOut, A arg);
 	void visit(InOutElement<?> inOutElement, A arg);
 	void visit(Input input, A arg);
 	void visit(LabeledDashedName labeledDashedName, A arg);
@@ -140,7 +148,6 @@ public interface Visitor<A> {
 	
 	void visit(Container container, A arg);
 	void visit(Environment environment, A arg);
-	void visit(Image image, A arg);
 	void visit(Job job, A arg);
 	void visit(PullRequest pullRequest, A arg);
 	void visit(PullRequestTarget pullRequestTarget, A arg);
@@ -166,6 +173,13 @@ public interface Visitor<A> {
 	void visit(ProjectCard projectCard, A arg);
 	void visit(ProjectColumn projectColumn, A arg);
 	void visit(Public aPublic, A arg);
+	void visit(Status aPublic, A arg);
+	
+	void visit(Watch watch, A arg);
+	
+	void visit(WorkflowCall workflowCall, A arg);
+	void visit(Secret secret, A arg);
+	
 	void visit(PullRequestComment pullRequestComment, A arg);
 	void visit(PullRequestReview pullRequestReview, A arg);
 	void visit(PullRequestReviewComment pullRequestReviewComment, A arg);

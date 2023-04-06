@@ -6,7 +6,6 @@ import org.example.collections.Outputs;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
@@ -18,10 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Job extends Nodes {
-	
-	public Job(String name) {
-		super(name);
-	}
 	
 	public Job() {
 		super(null);
@@ -40,6 +35,7 @@ public class Job extends Nodes {
 		this.add(new LabeledName(label));
 		return this;
 	}
+	
 	public Job runsOn(String s) {
 		add(new NameValuePair("runs-on", s));
 		return this;
@@ -144,9 +140,6 @@ public class Job extends Nodes {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
-	}@Override
-	public void accept(VoidVisitor<?>visitor) {
-		visitor.visit(this);
+		visitor.visit(this, arg);
 	}
 }

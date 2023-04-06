@@ -1,7 +1,6 @@
 package org.example.collections;
 
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 
 public class Types extends Nodes {
 	public Types() {
@@ -13,8 +12,5 @@ public class Types extends Nodes {
 		visitor.visit(this, arg);
 	}
 	
-	@Override
-	public void accept(VoidVisitor<?>visitor) {
-		visitor.visit(this);
-	}
+	
 }

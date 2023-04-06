@@ -2,7 +2,6 @@ package org.example.yy;
 
 import org.example.Appender;
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
@@ -46,7 +45,12 @@ public class Cron extends Tag {
 								Set<CronItem> destination,
 								CronItem... elements) {
 		for (CronItem item : elements) {
-			if (item.apply(predicate)) {
+			boolean test = true;
+			if (item instanceof ValidableCronItem) {
+				ValidableCronItem validableCronItem = (ValidableCronItem) item;
+				test = validableCronItem.apply(predicate);
+			}
+			if (test) {
 				destination.add(item);
 			}
 		}
@@ -95,7 +99,7 @@ public class Cron extends Tag {
 		return conditionalAdd(hoursPredicate, this.hours, ranges);
 	}
 	
-	public Cron hours(CronItem... items) {
+	public Cron hours(ValidableCronItem... items) {
 		return conditionalAdd(hoursPredicate, this.hours, items);
 	}
 	
@@ -144,6 +148,7 @@ public class Cron extends Tag {
 		this.daysOfWeek.addAll(elements);
 		return this;
 	}
+	
 	public Cron dayOfweek(DaysOfWeek... dayOfweek) {
 		List<CronItem> elements = Arrays.asList(dayOfweek);
 		this.daysOfWeek.addAll(elements);
@@ -169,11 +174,6 @@ public class Cron extends Tag {
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 		visitor.visit(this, arg);
-	}
-	
-	@Override
-	public void accept(VoidVisitor<?> visitor) {
-		visitor.visit(this);
 	}
 	
 	@Override
@@ -206,7 +206,7 @@ public class Cron extends Tag {
 				.collect(Collectors.joining(","));
 	}
 	
-	public static class Periodic implements CronItem {
+	public static class Periodic implements ValidableCronItem {
 		int every;
 		int from;
 		
@@ -262,13 +262,9 @@ public class Cron extends Tag {
 			return from + "-" + to;
 		}
 		
-		@Override
-		public boolean apply(Predicate<Integer> predicate) {
-			return from.compareTo(to) < 0;
-		}
 	}
 	
-	public static class MonthRange implements CronItem {
+	public static class MonthRange implements ValidableCronItem {
 		Month from;
 		Month to;
 		
@@ -297,7 +293,7 @@ public class Cron extends Tag {
 		}
 	}
 	
-	public static class Range implements CronItem {
+	public static class Range implements ValidableCronItem {
 		int from;
 		int to;
 		int pastEvery;
@@ -344,22 +340,20 @@ public class Cron extends Tag {
 		private Singleton(Integer value) {this.value = value;}
 		
 		@Override
-		public boolean apply(Predicate<Integer> predicate) {
-			return value != null && predicate.test(value);
-		}
-		
-		@Override
 		public String toString() {
 			return value.toString();
 		}
 	}
 	
-	public interface CronItem {
+	public interface ValidableCronItem extends CronItem{
 		
 		boolean apply(Predicate<Integer> predicate);
 	}
 	
-	public enum DaysOfWeek implements CronItem{
+	public interface CronItem {
+	}
+	
+	public enum DaysOfWeek implements CronItem {
 		SUN,
 		MON,
 		TUE,
@@ -368,11 +362,6 @@ public class Cron extends Tag {
 		FRI,
 		SAT,
 		;
-		
-		@Override
-		public boolean apply(Predicate<Integer> predicate) {
-			return true;
-		}
 	}
 	
 	public enum Month {

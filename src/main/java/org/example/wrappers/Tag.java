@@ -6,8 +6,8 @@ import org.example.visitor.Visitor;
 public abstract class Tag implements Node {
 	
 	@Override
-	public boolean isNotEmpty() {
-		return true;
+	public String get() {
+		return "";
 	}
 	
 	@Override

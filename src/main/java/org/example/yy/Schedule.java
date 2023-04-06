@@ -1,7 +1,6 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.wrappers.DashedNameQuotedValuePair;
 
 public class Schedule extends WorkflowEvent {
@@ -33,8 +32,5 @@ public class Schedule extends WorkflowEvent {
 		visitor.visit(this, arg);
 	}
 	
-	@Override
-	public void accept(VoidVisitor<?> visitor) {
-		visitor.visit(this);
-	}
+	
 }

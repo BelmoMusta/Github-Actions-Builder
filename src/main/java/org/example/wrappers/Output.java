@@ -1,7 +1,7 @@
 package org.example.wrappers;
 
+import org.example.collections.Options;
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 
 public class Output extends InOut {
 	
@@ -15,27 +15,33 @@ public class Output extends InOut {
 	}
 	
 	public Output required() {
-		this.required = new InOutElement<>("required", true);
-		inputElements.add(this.required);
+		inputElements.add(new InOutElement<>("required", true));
 		return this;
 	}
 	
 	
 	public Output type(Type type) {
-		this.type = new InOutElement<>("type", type);
-		inputElements.add(this.type);
+		inputElements.add(new InOutElement<>("type", type));
+		return this;
+	}
+	public Output value(String value) {
+		inputElements.add(new InOutElement<>("value", value));
 		return this;
 	}
 	
 	public Output default_(String default_) {
-		this.default_ = new InOutElement<>("default", default_);
-		inputElements.add(this.default_);
+		inputElements.add( new InOutElement<>("default", default_));
+		return this;
+	}
+	public Output description(String desc) {
+		inputElements.add(new InOutElement<>("description", desc));
 		return this;
 	}
 	
 	public Output options(String... options) {
-		this.options.addAll(options);
-		inputElements.add(this.options);
+		Options opts = new Options();
+		opts.addAll(options);
+		inputElements.add(opts);
 		return this;
 	}
 	
@@ -44,8 +50,5 @@ public class Output extends InOut {
 		visitor.visit(this, arg);
 	}
 	
-	@Override
-	public void accept(VoidVisitor<?>visitor) {
-		visitor.visit(this);
-	}
+	
 }

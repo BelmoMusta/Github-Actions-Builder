@@ -31,11 +31,6 @@ public abstract class Nodes extends Tag {
 		}
 	}
 	
-	@Override
-	public boolean isNotEmpty() {
-		return !children.isEmpty();
-	}
-	
 	public <T extends Node> T findTag(Class<T> cls) {
 		for (Node tag : children) {
 			if (cls == tag.getClass()) {

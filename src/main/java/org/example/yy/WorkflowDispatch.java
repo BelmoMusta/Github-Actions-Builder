@@ -1,23 +1,18 @@
 package org.example.yy;
 
-import org.example.collections.Inputs;
 import org.example.visitor.Visitor;
-import org.example.visitor.VoidVisitor;
 import org.example.wrappers.Input;
+import org.example.yy.support.InputSupport;
 
-public class WorkflowDispatch extends WorkflowEvent {
+public class WorkflowDispatch extends WorkflowEvent implements InputSupport {
 	
 	protected WorkflowDispatch() {
 		super("workflow_dispatch");
 	}
 	
 	public WorkflowDispatch inputs(Input... inputs) {
-		Inputs innerInputs = new Inputs();
-		for (Input input : inputs) {
-			innerInputs.add(input);
-		}
-		this.add(innerInputs);
-		return this;
+		return addInputs(this, inputs);
+		
 	}
 	
 	public static WorkflowDispatch $(){
@@ -27,9 +22,6 @@ public class WorkflowDispatch extends WorkflowEvent {
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 visitor.visit(this, arg);
-	}@Override
-	public void accept(VoidVisitor<?>visitor) {
-		visitor.visit(this);
 	}
 	
 }
