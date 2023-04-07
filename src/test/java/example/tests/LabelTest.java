@@ -1,6 +1,5 @@
 package example.tests;
 
-import org.example.yy.BranchProtectionRule;
 import org.example.yy.Label;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -3,12 +3,10 @@ package example.tests;
 import org.example.Appender;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
-import org.example.wrappers.InOut;
 import org.example.wrappers.Input;
 import org.example.wrappers.Output;
 import org.example.wrappers.Secret;
 import org.example.yy.WorkflowCall;
-import org.example.yy.WorkflowDispatch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

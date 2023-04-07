@@ -1,6 +1,5 @@
 package example.tests;
 
-import org.example.yy.IssueComment;
 import org.example.yy.Issues;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

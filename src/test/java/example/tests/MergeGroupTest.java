@@ -1,6 +1,5 @@
 package example.tests;
 
-import org.example.yy.CheckSuite;
 import org.example.yy.MergeGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

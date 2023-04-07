@@ -9,14 +9,15 @@ import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
+import org.example.wrappers.Node;
 import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Job extends Nodes {
+	public Node label;
 	
 	public Job() {
 		super(null);
@@ -26,13 +27,13 @@ public class Job extends Nodes {
 		return new Job();
 	}
 	
-	public Job name(String name) {
-		this.name = new SingleElement(name);
+	public Job label(String label) {
+		this.label = new SingleElement(label);
 		return this;
 	}
 	
-	public Job label(String label) {
-		this.add(new LabeledName(label));
+	public Job name(String name) {
+		this.add(new LabeledName(name));
 		return this;
 	}
 	
@@ -82,14 +83,6 @@ public class Job extends Nodes {
 		return needs(Arrays.asList(jobs));
 	}
 	
-	public Job needs(Job... jobs) {
-		List<String> collectedJobs = Arrays.stream(jobs)
-				.map(Job::get)
-				.collect(Collectors.toList());
-		return needs(collectedJobs);
-		
-	}
-	
 	public Job env(String name, String value) {
 		return getEnv(this, name, value);
 	}
@@ -127,19 +120,37 @@ public class Job extends Nodes {
 		return this;
 	}
 	
-	public Job explicitName() {
-		String name = super.name.get();
-		add(new LabeledName(name));
-		return this;
-	}
-	
-	@Override
-	public String get() {
-		return name.get();
-	}
-	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 		visitor.visit(this, arg);
+	}
+	
+	public Job cancelTimeOutMinutes(int minutes) {
+		add(new NameValuePair("cancel-timeout-minutes", String.valueOf(minutes)));
+		return this;
+	}
+	
+	public Job concurrency(Concurrency concurrency) {
+		add(concurrency);
+		return this;
+	}
+	
+	public Job environment(String evironment) {
+		return this;
+	}
+	
+	public Job continueOnError(boolean continueOnError) {
+		this.add(new NameValuePair("continue-on-error", String.valueOf(continueOnError)));
+		return this;
+	}
+	
+	public Job defaults(Defaults defaults) {
+		this.add(defaults);
+		return this;
+	}
+	
+	public Job permissions(Permissions permissions) {
+		add(permissions);
+		return this;
 	}
 }

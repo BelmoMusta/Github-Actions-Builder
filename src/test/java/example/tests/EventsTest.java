@@ -1,13 +1,13 @@
 package example.tests;
 
 import org.example.Appender;
+import org.example.collections.Events;
+import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.Visitor;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestTarget;
 import org.example.yy.Push;
 import org.example.yy.WorkflowDispatch;
-import org.example.collections.Events;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.visitor.Visitor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

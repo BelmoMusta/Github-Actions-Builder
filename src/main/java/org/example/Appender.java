@@ -1,74 +1,48 @@
 package org.example;
 
-import org.example.wrappers.Node;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.function.Predicate;
-
 public class Appender {
 	private int indent;
 	StringBuilder stringBuilder = new StringBuilder();
+	
 	public Appender indent() {
 		indent(indent);
 		return this;
 	}
+	
 	public Appender indent(int amount) {
-		for (int i = 0; i < amount; i++) {
-			stringBuilder.append("  ");
-		}
+		stringBuilder.append("  ".repeat(Math.max(0, amount)));
 		return this;
 	}
 	
 	public Appender appendSingleQuote(String str) {
-		stringBuilder.append("'");
+		return appendWithQuotes(str, false);
+	}
+	public Appender appendDoubleQuote(String str) {
+		return appendWithQuotes(str, true);
+	}
+	
+	private Appender appendWithQuotes(String str, boolean doubleQuotes) {
+		String quotes = "'";
+		if (doubleQuotes) {
+			quotes = "\"";
+		}
+		stringBuilder.append(quotes);
 		stringBuilder.append(str);
-		stringBuilder.append("'");
+		stringBuilder.append(quotes);
 		
 		return this;
 	}
 	
 	
 	public Appender newLine() {
-		  stringBuilder.append("\n");
-		  return this;
+		stringBuilder.append("\n");
+		return this;
 	}
 	
 	public Appender append(String str) {
 		if (str != null) {
 			stringBuilder.append(str);
 		}
-		return this;
-	}
-	public Appender append(Node node) {
-		if (node != null) {
-			indent(indent);
-			stringBuilder.append(node);
-		}
-		return this;
-	}
-	
-	public <T, R> Appender appendIfOrElse(T str, Predicate<T> predicate, R orElse) {
-		if (predicate.test(str)) {
-			stringBuilder.append(str);
-		} else {
-			append(orElse.toString());
-		}
-		return this;
-	}
-	
-	public Appender appendCollection(Collection<Node> elements) {
-		
-		ArrayList<Node> tags = new ArrayList<>(elements);
-		
-		for (int i = 0; i < tags.size(); i++) {
-			Node node = tags.get(i);
-			append(node);
-			if (i < tags.size() - 1) {
-				newLine();
-			}
-		}
-		
 		return this;
 	}
 	
@@ -78,9 +52,10 @@ public class Appender {
 	}
 	
 	public void increaseIndent() {
-		indent ++;
+		indent++;
 	}
+	
 	public void decreaseIndent() {
-		indent --;
+		indent--;
 	}
 }

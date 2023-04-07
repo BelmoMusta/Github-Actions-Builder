@@ -1,6 +1,9 @@
 package example.tests;
 
 import org.example.Appender;
+import org.example.visitor.DefaultVisitorImpl;
+import org.example.wrappers.Input;
+import org.example.wrappers.Output;
 import org.example.yy.Container;
 import org.example.yy.Job;
 import org.example.yy.Pipe;
@@ -12,9 +15,6 @@ import org.example.yy.Service;
 import org.example.yy.Step;
 import org.example.yy.Workflow;
 import org.example.yy.WorkflowDispatch;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Input;
-import org.example.wrappers.Output;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public class VisitorTest {
 			"  workflow_dispatch:\n" +
 			"    inputs:\n" +
 			"      logLevel:\n" +
-			"        description: 'log level'\n" +
+			"        description: \"log level\"\n" +
 			"        type: choice\n" +
 			"        required: true\n" +
 			"        default: 'warning'\n" +
@@ -135,13 +135,13 @@ public class VisitorTest {
 										.description("log level")
 										.type(Input.Type.choice)
 										.required()
-										.default_("warning")
+										.default_("'warning'")
 										.options("info", "warning", "error"),
 								Input.$().name("settings")
 										.required()))
 				.env("message", "'conversation'")
 				.env("my_token", "${{ secrets.GITHUB_TOKEN }}")
-				.jobs(Job.$().name("my_build")
+				.jobs(Job.$().label("my_build")
 								.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
 								.step(Step.$().run("pwd"))
@@ -157,7 +157,7 @@ public class VisitorTest {
 								.outputs(Output.$().name("result")
 										.type(Output.Type.string_)),
 						
-						Job.$().name("my_job")
+						Job.$().label("my_job")
 								.id("id-1")
 								.needs("my_build", "another_one")
 								.container(Container.$().image("node:10.16-jessie")
@@ -194,7 +194,7 @@ public class VisitorTest {
 				"  workflow_dispatch:\n" +
 				"    inputs:\n" +
 				"      logLevel:\n" +
-				"        description: 'log level'\n" +
+				"        description: \"log level\"\n" +
 				"        type: choice\n" +
 				"        required: true\n" +
 				"        default: 'warning'\n" +
@@ -274,7 +274,7 @@ public class VisitorTest {
 												.description("log level")
 												.type(Input.Type.choice)
 												.required()
-												.default_("warning")
+												.default_("'warning'")
 												.options("info", "warning", "debug"),
 										Input.$().name("settings")
 												.required()),
@@ -282,8 +282,8 @@ public class VisitorTest {
 				.env("GRADLE_ENTERPRISE_ACCESS_KEY", "${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}")
 				.env("GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED", "true")
 				.jobs(Job.$()
-								.name("check_yaml_consistency")
-								.label("Check YAML consistency")
+								.label("check_yaml_consistency")
+								.name("Check YAML consistency")
 								//.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
 								.step(Step.$()
@@ -306,7 +306,7 @@ public class VisitorTest {
 								),
 						
 						Job.$()
-								.name("build_for_UbuntuLatest")
+								.label("build_for_UbuntuLatest")
 								.runsOn("\"ubuntu-latest\"")
 								.env("COLOR", "blue")
 								.env("SIZE", "XXL")

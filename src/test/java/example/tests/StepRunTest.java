@@ -1,11 +1,11 @@
 package example.tests;
 
 import org.example.Appender;
+import org.example.visitor.DefaultVisitorImpl;
+import org.example.wrappers.Output;
 import org.example.yy.Job;
 import org.example.yy.Pipe;
 import org.example.yy.Step;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Output;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -32,16 +32,15 @@ public class StepRunTest {
 	@Test
 	public void main() {
 		Job job = Job.$()
+				.label("my_build")
 				.name("my_build")
-				.explicitName()
 				.id("first-job")
 				.runsOn("ubuntu-latest")
 				.step(Step.$()
 						.uses("actions/checkout@master")
 						.name("Checking out our code")
 				)
-				.needs(Job.$()
-						.name("a"))
+				.needs("a")
 				.needs("w")
 				.needs("b")
 				.outputs(Output.$()
@@ -50,7 +49,6 @@ public class StepRunTest {
 						.required())
 				.step(Step.$()
 						.run(Pipe.$().entries("echo", "lol"))
-						//.workingDirectory(".") // TODO
 						.name("Say something")
 				);
 		DefaultVisitorImpl visitor = new DefaultVisitorImpl();

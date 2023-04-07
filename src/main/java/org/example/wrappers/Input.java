@@ -13,7 +13,7 @@ public class Input extends InOut {
 	}
 	
 	public Input description(String description) {
-		inputElements.add(new InOutElement<>("description", description));
+		inputElements.add(new StringElement("description", description));
 		return this;
 	}
 	
@@ -33,7 +33,7 @@ public class Input extends InOut {
 	}
 	
 	public Input default_(String default_) {
-		inputElements.add(new InOutElement<>("default", default_));
+		inputElements.add(new InOutElement<>("default", (default_)));
 		return this;
 	}
 	

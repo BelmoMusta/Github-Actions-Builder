@@ -1,6 +1,5 @@
 package example.tests;
 
-import org.example.yy.Fork;
 import org.example.yy.Gollum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

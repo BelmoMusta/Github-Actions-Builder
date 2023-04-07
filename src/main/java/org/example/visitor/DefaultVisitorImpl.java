@@ -23,6 +23,7 @@ import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
 import org.example.collections.Workflows;
+import org.example.wrappers.Credentials;
 import org.example.wrappers.DashQuotedSingleElement;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
@@ -41,9 +42,11 @@ import org.example.wrappers.SingleElement;
 import org.example.yy.BranchProtectionRule;
 import org.example.yy.CheckRun;
 import org.example.yy.CheckSuite;
+import org.example.yy.Concurrency;
 import org.example.yy.Container;
 import org.example.yy.Create;
 import org.example.yy.Cron;
+import org.example.yy.Defaults;
 import org.example.yy.Delete;
 import org.example.yy.Deployment;
 import org.example.yy.DeploymentStatus;
@@ -59,6 +62,7 @@ import org.example.yy.Label;
 import org.example.yy.MergeGroup;
 import org.example.yy.Milestone;
 import org.example.yy.PageBuild;
+import org.example.yy.Permissions;
 import org.example.yy.Pipe;
 import org.example.yy.Project;
 import org.example.yy.ProjectCard;
@@ -73,6 +77,7 @@ import org.example.yy.Push;
 import org.example.yy.RegistryPackage;
 import org.example.yy.Release;
 import org.example.yy.RepositoryDispatch;
+import org.example.yy.Run;
 import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Status;
@@ -92,6 +97,34 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	public DefaultVisitorImpl() {
 		//	support(new LeavesVisitorImpl());
+	}
+	
+	@Override
+	public void visit(Concurrency concurrency, Appender arg) {
+		refactored(concurrency, arg);
+	}
+	
+	@Override
+	public void visit(Credentials credentials, Appender arg) {
+		credentials.name.accept(this, arg);
+		arg.increaseIndent();
+		visitChildren(credentials.inputElements, arg, true);
+		arg.decreaseIndent();
+	}
+	
+	@Override
+	public void visit(Defaults defaults, Appender arg) {
+		refactored(defaults, arg);
+	}
+	
+	@Override
+	public void visit(Run run, Appender arg) {
+		refactored(run, arg);
+	}
+	
+	@Override
+	public void visit(Permissions permissions, Appender arg) {
+		refactored(permissions, arg);
 	}
 	
 	@Override
@@ -477,7 +510,14 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	@Override
 	public void visit(Job job, Appender arg) {
-		refactored(job, arg);
+		if (job.label != null) {
+			job.label.accept(this, arg);
+			
+		}
+		arg.increaseIndent();
+		visitChildren(job.children, arg, true);
+		arg.decreaseIndent();
+		
 	}
 	
 	@Override
@@ -553,8 +593,8 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 		appender.indent();
 		appender.append(inOutElement.name);
 		appender.append(": ");
-		if (inOutElement.isString()) {
-			appender.appendSingleQuote(inOutElement.value);
+		if (inOutElement.withDoubleQuotes()) {
+			appender.appendDoubleQuote(inOutElement.value);
 		} else {
 			appender.append(inOutElement.value);
 		}

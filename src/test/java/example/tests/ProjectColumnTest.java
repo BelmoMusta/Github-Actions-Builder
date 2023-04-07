@@ -1,6 +1,5 @@
 package example.tests;
 
-import org.example.yy.ProjectCard;
 import org.example.yy.ProjectColumn;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

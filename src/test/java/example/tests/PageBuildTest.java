@@ -1,6 +1,5 @@
 package example.tests;
 
-import org.example.yy.Milestone;
 import org.example.yy.PageBuild;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

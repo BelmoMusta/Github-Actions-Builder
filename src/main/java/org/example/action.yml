@@ -1,5 +1,4 @@
 name: Concourse Tasks Tag Update
-
 on:
   release:
     types:
@@ -272,7 +271,6 @@ workflow_run:
   workflows:
     - e
     - f
-
 jobs:
   update-concourse-tasks:
     cancel-timeout-minutes: 5
@@ -291,7 +289,6 @@ jobs:
       credentials:
         username: "s"
         password: "ee"
-
     environment: NonProd
     runs-on: self-hosted
     continue-on-error: false
@@ -331,39 +328,29 @@ jobs:
           username: "s"
           password: "ee"
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
         continue-on-error: false
         id: eee
         if: dsd
         timeout-minutes: 2
-
         with:
           d: sd
         env:
           f: ok
-
-
       - name: Import Secrets
         id: secrets
         uses: hashicorp/vault-action@v2.5.0
         with:
-          url: https://vault.cfzcea.dev.desjardins.com
+          url: https://vault.hash.com
           method: approle
-          roleId:  ${{secrets.ROLEID}}
-          secretId:  ${{secrets.SECRETID}}
-          path: jenkins
           secrets: |
-            concourse/cloud-pipelines/github-access-token-pr value | RECETTES_TOKEN ;
-
+            concourse/cloud-pipelines/github-access-token-pr value | TOKEN ;
       - name: Set Up Python
         run: echo 1
         shell: a
-
       - name: Install Python Dependencies
         run: python -m pip install pygithub pyYaml
-
       - name: Update concourse-tasks tags
         run: python .github/workflows/scripts/maj-concourse-tasks.py
         env:

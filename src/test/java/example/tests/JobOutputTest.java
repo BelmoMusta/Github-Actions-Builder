@@ -29,15 +29,15 @@ public class JobOutputTest {
 	@Test
 	public void main() {
 		Job job = Job.$()
+				.label("my_build")
 				.name("my_build")
-				.explicitName()
 				.id("first-job")
 				.runsOn("ubuntu-latest")
 				.step(Step.$()
 						.name("Checking out our code")
 						.uses("actions/checkout@master")
 				)
-				.needs(Job.$().name("a"))
+ 				.needs("a")
 				.needs("w")
 				.needs("b")
 				.outputs(Output.$().name("completed")

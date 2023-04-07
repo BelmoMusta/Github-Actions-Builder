@@ -3,7 +3,6 @@ package example.tests;
 import org.example.Appender;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
-import org.example.yy.PullRequestReview;
 import org.example.yy.PullRequestReviewComment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

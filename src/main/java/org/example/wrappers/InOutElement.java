@@ -10,8 +10,9 @@ public class InOutElement<T> extends NameValuePair {
 		super.value = String.valueOf(value);
 	}
 	
-	public boolean isString() {
-		return inputValue instanceof String;
+	
+	public boolean withDoubleQuotes() {
+		return false;
 	}
 	
 	@Override

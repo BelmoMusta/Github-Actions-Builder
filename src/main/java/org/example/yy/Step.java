@@ -4,16 +4,15 @@ import org.example.collections.Nodes;
 import org.example.collections.Withs;
 import org.example.visitor.Visitor;
 import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.DashedId;
 import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.DashedNameValuePair;
-import org.example.wrappers.Id;
 import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
+import org.example.yy.support.IdSupport;
 
-public class Step extends Nodes {
+public class Step extends Nodes implements IdSupport {
 	
 	protected Step() {
 		super(null, true);
@@ -23,19 +22,17 @@ public class Step extends Nodes {
 		return new Step();
 	}
 	
-	public Step id(String name) {
-		final Node id;
-		if (children.isEmpty()) {
-			id = new DashedId(name);
-		} else {
-			id = new Id(name);
-		}
-		this.add(id);
-		return this;
+	public Step id(String id) {
+		return addId(this, id);
 	}
 	
 	public Step if_(String condition) {
 		add(new NameValuePair("if", condition));
+		return this;
+	}
+	
+	public Step timeoutMinutes(int minutes) {
+		add(new NameValuePair("timeout-minutes", String.valueOf(minutes)));
 		return this;
 	}
 	
@@ -119,9 +116,22 @@ public class Step extends Nodes {
 		this.add(pipe);
 		return this;
 	}
+	public Step continueOnError(boolean continueOnError) {
+		this.add(new NameValuePair("continue-on-error", String.valueOf(continueOnError)));
+		return this;
+	}
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
 visitor.visit(this, arg);
+	}
+	
+	public Step shell(String shell) {
+		if (children.isEmpty()) {
+			this.add(new DashedNameValuePair("shell", shell));
+		} else {
+			this.add(new NameValuePair("shell", shell));
+		}
+		return this;
 	}
 }

@@ -13,7 +13,7 @@ public class Secret extends InOut {
 	}
 	
 	public Secret description(String description) {
-		inputElements.add(new InOutElement<>("description", description));
+		inputElements.add(new StringElement("description", description));
 		return this;
 	}
 	

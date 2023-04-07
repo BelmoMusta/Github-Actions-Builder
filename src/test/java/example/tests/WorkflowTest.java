@@ -1,6 +1,9 @@
 package example.tests;
 
 import org.example.Appender;
+import org.example.visitor.DefaultVisitorImpl;
+import org.example.wrappers.Input;
+import org.example.wrappers.Output;
 import org.example.yy.Container;
 import org.example.yy.Job;
 import org.example.yy.PullRequest;
@@ -11,9 +14,6 @@ import org.example.yy.Service;
 import org.example.yy.Step;
 import org.example.yy.Workflow;
 import org.example.yy.WorkflowDispatch;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Input;
-import org.example.wrappers.Output;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,14 +40,14 @@ public class WorkflowTest {
 												.description("Log Level")
 												.type(Input.Type.choice)
 												.required()
-												.default_("warning")
+												.default_("'warning'")
 												.options("info", "warning", "error"),
 										Input.$()
 												.name("settings")
 												.required()))
 				.env("message", "'conversation'")
 				.env("my_token", "${{ secrets.GITHUB_TOKEN }}")
-				.jobs(Job.$().name("my_build")
+				.jobs(Job.$().label("my_build")
 								.if_("${{ input.echo == 'true' }}")
 								.runsOn("ubuntu-latest")
 								.step(Step.$().name("my_build")
@@ -58,7 +58,7 @@ public class WorkflowTest {
 										.type(Output.Type.string_)),
 						
 						Job.$()
-								.name("my_job")
+								.label("my_job")
 								.id("id-1")
 								.needs("my_build", "another_one")
 								.container(Container.$().image("node:10.16-jessie")
@@ -96,7 +96,7 @@ public class WorkflowTest {
 				"  workflow_dispatch:\n" +
 				"    inputs:\n" +
 				"      logLevel:\n" +
-				"        description: 'Log Level'\n" +
+				"        description: \"Log Level\"\n" +
 				"        type: choice\n" +
 				"        required: true\n" +
 				"        default: 'warning'\n" +

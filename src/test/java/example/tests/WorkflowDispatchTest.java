@@ -1,10 +1,10 @@
 package example.tests;
 
 import org.example.Appender;
-import org.example.yy.WorkflowDispatch;
 import org.example.visitor.DefaultVisitorImpl;
 import org.example.visitor.Visitor;
 import org.example.wrappers.Input;
+import org.example.yy.WorkflowDispatch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class WorkflowDispatchTest {
 						.description("log level")
 						.type(Input.Type.choice)
 						.required()
-						.default_("warning")
+						.default_("'warning'")
 						.options("info", "warning", "debug"),
 				Input.$().name("settings")
 						.required());
@@ -26,7 +26,7 @@ public class WorkflowDispatchTest {
 		String expected = "workflow_dispatch:\n" +
 				"  inputs:\n" +
 				"    logLevel:\n" +
-				"      description: 'log level'\n" +
+				"      description: \"log level\"\n" +
 				"      type: choice\n" +
 				"      required: true\n" +
 				"      default: 'warning'\n" +

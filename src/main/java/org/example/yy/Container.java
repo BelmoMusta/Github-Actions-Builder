@@ -2,12 +2,13 @@ package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.collections.Ports;
-import org.example.collections.Volumes;
 import org.example.visitor.Visitor;
+import org.example.wrappers.Credentials;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
+import org.example.yy.support.VolumesSupport;
 
-public class Container extends Nodes {
+public class Container extends Nodes implements VolumesSupport {
 	
 	protected Container() {
 		super("container");
@@ -32,17 +33,17 @@ public class Container extends Nodes {
 		return this;
 	}
 	
-	public Container volume(String name, String value) {
-		Volumes volumes = findTag(Volumes.class);
-		if (volumes == null) {
-			volumes = new Volumes();
-			add(volumes);
+	public Container port(int... ports) {
+		Ports aPorts = new Ports();
+		for (int port : ports) {
+			aPorts.add(new DashSingleElement(String.valueOf(port)));
 		}
-		Volume volume = new Volume();
-		volume.name = name;
-		volume.value = value;
-		volumes.add(volume);
+		this.add(aPorts);
 		return this;
+	}
+	
+	public Container volume(String name, String value) {
+		return addVolume(this, name, value);
 	}
 	
 	public Container env(String name, String value) {
@@ -57,7 +58,11 @@ public class Container extends Nodes {
 	
 	@Override
 	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+		visitor.visit(this, arg);
 	}
 	
+	public Container credentials(Credentials credentials) {
+		add(credentials);
+		return this;
+	}
 }
