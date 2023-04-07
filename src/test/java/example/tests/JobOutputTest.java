@@ -41,7 +41,7 @@ public class JobOutputTest {
 				.needs("w")
 				.needs("b")
 				.outputs(Output.$().name("completed")
-						.type(Output.Type.boolean_)
+						.type(Output.Type.BOOLEAN)
 						.required())
 				.step(Step.$()
 						.name("Say something")

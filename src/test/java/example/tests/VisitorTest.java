@@ -133,7 +133,7 @@ public class VisitorTest {
 						PullRequestTarget.$(),
 						WorkflowDispatch.$().inputs(Input.$().name("logLevel")
 										.description("log level")
-										.type(Input.Type.choice)
+										.type(Input.Type.CHOICE)
 										.required()
 										.default_("'warning'")
 										.options("info", "warning", "error"),
@@ -155,7 +155,7 @@ public class VisitorTest {
 								.step(Step.$().name("Say something")
 										.run("echo lol"))
 								.outputs(Output.$().name("result")
-										.type(Output.Type.string_)),
+										.type(Output.Type.STRING)),
 						
 						Job.$().label("my_job")
 								.id("id-1")
@@ -272,7 +272,7 @@ public class VisitorTest {
 								.inputs(Input.$()
 												.name("logLevel")
 												.description("log level")
-												.type(Input.Type.choice)
+												.type(Input.Type.CHOICE)
 												.required()
 												.default_("'warning'")
 												.options("info", "warning", "debug"),

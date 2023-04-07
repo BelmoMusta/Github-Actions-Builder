@@ -45,7 +45,7 @@ public class StepRunTest {
 				.needs("b")
 				.outputs(Output.$()
 						.name("completed")
-						.type(Output.Type.boolean_)
+						.type(Output.Type.BOOLEAN)
 						.required())
 				.step(Step.$()
 						.run(Pipe.$().entries("echo", "lol"))

@@ -5,7 +5,6 @@ import org.example.wrappers.LabeledName;
 import org.example.wrappers.Node;
 import org.example.wrappers.SingleElement;
 import org.example.wrappers.Tag;
-import org.example.yy.Environment;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,16 +37,5 @@ public abstract class Nodes extends Tag {
 			}
 		}
 		return null;
-	}
-	
-	protected static <N extends Nodes> N getEnv(N node, String name, String value){
-		Environments environments = node.findTag(Environments.class);
-		if (environments == null) {
-			environments = new Environments();
-			node.add(environments);
-		}
-		Environment environment = new Environment(name, value);
-		environments.add(environment);
-		return node;
 	}
 }

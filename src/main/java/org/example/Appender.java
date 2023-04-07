@@ -2,23 +2,21 @@ package org.example;
 
 public class Appender {
 	private int indent;
-	StringBuilder stringBuilder = new StringBuilder();
+	private final StringBuilder stringBuilder = new StringBuilder();
 	
-	public Appender indent() {
+	public void indent() {
 		indent(indent);
-		return this;
 	}
 	
-	public Appender indent(int amount) {
+	public void indent(int amount) {
 		stringBuilder.append("  ".repeat(Math.max(0, amount)));
-		return this;
 	}
 	
-	public Appender appendSingleQuote(String str) {
-		return appendWithQuotes(str, false);
+	public void appendSingleQuote(String str) {
+		 appendWithQuotes(str, false);
 	}
-	public Appender appendDoubleQuote(String str) {
-		return appendWithQuotes(str, true);
+	public void appendDoubleQuote(String str) {
+		appendWithQuotes(str, true);
 	}
 	
 	private Appender appendWithQuotes(String str, boolean doubleQuotes) {
@@ -34,16 +32,14 @@ public class Appender {
 	}
 	
 	
-	public Appender newLine() {
+	public void newLine() {
 		stringBuilder.append("\n");
-		return this;
 	}
 	
-	public Appender append(String str) {
+	public void append(String str) {
 		if (str != null) {
 			stringBuilder.append(str);
 		}
-		return this;
 	}
 	
 	@Override

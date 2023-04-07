@@ -15,7 +15,7 @@ public class WorkflowCallTest {
 	public void test() {
 		WorkflowCall workflowDispatch = WorkflowCall.$()
 				.inputs(Input.$().name("in")
-						.type(Input.Type.boolean_)
+						.type(Input.Type.BOOLEAN)
 						.default_("true")
 						.description("description")
 						.required(false))

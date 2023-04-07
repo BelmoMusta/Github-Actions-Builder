@@ -5,11 +5,12 @@ import org.example.collections.Jobs;
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
 import org.example.wrappers.LabeledName;
+import org.example.yy.support.EnvSupport;
 
-public class Workflow extends Nodes {
+public class Workflow extends Nodes implements EnvSupport {
 	
-	protected Workflow(String name) {
-		super(name, false);
+	protected Workflow() {
+		super(null, false);
 	}
 	
 	public Workflow name(String name) {
@@ -18,7 +19,7 @@ public class Workflow extends Nodes {
 	}
 	
 	public static Workflow $() {
-		return new Workflow(null);
+		return new Workflow();
 	}
 	
 	public Workflow on(WorkflowEvent... events) {

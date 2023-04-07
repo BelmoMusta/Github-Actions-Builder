@@ -38,7 +38,7 @@ public class WorkflowTest {
 								.inputs(Input.$()
 												.name("logLevel")
 												.description("Log Level")
-												.type(Input.Type.choice)
+												.type(Input.Type.CHOICE)
 												.required()
 												.default_("'warning'")
 												.options("info", "warning", "error"),
@@ -55,7 +55,7 @@ public class WorkflowTest {
 								.step(Step.$().name("Say something")
 										.run("echo lol"))
 								.outputs(Output.$().name("result")
-										.type(Output.Type.string_)),
+										.type(Output.Type.STRING)),
 						
 						Job.$()
 								.label("my_job")

@@ -10,9 +10,10 @@ import org.example.wrappers.LabeledDashedName;
 import org.example.wrappers.LabeledName;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
+import org.example.yy.support.EnvSupport;
 import org.example.yy.support.IdSupport;
 
-public class Step extends Nodes implements IdSupport {
+public class Step extends Nodes implements EnvSupport, IdSupport {
 	
 	protected Step() {
 		super(null, true);

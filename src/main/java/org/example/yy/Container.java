@@ -6,9 +6,10 @@ import org.example.visitor.Visitor;
 import org.example.wrappers.Credentials;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
+import org.example.yy.support.EnvSupport;
 import org.example.yy.support.VolumesSupport;
 
-public class Container extends Nodes implements VolumesSupport {
+public class Container extends Nodes implements EnvSupport, VolumesSupport {
 	
 	protected Container() {
 		super("container");

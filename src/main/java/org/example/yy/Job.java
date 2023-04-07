@@ -12,11 +12,12 @@ import org.example.wrappers.NameValuePair;
 import org.example.wrappers.Node;
 import org.example.wrappers.Output;
 import org.example.wrappers.SingleElement;
+import org.example.yy.support.EnvSupport;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Job extends Nodes {
+public class Job extends Nodes implements EnvSupport {
 	public Node label;
 	
 	public Job() {

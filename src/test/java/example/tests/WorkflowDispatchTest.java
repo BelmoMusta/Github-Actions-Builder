@@ -14,7 +14,7 @@ public class WorkflowDispatchTest {
 		WorkflowDispatch workflowDispatch = WorkflowDispatch.$()
 				.inputs(Input.$().name("logLevel")
 						.description("log level")
-						.type(Input.Type.choice)
+						.type(Input.Type.CHOICE)
 						.required()
 						.default_("'warning'")
 						.options("info", "warning", "debug"),

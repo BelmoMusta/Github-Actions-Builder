@@ -29,6 +29,7 @@ import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.DashedId;
 import org.example.wrappers.DashedNameQuotedValuePair;
 import org.example.wrappers.DashedNameValuePair;
+import org.example.wrappers.InOut;
 import org.example.wrappers.InOutElement;
 import org.example.wrappers.Input;
 import org.example.wrappers.LabeledDashedName;
@@ -95,10 +96,6 @@ import java.util.List;
 
 public class DefaultVisitorImpl implements Visitor<Appender> {
 	
-	public DefaultVisitorImpl() {
-		//	support(new LeavesVisitorImpl());
-	}
-	
 	@Override
 	public void visit(Concurrency concurrency, Appender arg) {
 		refactored(concurrency, arg);
@@ -106,10 +103,7 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	@Override
 	public void visit(Credentials credentials, Appender arg) {
-		credentials.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(credentials.inputElements, arg, true);
-		arg.decreaseIndent();
+		visitInOut(credentials, arg);
 	}
 	
 	@Override
@@ -272,10 +266,7 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	@Override
 	public void visit(Secret secret, Appender arg) {
-		secret.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(secret.inputElements, arg, true);
-		arg.decreaseIndent();
+		visitInOut(secret, arg);
 	}
 	
 	@Override
@@ -527,10 +518,7 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	@Override
 	public void visit(Output output, Appender arg) {
-		output.name.accept(this, arg);
-		arg.increaseIndent();
-		visitChildren(output.inputElements, arg, true);
-		arg.decreaseIndent();
+		visitInOut(output, arg);
 	}
 	
 	@Override
@@ -610,6 +598,10 @@ public class DefaultVisitorImpl implements Visitor<Appender> {
 	
 	@Override
 	public void visit(Input input, Appender arg) {
+		visitInOut(input, arg);
+	}
+	
+	private void visitInOut(InOut input, Appender arg) {
 		input.name.accept(this, arg);
 		arg.increaseIndent();
 		visitChildren(input.inputElements, arg, true);

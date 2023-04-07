@@ -361,7 +361,6 @@ public class Cron extends Tag {
 		THU,
 		FRI,
 		SAT,
-		;
 	}
 	
 	public enum Month {
@@ -377,6 +376,5 @@ public class Cron extends Tag {
 		OCT,
 		NOV,
 		DEC,
-		;
 	}
 }

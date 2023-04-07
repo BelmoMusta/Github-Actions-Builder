@@ -7,15 +7,16 @@ import org.example.wrappers.Credentials;
 import org.example.wrappers.DashSingleElement;
 import org.example.wrappers.NameValuePair;
 import org.example.wrappers.SingleElement;
+import org.example.yy.support.EnvSupport;
 import org.example.yy.support.VolumesSupport;
 
-public class Service extends Nodes implements VolumesSupport {
-	protected Service(String name) {
-		super(name);
+public class Service extends Nodes implements EnvSupport, VolumesSupport {
+	protected Service() {
+		super(null);
 	}
 	
 	public static Service $() {
-		return new Service(null);
+		return new Service();
 	}
 	
 	public Service name(String name) {
