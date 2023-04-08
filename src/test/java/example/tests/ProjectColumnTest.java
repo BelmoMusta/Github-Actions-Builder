@@ -9,22 +9,22 @@ public class ProjectColumnTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		ProjectColumn projectColumn = ProjectColumn.$();
-		projectColumn.accept(visitor, appender);
+		projectColumn.accept(visitor);
 		String expected = "project_column:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
 	public void releaseTypesTest() {
 		ProjectColumn projectCard = ProjectColumn.$()
 				.types(ProjectColumn.Type.values());
-		projectCard.accept(visitor, appender);
+		projectCard.accept(visitor);
 		String expected = "project_column:\n" +
 				"  types:\n" +
 				"    - created\n" +
 				"    - deleted\n" +
 				"    - moved\n" +
 				"    - updated";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

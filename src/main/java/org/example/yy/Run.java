@@ -2,7 +2,7 @@ package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
-import org.example.wrappers.NameValuePair;
+import org.example.wrappers.leaves.NameValuePair;
 
 public class Run extends Nodes {
 	public Run() {
@@ -24,7 +24,7 @@ public class Run extends Nodes {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

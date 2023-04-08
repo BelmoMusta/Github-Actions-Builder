@@ -59,6 +59,7 @@ public class PullRequest extends WorkflowEvent implements BranchesSupport,
 		UNLOCKED,
 		
 		;
+		
 		@Override
 		public String toString() {
 			return super.toString().toLowerCase();
@@ -66,7 +67,7 @@ public class PullRequest extends WorkflowEvent implements BranchesSupport,
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

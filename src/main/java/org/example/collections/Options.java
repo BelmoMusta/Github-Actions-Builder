@@ -1,8 +1,8 @@
 package org.example.collections;
 
 import org.example.visitor.Visitor;
-import org.example.wrappers.DashQuotedSingleElement;
-import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.leaves.DashQuotedSingleElement;
+import org.example.wrappers.leaves.DashSingleElement;
 
 public class Options extends Nodes {
 	
@@ -18,8 +18,8 @@ public class Options extends Nodes {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	

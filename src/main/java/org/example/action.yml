@@ -253,14 +253,14 @@ project_column:
         required: false
       outputs:
         type: choice
-        default : "q"
+        default: "q"
         description: "ds"
         options:
           - 'a'
           - 'b'
         required: false
 workflow_run:
-  branches :
+  branches:
     -a
   branches-ignore:
     - b
@@ -280,7 +280,7 @@ jobs:
     container:
       image: ubuntu
       env:
-        h : "h"
+        h: "h"
       options: --cpu1
       ports:
         - 80

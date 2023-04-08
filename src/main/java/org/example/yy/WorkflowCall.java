@@ -1,9 +1,9 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.wrappers.Input;
-import org.example.wrappers.Output;
-import org.example.wrappers.Secret;
+import org.example.wrappers.leaves.Input;
+import org.example.wrappers.leaves.Output;
+import org.example.wrappers.leaves.Secret;
 import org.example.yy.support.InputSupport;
 import org.example.yy.support.OutputSupport;
 import org.example.yy.support.SecretSupport;
@@ -32,8 +32,8 @@ public class WorkflowCall extends WorkflowEvent implements InputSupport, OutputS
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 }

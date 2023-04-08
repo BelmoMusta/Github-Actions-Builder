@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.WorkflowRun;
 import org.junit.jupiter.api.Assertions;
@@ -17,10 +16,9 @@ public class WorkflowRunTest {
 						WorkflowRun.Type.IN_PROGRESS,
 						WorkflowRun.Type.REQUESTED)
 				.workflows("e", "f");
-				;
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		workflowRun.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		workflowRun.accept(visitor);
 		String expected = "workflow_run:\n" +
 				"  branches:\n" +
 				"    - 'a'\n" +
@@ -33,6 +31,6 @@ public class WorkflowRunTest {
 				"  workflows:\n" +
 				"    - 'e'\n" +
 				"    - 'f'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

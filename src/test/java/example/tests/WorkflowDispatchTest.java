@@ -1,9 +1,8 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
-import org.example.wrappers.Input;
+import org.example.wrappers.leaves.Input;
 import org.example.yy.WorkflowDispatch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,16 +12,16 @@ public class WorkflowDispatchTest {
 	public void test() {
 		WorkflowDispatch workflowDispatch = WorkflowDispatch.$()
 				.inputs(Input.$().name("logLevel")
-						.description("log level")
-						.type(Input.Type.CHOICE)
-						.required()
-						.default_("'warning'")
-						.options("info", "warning", "debug"),
-				Input.$().name("settings")
-						.required());
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		workflowDispatch.accept(visitor, appender);
+								.description("log level")
+								.type(Input.Type.CHOICE)
+								.required()
+								.default_("'warning'")
+								.options("info", "warning", "debug"),
+						Input.$().name("settings")
+								.required());
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		workflowDispatch.accept(visitor);
 		String expected = "workflow_dispatch:\n" +
 				"  inputs:\n" +
 				"    logLevel:\n" +
@@ -36,6 +35,6 @@ public class WorkflowDispatchTest {
 				"        - 'debug'\n" +
 				"    settings:\n" +
 				"      required: true";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

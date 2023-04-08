@@ -1,7 +1,7 @@
 package org.example.yy.support;
 
 import org.example.collections.Nodes;
-import org.example.wrappers.InOut;
+import org.example.wrappers.leaves.InOut;
 import org.example.yy.WorkflowEvent;
 
 import java.util.function.Supplier;

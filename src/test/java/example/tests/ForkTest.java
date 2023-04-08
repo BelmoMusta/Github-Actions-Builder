@@ -9,8 +9,8 @@ public class ForkTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Fork fork = Fork.$();
-		fork.accept(visitor, appender);
+		fork.accept(visitor);
 		String expected = "fork:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

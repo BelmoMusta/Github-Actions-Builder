@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.PullRequestReviewComment;
 import org.junit.jupiter.api.Assertions;
@@ -11,11 +10,11 @@ public class PullRequestReviewCommentTest {
 	@Test
 	public void test() {
 		PullRequestReviewComment pullRequestReviewComment = PullRequestReviewComment.$();
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestReviewComment.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestReviewComment.accept(visitor);
 		String expected = "pull_request_review_comment:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -23,14 +22,14 @@ public class PullRequestReviewCommentTest {
 		PullRequestReviewComment pullRequestComment = PullRequestReviewComment.$()
 				.types(PullRequestReviewComment.Type.values());
 		
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestComment.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestComment.accept(visitor);
 		String expected = "pull_request_review_comment:\n" +
 				"  types:\n" +
 				"    - created\n" +
 				"    - deleted\n" +
 				"    - edited";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

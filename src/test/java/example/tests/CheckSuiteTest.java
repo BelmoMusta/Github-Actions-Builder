@@ -9,19 +9,19 @@ public class CheckSuiteTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		CheckSuite checkSuite = CheckSuite.$();
-		checkSuite.accept(visitor, appender);
+		checkSuite.accept(visitor);
 		String expected = "check_suite:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
 	public void releaseTypesTest() {
 		CheckSuite release = CheckSuite.$()
 				.types(CheckSuite.Type.COMPLETED);
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "check_suite:\n" +
 				"  types:\n" +
 				"    - completed";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

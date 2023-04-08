@@ -1,8 +1,7 @@
 package example.tests;
 
-import org.example.Appender;
 import org.example.collections.Events;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.PullRequest;
 import org.example.yy.PullRequestTarget;
@@ -19,14 +18,14 @@ public class EventsTest {
 		events.add(PullRequestTarget.$());
 		events.add(WorkflowDispatch.$());
 		events.add(PullRequest.$());
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		events.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		events.accept(visitor);
 		String expected = "on:\n" +
 				"  push:\n" +
-				"  pull_request_target:\n"+
-				"  workflow_dispatch:\n"+
+				"  pull_request_target:\n" +
+				"  workflow_dispatch:\n" +
 				"  pull_request:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

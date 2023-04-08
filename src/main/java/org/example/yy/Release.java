@@ -17,8 +17,8 @@ public class Release extends WorkflowEvent implements TypesSupport {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {
@@ -31,6 +31,7 @@ visitor.visit(this, arg);
 		UNPUBLISHED,
 		
 		;
+		
 		@Override
 		public String toString() {
 			return super.toString().toLowerCase();

@@ -1,7 +1,7 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.wrappers.Input;
+import org.example.wrappers.leaves.Input;
 import org.example.yy.support.InputSupport;
 
 public class WorkflowDispatch extends WorkflowEvent implements InputSupport {
@@ -15,13 +15,13 @@ public class WorkflowDispatch extends WorkflowEvent implements InputSupport {
 		
 	}
 	
-	public static WorkflowDispatch $(){
+	public static WorkflowDispatch $() {
 		return new WorkflowDispatch();
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 }

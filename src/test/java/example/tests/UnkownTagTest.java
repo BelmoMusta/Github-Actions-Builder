@@ -8,9 +8,9 @@ public class UnkownTagTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		UnknownTag unknownTag = new UnknownTag();
-		unknownTag.accept(visitor, appender);
+		unknownTag.accept(visitor);
 		//String expected = "page_build:";
-		//Assertions.assertEquals(expected, appender.toString());
+		//Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 }

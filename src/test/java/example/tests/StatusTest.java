@@ -9,9 +9,9 @@ public class StatusTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Status status = Status.$();
-		status.accept(visitor, appender);
+		status.accept(visitor);
 		String expected = "status:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 }

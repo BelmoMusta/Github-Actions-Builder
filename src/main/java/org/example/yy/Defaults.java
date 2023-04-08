@@ -11,13 +11,14 @@ public class Defaults extends Nodes {
 	public static Defaults $() {
 		return new Defaults();
 	}
-	public Defaults run(Run run){
+	
+	public Defaults run(Run run) {
 		add(run);
 		return this;
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

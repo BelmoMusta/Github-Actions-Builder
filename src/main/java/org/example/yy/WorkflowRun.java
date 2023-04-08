@@ -37,8 +37,8 @@ public class WorkflowRun extends WorkflowEvent implements BranchesSupport,
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {

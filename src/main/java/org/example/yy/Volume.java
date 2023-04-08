@@ -1,12 +1,15 @@
 package org.example.yy;
 
 import org.example.visitor.Visitor;
-import org.example.wrappers.NameValuePair;
+import org.example.wrappers.leaves.NameValuePair;
 
 public class Volume extends NameValuePair {
+	public Volume(String name, String value) {
+		super(name, value);
+	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

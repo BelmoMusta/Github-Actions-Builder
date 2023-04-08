@@ -9,9 +9,9 @@ public class IssueCommentTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		IssueComment issueComment = IssueComment.$();
-		issueComment.accept(visitor, appender);
+		issueComment.accept(visitor);
 		String expected = "issue_comment:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -20,12 +20,12 @@ public class IssueCommentTest extends AbstracTest {
 				.types(IssueComment.Type.CREATED)
 				.types(IssueComment.Type.DELETED)
 				.types(IssueComment.Type.EDITED);
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "issue_comment:\n" +
 				"  types:\n" +
 				"    - created\n" +
 				"    - deleted\n" +
 				"    - edited";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

@@ -3,10 +3,10 @@ package org.example.yy;
 import org.example.collections.Nodes;
 import org.example.collections.Ports;
 import org.example.visitor.Visitor;
-import org.example.wrappers.Credentials;
-import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.NameValuePair;
-import org.example.wrappers.SingleElement;
+import org.example.wrappers.leaves.Credentials;
+import org.example.wrappers.leaves.DashSingleElement;
+import org.example.wrappers.leaves.NameValuePair;
+import org.example.wrappers.leaves.SingleElement;
 import org.example.yy.support.EnvSupport;
 import org.example.yy.support.VolumesSupport;
 
@@ -49,6 +49,7 @@ public class Service extends Nodes implements EnvSupport, VolumesSupport {
 		add(new NameValuePair("options", options));
 		return this;
 	}
+	
 	public Service volume(String name, String value) {
 		return addVolume(this, name, value);
 	}
@@ -60,7 +61,7 @@ public class Service extends Nodes implements EnvSupport, VolumesSupport {
 	
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

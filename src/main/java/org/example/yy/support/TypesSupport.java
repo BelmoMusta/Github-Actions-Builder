@@ -2,7 +2,7 @@ package org.example.yy.support;
 
 import org.example.collections.Nodes;
 import org.example.collections.Types;
-import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.leaves.DashSingleElement;
 import org.example.yy.WorkflowEvent;
 
 import java.util.function.Supplier;
@@ -30,7 +30,7 @@ public interface TypesSupport extends ElementsSupport {
 		for (TypeI type : types) {
 			DashSingleElement tag = nodes.findTag(DashSingleElement.class);
 			DashSingleElement element = new DashSingleElement(type.toString());
-			if (tag == null || !tag.value.equals(type.toString())) {
+			if (tag == null || !tag.getValue().equals(type.toString())) {
 				nodes.add(element);
 			}
 		}

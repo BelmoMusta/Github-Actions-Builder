@@ -9,9 +9,9 @@ public class IssuesTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Issues issues = Issues.$();
-		issues.accept(visitor, appender);
+		issues.accept(visitor);
 		String expected = "issues:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -19,7 +19,7 @@ public class IssuesTest extends AbstracTest {
 		Issues issues = Issues.$()
 				.types(Issues.Type.values());
 		
-		issues.accept(visitor, appender);
+		issues.accept(visitor);
 		String expected = "issues:\n" +
 				"  types:\n" +
 				"    - assigned\n" +
@@ -38,6 +38,6 @@ public class IssuesTest extends AbstracTest {
 				"    - unlabeled\n" +
 				"    - unlocked\n" +
 				"    - unpinned";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

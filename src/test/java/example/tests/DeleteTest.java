@@ -9,8 +9,8 @@ public class DeleteTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Delete delete = Delete.$();
-		delete.accept(visitor, appender);
+		delete.accept(visitor);
 		String expected = "delete:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

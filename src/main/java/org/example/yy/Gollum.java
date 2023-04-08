@@ -10,8 +10,9 @@ public class Gollum extends WorkflowEvent {
 	public static Gollum $() {
 		return new Gollum();
 	}
+	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

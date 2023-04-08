@@ -2,7 +2,7 @@ package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
-import org.example.wrappers.SimpleEntry;
+import org.example.wrappers.leaves.SimpleEntry;
 
 public class Pipe extends Nodes {
 	
@@ -20,8 +20,9 @@ public class Pipe extends Nodes {
 		}
 		return this;
 	}
+	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

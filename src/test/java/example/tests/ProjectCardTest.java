@@ -9,16 +9,16 @@ public class ProjectCardTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		ProjectCard projectCard = ProjectCard.$();
-		projectCard.accept(visitor, appender);
+		projectCard.accept(visitor);
 		String expected = "project_card:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
 	public void releaseTypesTest() {
 		ProjectCard projectCard = ProjectCard.$()
 				.types(ProjectCard.Type.values());
-		projectCard.accept(visitor, appender);
+		projectCard.accept(visitor);
 		String expected = "project_card:\n" +
 				"  types:\n" +
 				"    - converted\n" +
@@ -26,6 +26,6 @@ public class ProjectCardTest extends AbstracTest {
 				"    - deleted\n" +
 				"    - edited\n" +
 				"    - moved";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

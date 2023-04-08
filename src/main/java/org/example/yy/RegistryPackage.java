@@ -3,13 +3,13 @@ package org.example.yy;
 import org.example.visitor.Visitor;
 import org.example.yy.support.TypesSupport;
 
-public class RegistryPackage extends WorkflowEvent implements  TypesSupport {
+public class RegistryPackage extends WorkflowEvent implements TypesSupport {
 	
 	protected RegistryPackage() {
 		super("registry_package");
 	}
 	
-	public RegistryPackage types(Type ... types){
+	public RegistryPackage types(Type... types) {
 		return addTypes(this, types);
 	}
 	
@@ -18,15 +18,13 @@ public class RegistryPackage extends WorkflowEvent implements  TypesSupport {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {
 		PUBLISHED,
-		UPDATED
-		
-		;
+		UPDATED;
 		
 		@Override
 		public String toString() {

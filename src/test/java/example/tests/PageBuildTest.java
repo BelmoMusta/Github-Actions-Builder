@@ -9,9 +9,9 @@ public class PageBuildTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		PageBuild pageBuild = PageBuild.$();
-		pageBuild.accept(visitor, appender);
+		pageBuild.accept(visitor);
 		String expected = "page_build:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 }

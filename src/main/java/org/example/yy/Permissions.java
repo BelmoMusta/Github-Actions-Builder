@@ -2,7 +2,7 @@ package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
-import org.example.wrappers.NameValuePair;
+import org.example.wrappers.leaves.NameValuePair;
 
 public class Permissions extends Nodes {
 	public Permissions() {
@@ -80,8 +80,8 @@ public class Permissions extends Nodes {
 	
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type {

@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.Watch;
 import org.junit.jupiter.api.Assertions;
@@ -11,11 +10,11 @@ public class WatchTest {
 	@Test
 	public void test() {
 		Watch watch = Watch.$();
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		watch.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		watch.accept(visitor);
 		String expected = "watch:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -23,12 +22,12 @@ public class WatchTest {
 		Watch watch = Watch.$()
 				.types(Watch.Type.values());
 		
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		watch.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		watch.accept(visitor);
 		String expected = "watch:\n" +
 				"  types:\n" +
 				"    - started";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

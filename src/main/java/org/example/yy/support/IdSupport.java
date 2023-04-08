@@ -1,11 +1,11 @@
 package org.example.yy.support;
 
 import org.example.collections.Nodes;
-import org.example.wrappers.DashedId;
-import org.example.wrappers.Id;
+import org.example.wrappers.leaves.DashedId;
+import org.example.wrappers.leaves.Id;
 import org.example.wrappers.Node;
 
-public interface IdSupport  {
+public interface IdSupport {
 	
 	default <E extends Nodes> E addId(E node, String id) {
 		final Node nodeId;
@@ -17,7 +17,6 @@ public interface IdSupport  {
 		node.add(nodeId);
 		return node;
 	}
-	
 	
 	
 }

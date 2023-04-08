@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.PullRequestTarget;
 import org.junit.jupiter.api.Assertions;
@@ -11,19 +10,20 @@ public class PullRequestTargetTest {
 	@Test
 	public void test() {
 		PullRequestTarget pullRequestTarget = PullRequestTarget.$();
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestTarget.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestTarget.accept(visitor);
 		String expected = "pull_request_target:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
-@Test
+	
+	@Test
 	public void testTypes() {
 		PullRequestTarget pullRequestTarget = PullRequestTarget.$()
 				.types(PullRequestTarget.Type.values());
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestTarget.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestTarget.accept(visitor);
 		String expected = "pull_request_target:\n" +
 				"  types:\n" +
 				"    - assigned\n" +
@@ -43,7 +43,7 @@ public class PullRequestTargetTest {
 				"    - unassigned\n" +
 				"    - unlabeled\n" +
 				"    - unlocked";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -51,9 +51,9 @@ public class PullRequestTargetTest {
 		PullRequestTarget pullRequestTarget = PullRequestTarget.$()
 				.branches("a", "b")
 				.branchesIgnore("c", "d");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestTarget.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestTarget.accept(visitor);
 		String expected = "pull_request_target:\n" +
 				"  branches:\n" +
 				"    - 'a'\n" +
@@ -61,20 +61,21 @@ public class PullRequestTargetTest {
 				"  branches-ignore:\n" +
 				"    - 'c'\n" +
 				"    - 'd'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
+	
 	@Test
 	public void testBranchesIgnore() {
 		PullRequestTarget pullRequestTarget = PullRequestTarget.$()
 				.branchesIgnore("c", "d");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestTarget.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestTarget.accept(visitor);
 		String expected = "pull_request_target:\n" +
 				"  branches-ignore:\n" +
 				"    - 'c'\n" +
 				"    - 'd'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	
@@ -82,14 +83,14 @@ public class PullRequestTargetTest {
 	public void testPaths() {
 		PullRequestTarget pullRequestTarget = PullRequestTarget.$()
 				.paths("a/n", "b/c");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestTarget.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestTarget.accept(visitor);
 		String expected = "pull_request_target:\n" +
 				"  paths:\n" +
 				"    - 'a/n'\n" +
 				"    - 'b/c'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -97,14 +98,14 @@ public class PullRequestTargetTest {
 		PullRequestTarget pullRequestTarget = PullRequestTarget.$()
 				.pathsIgnore("e/m")
 				.pathsIgnore("f/j");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		pullRequestTarget.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		pullRequestTarget.accept(visitor);
 		String expected = "pull_request_target:\n" +
 				"  paths-ignore:\n" +
 				"    - 'e/m'\n" +
 				"    - 'f/j'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 		
 	}
 	

@@ -2,7 +2,7 @@ package org.example.yy.support;
 
 import org.example.collections.Nodes;
 import org.example.collections.Types;
-import org.example.wrappers.DashSingleElement;
+import org.example.wrappers.leaves.DashSingleElement;
 import org.example.yy.WorkflowEvent;
 
 public interface CustomTypesSupport extends ElementsSupport {

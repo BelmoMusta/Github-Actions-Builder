@@ -1,8 +1,7 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Output;
+import org.example.visitor.StringPrinterVisitor;
+import org.example.wrappers.leaves.Output;
 import org.example.yy.Job;
 import org.example.yy.Step;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +25,7 @@ public class JobOutputTest {
 			"    completed:\n" +
 			"      type: boolean\n" +
 			"      required: true";
+	
 	@Test
 	public void main() {
 		Job job = Job.$()
@@ -37,7 +37,7 @@ public class JobOutputTest {
 						.name("Checking out our code")
 						.uses("actions/checkout@master")
 				)
- 				.needs("a")
+				.needs("a")
 				.needs("w")
 				.needs("b")
 				.outputs(Output.$().name("completed")
@@ -46,10 +46,9 @@ public class JobOutputTest {
 				.step(Step.$()
 						.name("Say something")
 						.run("echo lol"));
-		DefaultVisitorImpl visitor = new DefaultVisitorImpl();
-		Appender appender = new Appender();
-		job.accept(visitor, appender);
-		Assertions.assertEquals(EXPECTED, appender.toString());
-		System.out.println(appender);
+		StringPrinterVisitor visitor = new StringPrinterVisitor();
+		
+		job.accept(visitor);
+		Assertions.assertEquals(EXPECTED, visitor.getResult());
 	}
 }

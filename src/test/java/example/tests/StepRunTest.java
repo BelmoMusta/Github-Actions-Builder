@@ -1,8 +1,7 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Output;
+import org.example.visitor.StringPrinterVisitor;
+import org.example.wrappers.leaves.Output;
 import org.example.yy.Job;
 import org.example.yy.Pipe;
 import org.example.yy.Step;
@@ -29,6 +28,7 @@ public class StepRunTest {
 			"    completed:\n" +
 			"      type: boolean\n" +
 			"      required: true";
+	
 	@Test
 	public void main() {
 		Job job = Job.$()
@@ -51,9 +51,9 @@ public class StepRunTest {
 						.run(Pipe.$().entries("echo", "lol"))
 						.name("Say something")
 				);
-		DefaultVisitorImpl visitor = new DefaultVisitorImpl();
-		Appender appender = new Appender();
-		job.accept(visitor, appender);
-		Assertions.assertEquals(EXPECTED, appender.toString());
+		StringPrinterVisitor visitor = new StringPrinterVisitor();
+		
+		job.accept(visitor);
+		Assertions.assertEquals(EXPECTED, visitor.getResult());
 	}
 }

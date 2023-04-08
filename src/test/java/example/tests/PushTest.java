@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.Push;
 import org.junit.jupiter.api.Assertions;
@@ -11,22 +10,22 @@ public class PushTest {
 	@Test
 	public void test() {
 		Push push = Push.$();
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
- 
+	
 	
 	@Test
 	public void testBranches() {
 		Push push = Push.$()
 				.branches("a", "b")
 				.branchesIgnore("c", "d");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:\n" +
 				"  branches:\n" +
 				"    - 'a'\n" +
@@ -34,20 +33,21 @@ public class PushTest {
 				"  branches-ignore:\n" +
 				"    - 'c'\n" +
 				"    - 'd'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
+	
 	@Test
 	public void testBranchesIgnore() {
 		Push push = Push.$()
 				.branchesIgnore("c", "d");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:\n" +
 				"  branches-ignore:\n" +
 				"    - 'c'\n" +
 				"    - 'd'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	
@@ -55,14 +55,14 @@ public class PushTest {
 	public void testPaths() {
 		Push push = Push.$()
 				.paths("a/n", "b/c");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:\n" +
 				"  paths:\n" +
 				"    - 'a/n'\n" +
 				"    - 'b/c'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -70,41 +70,42 @@ public class PushTest {
 		Push push = Push.$()
 				.pathsIgnore("e/m")
 				.pathsIgnore("f/j");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:\n" +
 				"  paths-ignore:\n" +
 				"    - 'e/m'\n" +
 				"    - 'f/j'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
 	public void testTags() {
 		Push push = Push.$()
 				.tags("a/n", "b/c");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:\n" +
 				"  tags:\n" +
 				"    - 'a/n'\n" +
 				"    - 'b/c'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
+	
 	@Test
 	public void testTagsIgnore() {
 		Push push = Push.$()
 				.tagsIgnore("a/n", "b/c");
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		push.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		push.accept(visitor);
 		String expected = "push:\n" +
 				"  tags-ignore:\n" +
 				"    - 'a/n'\n" +
 				"    - 'b/c'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	

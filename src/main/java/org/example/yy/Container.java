@@ -3,9 +3,9 @@ package org.example.yy;
 import org.example.collections.Nodes;
 import org.example.collections.Ports;
 import org.example.visitor.Visitor;
-import org.example.wrappers.Credentials;
-import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.NameValuePair;
+import org.example.wrappers.leaves.Credentials;
+import org.example.wrappers.leaves.DashSingleElement;
+import org.example.wrappers.leaves.NameValuePair;
 import org.example.yy.support.EnvSupport;
 import org.example.yy.support.VolumesSupport;
 
@@ -58,8 +58,8 @@ public class Container extends Nodes implements EnvSupport, VolumesSupport {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public Container credentials(Credentials credentials) {

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.visitor;
 
 public class Appender {
 	private int indent;
@@ -13,8 +13,9 @@ public class Appender {
 	}
 	
 	public void appendSingleQuote(String str) {
-		 appendWithQuotes(str, false);
+		appendWithQuotes(str, false);
 	}
+	
 	public void appendDoubleQuote(String str) {
 		appendWithQuotes(str, true);
 	}

@@ -1,9 +1,8 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Input;
-import org.example.wrappers.Output;
+import org.example.visitor.StringPrinterVisitor;
+import org.example.wrappers.leaves.Input;
+import org.example.wrappers.leaves.Output;
 import org.example.yy.Container;
 import org.example.yy.Job;
 import org.example.yy.Pipe;
@@ -248,10 +247,9 @@ public class VisitorTest {
 				"        image: redis:latest\n" +
 				"        ports:\n" +
 				"          - 6379/tcp";
-		DefaultVisitorImpl defaultVisitor = new DefaultVisitorImpl();
-		Appender appender = new Appender();
-		wf.accept(defaultVisitor, appender);
-		Assertions.assertEquals(expected, appender.toString());
+		StringPrinterVisitor defaultVisitor = new StringPrinterVisitor();
+		wf.accept(defaultVisitor);
+		Assertions.assertEquals(expected, defaultVisitor.getResult());
 		
 	}
 	
@@ -338,10 +336,9 @@ public class VisitorTest {
 										.with("driver-opts", Pipe.$().entries("hello", "world"))
 										.with("install", "true"))
 				);
-		DefaultVisitorImpl defaultVisitor = new DefaultVisitorImpl();
-		Appender appender = new Appender();
-		wf.accept(defaultVisitor, appender);
-		Assertions.assertEquals(EXPECTED, appender.toString());
+		StringPrinterVisitor defaultVisitor = new StringPrinterVisitor();
+		wf.accept(defaultVisitor);
+		Assertions.assertEquals(EXPECTED, defaultVisitor.getResult());
 		
 	}
 }

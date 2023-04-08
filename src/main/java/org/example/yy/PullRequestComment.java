@@ -3,13 +3,13 @@ package org.example.yy;
 import org.example.visitor.Visitor;
 import org.example.yy.support.TypesSupport;
 
-public class PullRequestComment extends WorkflowEvent implements  TypesSupport {
+public class PullRequestComment extends WorkflowEvent implements TypesSupport {
 	
 	protected PullRequestComment() {
 		super("pull_request_comment");
 	}
 	
-	public PullRequestComment types(Type ... types){
+	public PullRequestComment types(Type... types) {
 		return addTypes(this, types);
 	}
 	
@@ -18,8 +18,8 @@ public class PullRequestComment extends WorkflowEvent implements  TypesSupport {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {

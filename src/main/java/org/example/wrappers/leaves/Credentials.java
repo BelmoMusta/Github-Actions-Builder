@@ -1,11 +1,12 @@
-package org.example.wrappers;
+package org.example.wrappers.leaves;
 
 import org.example.visitor.Visitor;
 
 public class Credentials extends InOut {
-	public Credentials(){
+	public Credentials() {
 		this.name = new SingleElement("credentials");
 	}
+	
 	public static Credentials $() {
 		return new Credentials();
 	}
@@ -21,7 +22,7 @@ public class Credentials extends InOut {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

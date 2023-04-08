@@ -9,8 +9,8 @@ public class GollumTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Gollum gollum = Gollum.$();
-		gollum.accept(visitor, appender);
+		gollum.accept(visitor);
 		String expected = "gollum:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

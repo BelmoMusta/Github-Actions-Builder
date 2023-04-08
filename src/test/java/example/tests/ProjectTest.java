@@ -9,16 +9,16 @@ public class ProjectTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Project project = Project.$();
-		project.accept(visitor, appender);
+		project.accept(visitor);
 		String expected = "project:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
 	public void releaseTypesTest() {
 		Project project = Project.$()
 				.types(Project.Type.values());
-		project.accept(visitor, appender);
+		project.accept(visitor);
 		String expected = "project:\n" +
 				"  types:\n" +
 				"    - closed\n" +
@@ -26,6 +26,6 @@ public class ProjectTest extends AbstracTest {
 				"    - deleted\n" +
 				"    - edited\n" +
 				"    - reopened";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

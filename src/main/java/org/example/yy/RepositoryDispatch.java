@@ -9,7 +9,7 @@ public class RepositoryDispatch extends WorkflowEvent implements CustomTypesSupp
 		super("repository_dispatch");
 	}
 	
-	public RepositoryDispatch types(String ... types){
+	public RepositoryDispatch types(String... types) {
 		return addTypes(this, types);
 	}
 	
@@ -18,10 +18,9 @@ public class RepositoryDispatch extends WorkflowEvent implements CustomTypesSupp
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
-	
 	
 	
 }

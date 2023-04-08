@@ -12,11 +12,11 @@ public class ScheduleTest extends AbstracTest {
 		Schedule release = Schedule.$()
 				.cron("0 0 * * *")
 				.cron("0 1 * * *");
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "schedule:\n" +
 				"  - cron: '0 0 * * *'\n" +
 				"  - cron: '0 1 * * *'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class ScheduleTest extends AbstracTest {
 						.minutes(5)
 						.hours(4)
 						.dayOfweek(Cron.DaysOfWeek.SUN));
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "schedule:\n" +
 				"  - cron: '0 0 * * *'\n" +
 				"  - cron: '2,10 4,5 * * *'\n" +
@@ -75,6 +75,6 @@ public class ScheduleTest extends AbstracTest {
 				"  - cron: '0 1 * * 3'\n" +
 				"  - cron: '23 0-20/2 * * *'\n" +
 				"  - cron: '5 4 * * SUN'";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

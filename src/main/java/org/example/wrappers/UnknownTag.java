@@ -6,9 +6,9 @@ public class UnknownTag extends Tag {
 	
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		super.accept(visitor, arg);
+	public <R> void accept(Visitor<R> visitor) {
 		System.err.println(get());
+		super.accept(visitor);
 	}
 	
 }

@@ -1,11 +1,10 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
-import org.example.wrappers.Input;
-import org.example.wrappers.Output;
-import org.example.wrappers.Secret;
+import org.example.wrappers.leaves.Input;
+import org.example.wrappers.leaves.Output;
+import org.example.wrappers.leaves.Secret;
 import org.example.yy.WorkflowCall;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,9 +24,9 @@ public class WorkflowCallTest {
 				.secrets(Secret.$().name("pass")
 						.description("pass")
 						.required());
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		workflowDispatch.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		workflowDispatch.accept(visitor);
 		String expected = "workflow_call:\n" +
 				"  inputs:\n" +
 				"    in:\n" +
@@ -43,6 +42,6 @@ public class WorkflowCallTest {
 				"    pass:\n" +
 				"      description: \"pass\"\n" +
 				"      required: true";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

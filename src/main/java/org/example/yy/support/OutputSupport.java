@@ -1,7 +1,7 @@
 package org.example.yy.support;
 
 import org.example.collections.Outputs;
-import org.example.wrappers.Output;
+import org.example.wrappers.leaves.Output;
 import org.example.yy.WorkflowEvent;
 
 public interface OutputSupport extends InOutSupport {

@@ -4,10 +4,16 @@ import org.example.collections.Events;
 import org.example.collections.Jobs;
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
-import org.example.wrappers.LabeledName;
+import org.example.wrappers.leaves.LabeledName;
+import org.example.yy.support.ElementsSupport;
 import org.example.yy.support.EnvSupport;
 
-public class Workflow extends Nodes implements EnvSupport {
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+public class Workflow extends Nodes implements EnvSupport, ElementsSupport {
 	
 	protected Workflow() {
 		super(null, false);
@@ -45,19 +51,14 @@ public class Workflow extends Nodes implements EnvSupport {
 	}
 	
 	public Workflow jobs(Job... jobs) {
-		Jobs innerJobs = findTag(Jobs.class);
-		if (innerJobs == null) {
-			innerJobs = new Jobs();
-			add(innerJobs);
-		}
-		for (Job job : jobs) {
-			innerJobs.add(job);
-		}
+		addNodes(this, Jobs.class, Jobs::new, jobs);
 		return this;
 	}
 	
+	
+	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

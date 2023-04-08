@@ -9,9 +9,9 @@ public class LabelTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Label label = Label.$();
-		label.accept(visitor, appender);
+		label.accept(visitor);
 		String expected = "label:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -20,12 +20,12 @@ public class LabelTest extends AbstracTest {
 				.types(Label.Type.CREATED)
 				.types(Label.Type.DELETED)
 				.types(Label.Type.EDITED);
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "label:\n" +
 				"  types:\n" +
 				"    - created\n" +
 				"    - deleted\n" +
 				"    - edited";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

@@ -1,9 +1,8 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
-import org.example.wrappers.Input;
-import org.example.wrappers.Output;
+import org.example.visitor.StringPrinterVisitor;
+import org.example.wrappers.leaves.Input;
+import org.example.wrappers.leaves.Output;
 import org.example.yy.Container;
 import org.example.yy.Job;
 import org.example.yy.PullRequest;
@@ -142,8 +141,8 @@ public class WorkflowTest {
 				"        ports:\n" +
 				"          - 6379/tcp";
 		System.out.println(wf.toString());
-		Appender arg = new Appender();
-		wf.accept(new DefaultVisitorImpl(), arg);
-		Assertions.assertEquals(expected, arg.toString());
+		StringPrinterVisitor visitor = new StringPrinterVisitor();
+		wf.accept(visitor);
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

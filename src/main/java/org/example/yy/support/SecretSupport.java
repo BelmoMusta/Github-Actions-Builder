@@ -1,7 +1,7 @@
 package org.example.yy.support;
 
 import org.example.collections.Secrets;
-import org.example.wrappers.Secret;
+import org.example.wrappers.leaves.Secret;
 import org.example.yy.WorkflowEvent;
 
 public interface SecretSupport extends InOutSupport {

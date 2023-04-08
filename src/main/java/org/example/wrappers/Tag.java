@@ -10,8 +10,8 @@ public abstract class Tag implements Node {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		//
+	public <R> void accept(Visitor<R> visitor) {
+	
 	}
 	
 	

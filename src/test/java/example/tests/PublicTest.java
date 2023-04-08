@@ -9,9 +9,9 @@ public class PublicTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Public aPublic = Public.$();
-		aPublic.accept(visitor, appender);
+		aPublic.accept(visitor);
 		String expected = "public:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 }

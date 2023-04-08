@@ -18,8 +18,8 @@ public class PullRequestReviewComment extends WorkflowEvent implements TypesSupp
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public enum Type implements TypeI {
@@ -33,5 +33,5 @@ public class PullRequestReviewComment extends WorkflowEvent implements TypesSupp
 		public String toString() {
 			return super.toString().toLowerCase();
 		}
-		}
+	}
 }

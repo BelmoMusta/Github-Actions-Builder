@@ -9,9 +9,9 @@ public class BranchProtectionRuleTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		BranchProtectionRule release = BranchProtectionRule.$();
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "branch_protection_rule:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -20,12 +20,12 @@ public class BranchProtectionRuleTest extends AbstracTest {
 				.types(BranchProtectionRule.Type.CREATED)
 				.types(BranchProtectionRule.Type.DELETED)
 				.types(BranchProtectionRule.Type.EDITED);
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "branch_protection_rule:\n" +
 				"  types:\n" +
 				"    - created\n" +
 				"    - deleted\n" +
 				"    - edited";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

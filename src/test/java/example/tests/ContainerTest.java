@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.yy.Container;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -28,8 +27,8 @@ public class ContainerTest {
 				.env("NODE_ENV", "development")
 				.options("--cpu 1", "ooo=9")
 				.port("80");
-		Appender arg = new Appender();
-		container.accept(new DefaultVisitorImpl(), arg);
-		Assertions.assertEquals(expected, arg.toString());
+		StringPrinterVisitor visitor = new StringPrinterVisitor();
+		container.accept(visitor);
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

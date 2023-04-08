@@ -1,4 +1,4 @@
-package org.example.wrappers;
+package org.example.wrappers.leaves;
 
 import org.example.visitor.Visitor;
 
@@ -10,8 +10,8 @@ public class DashedNameQuotedValuePair extends DashedNameValuePair {
 	
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	

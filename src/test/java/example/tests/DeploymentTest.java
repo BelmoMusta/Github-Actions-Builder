@@ -9,8 +9,8 @@ public class DeploymentTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Deployment deployment = Deployment.$();
-		deployment.accept(visitor, appender);
+		deployment.accept(visitor);
 		String expected = "deployment:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

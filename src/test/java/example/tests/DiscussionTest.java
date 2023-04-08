@@ -9,9 +9,9 @@ public class DiscussionTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Discussion discussion = Discussion.$();
-		discussion.accept(visitor, appender);
+		discussion.accept(visitor);
 		String expected = "discussion:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -29,10 +29,8 @@ public class DiscussionTest extends AbstracTest {
 				.types(Discussion.Type.TRANSFERRED)
 				.types(Discussion.Type.UNANSWERED)
 				.types(Discussion.Type.UNLABELED)
-				.types(Discussion.Type.UNPINNED)
-				
-				;
-		discussion.accept(visitor, appender);
+				.types(Discussion.Type.UNPINNED);
+		discussion.accept(visitor);
 		String expected = "discussion:\n" +
 				"  types:\n" +
 				"    - unlocked\n" +
@@ -48,6 +46,6 @@ public class DiscussionTest extends AbstracTest {
 				"    - unanswered\n" +
 				"    - unlabeled\n" +
 				"    - unpinned";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

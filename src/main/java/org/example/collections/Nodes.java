@@ -1,9 +1,9 @@
 package org.example.collections;
 
-import org.example.wrappers.LabeledDashedName;
-import org.example.wrappers.LabeledName;
+import org.example.wrappers.leaves.LabeledDashedName;
+import org.example.wrappers.leaves.LabeledName;
 import org.example.wrappers.Node;
-import org.example.wrappers.SingleElement;
+import org.example.wrappers.leaves.SingleElement;
 import org.example.wrappers.Tag;
 
 import java.util.ArrayList;

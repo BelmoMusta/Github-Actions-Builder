@@ -11,9 +11,7 @@ public interface VolumesSupport {
 			volumes = new Volumes();
 			node.add(volumes);
 		}
-		Volume volume = new Volume();
-		volume.name = name;
-		volume.value = value;
+		Volume volume = new Volume(name, value);
 		volumes.add(volume);
 		return node;
 	}

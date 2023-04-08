@@ -3,12 +3,12 @@ package org.example.yy;
 import org.example.collections.Nodes;
 import org.example.collections.Withs;
 import org.example.visitor.Visitor;
-import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.DashedNameQuotedValuePair;
-import org.example.wrappers.DashedNameValuePair;
-import org.example.wrappers.LabeledDashedName;
-import org.example.wrappers.LabeledName;
-import org.example.wrappers.NameValuePair;
+import org.example.wrappers.leaves.DashSingleElement;
+import org.example.wrappers.leaves.DashedNameQuotedValuePair;
+import org.example.wrappers.leaves.DashedNameValuePair;
+import org.example.wrappers.leaves.LabeledDashedName;
+import org.example.wrappers.leaves.LabeledName;
+import org.example.wrappers.leaves.NameValuePair;
 import org.example.wrappers.Node;
 import org.example.yy.support.EnvSupport;
 import org.example.yy.support.IdSupport;
@@ -117,14 +117,15 @@ public class Step extends Nodes implements EnvSupport, IdSupport {
 		this.add(pipe);
 		return this;
 	}
+	
 	public Step continueOnError(boolean continueOnError) {
 		this.add(new NameValuePair("continue-on-error", String.valueOf(continueOnError)));
 		return this;
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public Step shell(String shell) {

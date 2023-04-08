@@ -1,7 +1,6 @@
 package example.tests;
 
-import org.example.Appender;
-import org.example.visitor.DefaultVisitorImpl;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.yy.RegistryPackage;
 import org.junit.jupiter.api.Assertions;
@@ -11,11 +10,11 @@ public class RegistryPackageTest {
 	@Test
 	public void test() {
 		RegistryPackage registryPackage = RegistryPackage.$();
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		registryPackage.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		registryPackage.accept(visitor);
 		String expected = "registry_package:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -23,13 +22,13 @@ public class RegistryPackageTest {
 		RegistryPackage registryPackage = RegistryPackage.$()
 				.types(RegistryPackage.Type.values());
 		
-		Appender appender = new Appender();
-		Visitor<Appender> visitor = new DefaultVisitorImpl();
-		registryPackage.accept(visitor, appender);
+		
+		Visitor<String> visitor = new StringPrinterVisitor();
+		registryPackage.accept(visitor);
 		String expected = "registry_package:\n" +
 				"  types:\n" +
 				"    - published\n" +
 				"    - updated";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

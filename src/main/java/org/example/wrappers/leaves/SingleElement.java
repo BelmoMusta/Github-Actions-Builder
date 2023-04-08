@@ -1,16 +1,16 @@
-package org.example.wrappers;
+package org.example.wrappers.leaves;
 
 import org.example.visitor.Visitor;
 
 public class SingleElement extends NameValuePair {
 	
 	public SingleElement(String value) {
-		this.value = value;
+		super(null, value);
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	

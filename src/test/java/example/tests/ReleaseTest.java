@@ -9,9 +9,9 @@ public class ReleaseTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Release release = Release.$();
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "release:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 	
 	@Test
@@ -19,11 +19,11 @@ public class ReleaseTest extends AbstracTest {
 		Release release = Release.$()
 				.types(Release.Type.RELEASED)
 				.types(Release.Type.CREATED);
-		release.accept(visitor, appender);
+		release.accept(visitor);
 		String expected = "release:\n" +
 				"  types:\n" +
-				"    - released\n"+
+				"    - released\n" +
 				"    - created";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

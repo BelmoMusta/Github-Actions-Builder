@@ -9,8 +9,8 @@ public class CreateTest extends AbstracTest {
 	@Test
 	public void initTest() {
 		Create create = Create.$();
-		create.accept(visitor, appender);
+		create.accept(visitor);
 		String expected = "create:";
-		Assertions.assertEquals(expected, appender.toString());
+		Assertions.assertEquals(expected, visitor.getResult());
 	}
 }

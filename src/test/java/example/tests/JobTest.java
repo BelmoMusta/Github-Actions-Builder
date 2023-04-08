@@ -1,7 +1,7 @@
 package example.tests;
 
 import org.example.collections.Jobs;
-import org.example.wrappers.Credentials;
+import org.example.wrappers.leaves.Credentials;
 import org.example.yy.Concurrency;
 import org.example.yy.Container;
 import org.example.yy.Defaults;
@@ -47,9 +47,8 @@ public class JobTest extends AbstracTest {
 				.needs("b")
 				.step(Step.$().name("Say something")
 						.run("echo lol"));
-		job.accept(visitor, appender);
-		Assertions.assertEquals(EXPECTED, appender.toString());
-		System.out.println(appender);
+		job.accept(visitor);
+		Assertions.assertEquals(EXPECTED, visitor.getResult());
 	}
 	
 	static String EXP = "jobs:\n" +
@@ -212,7 +211,7 @@ public class JobTest extends AbstracTest {
 		Jobs jobs = new Jobs();
 		jobs.add(job);
 		
-		jobs.accept(visitor, appender);
-		Assertions.assertEquals(EXP, appender.toString());
+		jobs.accept(visitor);
+		Assertions.assertEquals(EXP, visitor.getResult());
 	}
 }

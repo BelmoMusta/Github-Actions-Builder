@@ -10,8 +10,9 @@ public class DeploymentStatus extends WorkflowEvent {
 	public static DeploymentStatus $() {
 		return new DeploymentStatus();
 	}
+	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 }

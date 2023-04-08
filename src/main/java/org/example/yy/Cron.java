@@ -1,6 +1,5 @@
 package org.example.yy;
 
-import org.example.Appender;
 import org.example.visitor.Visitor;
 import org.example.wrappers.Tag;
 
@@ -50,7 +49,7 @@ public class Cron extends Tag {
 				ValidableCronItem validableCronItem = (ValidableCronItem) item;
 				test = validableCronItem.apply(predicate);
 			}
-			if (test) {
+			if (test && item != null) {
 				destination.add(item);
 			}
 		}
@@ -172,30 +171,30 @@ public class Cron extends Tag {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	@Override
 	public String toString() {
 		
-		Appender appender = new Appender();
+		StringBuilder stringBuilder = new StringBuilder();
 		String mins = joinEntry(minutes);
 		String hrs = joinEntry(hours);
 		String dys = joinEntry(days);
 		String mths = joinEntry(months);
 		String dysWeek = joinEntry(daysOfWeek);
 		
-		appender.append(mins);
-		appender.append(" ");
-		appender.append(hrs);
-		appender.append(" ");
-		appender.append(dys);
-		appender.append(" ");
-		appender.append(mths);
-		appender.append(" ");
-		appender.append(dysWeek);
-		return appender.toString();
+		stringBuilder.append(mins);
+		stringBuilder.append(" ");
+		stringBuilder.append(hrs);
+		stringBuilder.append(" ");
+		stringBuilder.append(dys);
+		stringBuilder.append(" ");
+		stringBuilder.append(mths);
+		stringBuilder.append(" ");
+		stringBuilder.append(dysWeek);
+		return stringBuilder.toString();
 	}
 	
 	private String joinEntry(Set<?> entries) {
@@ -345,7 +344,7 @@ public class Cron extends Tag {
 		}
 	}
 	
-	public interface ValidableCronItem extends CronItem{
+	public interface ValidableCronItem extends CronItem {
 		
 		boolean apply(Predicate<Integer> predicate);
 	}

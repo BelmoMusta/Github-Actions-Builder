@@ -1,4 +1,4 @@
-package org.example.wrappers;
+package org.example.wrappers.leaves;
 
 public class StringElement extends InOutElement<String> {
 	

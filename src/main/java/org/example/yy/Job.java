@@ -6,12 +6,14 @@ import org.example.collections.Outputs;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.visitor.Visitor;
-import org.example.wrappers.DashSingleElement;
-import org.example.wrappers.LabeledName;
-import org.example.wrappers.NameValuePair;
+import org.example.wrappers.leaves.DashSingleElement;
+import org.example.wrappers.leaves.If;
+import org.example.wrappers.leaves.LabeledName;
+import org.example.wrappers.leaves.NameValuePair;
 import org.example.wrappers.Node;
-import org.example.wrappers.Output;
-import org.example.wrappers.SingleElement;
+import org.example.wrappers.leaves.Output;
+import org.example.wrappers.leaves.RunsOn;
+import org.example.wrappers.leaves.SingleElement;
 import org.example.yy.support.EnvSupport;
 
 import java.util.Arrays;
@@ -39,7 +41,7 @@ public class Job extends Nodes implements EnvSupport {
 	}
 	
 	public Job runsOn(String s) {
-		add(new NameValuePair("runs-on", s));
+		add(new RunsOn(s));
 		return this;
 	}
 	
@@ -89,7 +91,7 @@ public class Job extends Nodes implements EnvSupport {
 	}
 	
 	public Job if_(String condition) {
-		add(new NameValuePair("if", condition));
+		add(new If(condition));
 		return this;
 	}
 	
@@ -122,8 +124,8 @@ public class Job extends Nodes implements EnvSupport {
 	}
 	
 	@Override
-	public <A> void accept(Visitor<A> visitor, A arg) {
-		visitor.visit(this, arg);
+	public <R> void accept(Visitor<R> visitor) {
+		visitor.visit(this);
 	}
 	
 	public Job cancelTimeOutMinutes(int minutes) {

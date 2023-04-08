@@ -1,8 +1,8 @@
 package org.example.yy.support;
 
 import org.example.collections.Nodes;
-import org.example.wrappers.DashQuotedSingleElement;
-import org.example.wrappers.SingleElement;
+import org.example.wrappers.leaves.DashQuotedSingleElement;
+import org.example.wrappers.leaves.SingleElement;
 import org.example.yy.WorkflowEvent;
 
 import java.util.function.Function;
@@ -23,19 +23,34 @@ public interface ElementsSupport {
 	}
 	
 	default void addElements(Nodes nodes, String[] elements) {
-		addGenericElements(nodes, elements,DashQuotedSingleElement.class, DashQuotedSingleElement::new);
+		addGenericElements(nodes, elements, DashQuotedSingleElement.class, DashQuotedSingleElement::new);
 	}
 	
 	default <S extends SingleElement> void addGenericElements(Nodes nodes,
-															   String[] elements,
-															   Class<S> cls,
-															   Function<String, S>  generator) {
-		for (String element : elements) {
+															  Object[] elements,
+															  Class<S> cls,
+															  Function<String, S> generator) {
+		for (Object element : elements) {
 			SingleElement existingTag = nodes.findTag(cls);
-			SingleElement newElement = generator.apply(element);
-			if (existingTag == null || !existingTag.value.equals(element)) {
+			SingleElement newElement = generator.apply(String.valueOf(element));
+			if (existingTag == null || !existingTag.getValue().equals(element)) {
 				nodes.add(newElement);
 			}
 		}
+	}
+	
+	default  <N extends Nodes> N addNodes(N destNode,
+										  Class<? extends Nodes> cls,
+										  Supplier<Nodes> generator,
+										  Nodes... nodes) {
+		Nodes innerJobs = destNode.findTag(cls);
+		if (innerJobs == null) {
+			innerJobs = generator.get();
+			destNode.add(innerJobs);
+		}
+		for (Nodes job : nodes) {
+			innerJobs.add(job);
+		}
+		return destNode;
 	}
 }
