@@ -22,6 +22,7 @@ import org.example.collections.Types;
 import org.example.collections.Volumes;
 import org.example.collections.Withs;
 import org.example.collections.Workflows;
+import org.example.wrappers.Node;
 import org.example.wrappers.leaves.Credentials;
 import org.example.wrappers.leaves.DashQuotedSingleElement;
 import org.example.wrappers.leaves.DashSingleElement;
@@ -34,7 +35,6 @@ import org.example.wrappers.leaves.Input;
 import org.example.wrappers.leaves.LabeledDashedName;
 import org.example.wrappers.leaves.LabeledName;
 import org.example.wrappers.leaves.NameValuePair;
-import org.example.wrappers.Node;
 import org.example.wrappers.leaves.Output;
 import org.example.wrappers.leaves.Secret;
 import org.example.wrappers.leaves.SimpleEntry;
@@ -59,6 +59,8 @@ import org.example.yy.IssueComment;
 import org.example.yy.Issues;
 import org.example.yy.Job;
 import org.example.yy.Label;
+import org.example.yy.Matrix;
+import org.example.yy.MatrixElement;
 import org.example.yy.MergeGroup;
 import org.example.yy.Milestone;
 import org.example.yy.PageBuild;
@@ -82,6 +84,7 @@ import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Status;
 import org.example.yy.Step;
+import org.example.yy.Strategy;
 import org.example.yy.Volume;
 import org.example.yy.Watch;
 import org.example.yy.Workflow;
@@ -92,6 +95,7 @@ import org.example.yy.WorkflowRun;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StringPrinterVisitor implements Visitor<String> {
 	
@@ -99,7 +103,24 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(Concurrency concurrency) {
-		refactored(concurrency);
+		refactored(concurrency, false);
+	}
+	
+	@Override
+	public void visit(Strategy strategy) {
+		refactored(strategy, false);
+	}
+	
+	@Override
+	public void visit(Matrix strategy) {
+		refactored(strategy, false);
+	}
+	
+	
+	
+	@Override
+	public void visit(MatrixElement matrixElement) {
+		refactored(matrixElement, true);
 	}
 	
 	@Override
@@ -109,189 +130,189 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(Defaults defaults) {
-		refactored(defaults);
+		refactored(defaults, false);
 		
 	}
 	
 	@Override
 	public void visit(Run run) {
-		refactored(run);
+		refactored(run, false);
 		
 	}
 	
 	@Override
 	public void visit(Permissions permissions) {
-		refactored(permissions);
+		refactored(permissions, false);
 		
 	}
 	
 	@Override
 	public void visit(Workflow workflow) {
 		workflow.name.accept(this);
-		visitChildren(workflow.children, appender_, true);
+		visitChildren(workflow.children, true, false);
 		
 	}
 	
 	@Override
 	public void visit(Workflows workflows) {
-		refactored(workflows);
+		refactored(workflows, false);
 		
 	}
 	
 	@Override
 	public void visit(Events events) {
-		refactored(events);
+		refactored(events, false);
 		
 	}
 	
 	@Override
 	public void visit(Push push) {
-		refactored(push);
+		refactored(push, false);
 		
 	}
 	
 	@Override
 	public void visit(Release release) {
-		refactored(release);
+		refactored(release, false);
 		
 	}
 	
 	@Override
 	public void visit(Delete delete) {
-		refactored(delete);
+		refactored(delete, false);
 		
 	}
 	
 	@Override
 	public void visit(DiscussionComment discussionComment) {
-		refactored(discussionComment);
+		refactored(discussionComment, false);
 		
 	}
 	
 	@Override
 	public void visit(DeploymentStatus deploymentStatus) {
-		refactored(deploymentStatus);
+		refactored(deploymentStatus, false);
 		
 	}
 	
 	@Override
 	public void visit(Discussion discussion) {
-		refactored(discussion);
+		refactored(discussion, false);
 		
 	}
 	
 	@Override
 	public void visit(BranchProtectionRule branchProtectionRule) {
-		refactored(branchProtectionRule);
+		refactored(branchProtectionRule, false);
 		
 	}
 	
-	public void refactored(Nodes nodes) {
+	public void refactored(Nodes nodes, boolean inlineArray) {
 		nodes.name.accept(this);
 		appender_.increaseIndent();
-		visitChildren(nodes.children, appender_, true);
+		visitChildren(nodes.children, true, inlineArray);
 		appender_.decreaseIndent();
 	}
 	
 	@Override
 	public void visit(CheckRun checkRun) {
-		refactored(checkRun);
+		refactored(checkRun, false);
 		
 	}
 	
 	@Override
 	public void visit(Create create) {
-		refactored(create);
+		refactored(create, false);
 		
 	}
 	
 	@Override
 	public void visit(Fork fork) {
-		refactored(fork);
+		refactored(fork, false);
 		
 	}
 	
 	@Override
 	public void visit(Gollum fork) {
-		refactored(fork);
+		refactored(fork, false);
 		
 	}
 	
 	@Override
 	public void visit(IssueComment issueComment) {
-		refactored(issueComment);
+		refactored(issueComment, false);
 		
 	}
 	
 	@Override
 	public void visit(Issues issues) {
-		refactored(issues);
+		refactored(issues, false);
 		
 	}
 	
 	@Override
 	public void visit(Label label) {
-		refactored(label);
+		refactored(label, false);
 		
 	}
 	
 	@Override
 	public void visit(MergeGroup mergeGroup) {
-		refactored(mergeGroup);
+		refactored(mergeGroup, false);
 		
 	}
 	
 	@Override
 	public void visit(Milestone milestone) {
-		refactored(milestone);
+		refactored(milestone, false);
 		
 	}
 	
 	@Override
 	public void visit(PageBuild pageBuild) {
-		refactored(pageBuild);
+		refactored(pageBuild, false);
 		
 	}
 	
 	@Override
 	public void visit(Project project) {
-		refactored(project);
+		refactored(project, false);
 		
 	}
 	
 	@Override
 	public void visit(ProjectCard projectCard) {
-		refactored(projectCard);
+		refactored(projectCard, false);
 		
 	}
 	
 	@Override
 	public void visit(ProjectColumn projectColumn) {
-		refactored(projectColumn);
+		refactored(projectColumn, false);
 		
 	}
 	
 	@Override
 	public void visit(Public aPublic) {
-		refactored(aPublic);
+		refactored(aPublic, false);
 		
 	}
 	
 	@Override
 	public void visit(Status status) {
-		refactored(status);
+		refactored(status, false);
 		
 	}
 	
 	@Override
 	public void visit(Watch watch) {
-		refactored(watch);
+		refactored(watch, false);
 		
 	}
 	
 	@Override
 	public void visit(WorkflowCall workflowCall) {
-		refactored(workflowCall);
+		refactored(workflowCall, false);
 		
 	}
 	
@@ -303,105 +324,114 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(PullRequestComment pullRequestComment) {
-		refactored(pullRequestComment);
+		refactored(pullRequestComment, false);
 		
 	}
 	
 	@Override
 	public void visit(PullRequestReview pullRequestReview) {
-		refactored(pullRequestReview);
+		refactored(pullRequestReview, false);
 		
 	}
 	
 	@Override
 	public void visit(PullRequestReviewComment pullRequestReviewComment) {
-		refactored(pullRequestReviewComment);
+		refactored(pullRequestReviewComment, false);
 		
 	}
 	
 	@Override
 	public void visit(CheckSuite checkSuite) {
-		refactored(checkSuite);
+		refactored(checkSuite, false);
 		
 	}
 	
 	@Override
 	public void visit(Deployment deployment) {
-		refactored(deployment);
+		refactored(deployment, false);
 		
 	}
 	
 	@Override
 	public void visit(PullRequest pullRequest) {
-		refactored(pullRequest);
+		refactored(pullRequest, false);
 		
 	}
 	
 	@Override
 	public void visit(WorkflowDispatch workflowDispatch) {
-		refactored(workflowDispatch);
+		refactored(workflowDispatch, false);
 		
 	}
 	
 	
 	@Override
 	public void visit(PullRequestTarget pullRequestTarget) {
-		refactored(pullRequestTarget);
+		refactored(pullRequestTarget, false);
 		
 	}
 	
 	@Override
 	public void visit(RepositoryDispatch repositoryDispatch) {
-		refactored(repositoryDispatch);
+		refactored(repositoryDispatch, false);
 		
 	}
 	
 	@Override
 	public void visit(Schedule schedule) {
-		refactored(schedule);
+		refactored(schedule, false);
 		
 	}
 	
-	protected void visitChildren(Collection<? extends Node> children, Appender toto, boolean addNewLine) {
-		if (addNewLine && !children.isEmpty()) {
-			appender_.newLine();
-		}
-		List<Node> nodes = new ArrayList<>(children);
-		for (int i = 0; i < nodes.size(); i++) {
-			nodes.get(i).accept(this);
-			if (i < nodes.size() - 1) {
+	protected void visitChildren(Collection<? extends Node> children, boolean addNewLine, boolean inlineArray) {
+		if (inlineArray) {
+			appender_.append(" [");
+			String oss = children.stream()
+					.map(Node::get)
+					.collect(Collectors.joining(", "));
+			appender_.append(oss);
+			appender_.append("]");
+		} else {
+			if (addNewLine && !children.isEmpty()) {
 				appender_.newLine();
+			}
+			List<Node> nodes = new ArrayList<>(children);
+			for (int i = 0; i < nodes.size(); i++) {
+				nodes.get(i).accept(this);
+				if (i < nodes.size() - 1) {
+					appender_.newLine();
+				}
 			}
 		}
 	}
 	
 	@Override
 	public void visit(Branches branches) {
-		refactored(branches);
+		refactored(branches, false);
 		
 	}
 	
 	@Override
 	public void visit(BranchesIgnore branchesIgnore) {
-		refactored(branchesIgnore);
+		refactored(branchesIgnore, false);
 		
 	}
 	
 	@Override
 	public void visit(TagsIgnore tagsIgnore) {
-		refactored(tagsIgnore);
+		refactored(tagsIgnore, false);
 		
 	}
 	
 	@Override
 	public void visit(RegistryPackage registryPackage) {
-		refactored(registryPackage);
+		refactored(registryPackage, false);
 		
 	}
 	
 	@Override
 	public void visit(Paths paths) {
-		refactored(paths);
+		refactored(paths, false);
 		
 	}
 	
@@ -413,75 +443,75 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(PathsIgnore paths) {
-		refactored(paths);
+		refactored(paths, false);
 		
 	}
 	
 	@Override
 	public void visit(Tags tags) {
-		refactored(tags);
+		refactored(tags, false);
 		
 	}
 	
 	@Override
 	public void visit(Types types) {
-		refactored(types);
+		refactored(types, false);
 		
 	}
 	
 	@Override
 	public void visit(Inputs inputs) {
-		refactored(inputs);
+		refactored(inputs, false);
 		
 	}
 	
 	@Override
 	public void visit(Secrets secrets) {
-		refactored(secrets);
+		refactored(secrets, false);
 		
 	}
 	
 	@Override
 	public void visit(WorkflowRun workflowRun) {
-		refactored(workflowRun);
+		refactored(workflowRun, false);
 		
 	}
 	
 	@Override
 	public void visit(Options options) {
-		refactored(options);
+		refactored(options, false);
 		
 	}
 	
 	@Override
 	public void visit(Environments environments) {
-		refactored(environments);
+		refactored(environments, false);
 		
 	}
 	
 	@Override
 	public void visit(Withs withs) {
-		refactored(withs);
+		refactored(withs, false);
 		
 	}
 	
 	@Override
 	public void visit(Pipe pipe) {
 		appender_.increaseIndent();
-		visitChildren(pipe.children, appender_, false);
+		visitChildren(pipe.children, false, false);
 		appender_.decreaseIndent();
 		
 	}
 	
 	@Override
 	public void visit(Jobs jobs) {
-		refactored(jobs);
+		refactored(jobs, false);
 		
 	}
 	
 	@Override
 	public void visit(Steps jobs) {
-		refactored(jobs);
+		refactored(jobs, false);
 		
 	}
 	
@@ -507,13 +537,13 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(Needs jobs) {
-		refactored(jobs);
+		refactored(jobs, false);
 		
 	}
 	
 	@Override
 	public void visit(Container container) {
-		refactored(container);
+		refactored(container, false);
 		
 	}
 	
@@ -528,7 +558,7 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(Volumes volumes) {
-		refactored(volumes);
+		refactored(volumes, false);
 		
 	}
 	
@@ -555,19 +585,19 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(Services services) {
-		refactored(services);
+		refactored(services, false);
 		
 	}
 	
 	@Override
 	public void visit(Service volumes) {
-		refactored(volumes);
+		refactored(volumes, false);
 		
 	}
 	
 	@Override
 	public void visit(Ports ports) {
-		refactored(ports);
+		refactored(ports, false);
 		
 	}
 	
@@ -579,7 +609,7 @@ public class StringPrinterVisitor implements Visitor<String> {
 			
 		}
 		appender_.increaseIndent();
-		visitChildren(job.children, appender_, true);
+		visitChildren(job.children, true, false);
 		appender_.decreaseIndent();
 		
 		
@@ -587,7 +617,7 @@ public class StringPrinterVisitor implements Visitor<String> {
 	
 	@Override
 	public void visit(Outputs outputs) {
-		refactored(outputs);
+		refactored(outputs, false);
 		
 	}
 	
@@ -690,7 +720,7 @@ public class StringPrinterVisitor implements Visitor<String> {
 	private void visitInOut(InOut input) {
 		input.name.accept(this);
 		appender_.increaseIndent();
-		visitChildren(input.inputElements, appender_, true);
+		visitChildren(input.inputElements, true, false);
 		appender_.decreaseIndent();
 	}
 	

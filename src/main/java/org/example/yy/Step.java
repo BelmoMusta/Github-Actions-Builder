@@ -3,13 +3,12 @@ package org.example.yy;
 import org.example.collections.Nodes;
 import org.example.collections.Withs;
 import org.example.visitor.Visitor;
+import org.example.wrappers.Node;
 import org.example.wrappers.leaves.DashSingleElement;
-import org.example.wrappers.leaves.DashedNameQuotedValuePair;
 import org.example.wrappers.leaves.DashedNameValuePair;
 import org.example.wrappers.leaves.LabeledDashedName;
 import org.example.wrappers.leaves.LabeledName;
 import org.example.wrappers.leaves.NameValuePair;
-import org.example.wrappers.Node;
 import org.example.yy.support.EnvSupport;
 import org.example.yy.support.IdSupport;
 
@@ -28,7 +27,11 @@ public class Step extends Nodes implements EnvSupport, IdSupport {
 	}
 	
 	public Step if_(String condition) {
-		add(new NameValuePair("if", condition));
+		if (children.isEmpty()) {
+			add(new DashedNameValuePair("if", condition));
+		} else {
+			add(new NameValuePair("if", condition));
+		}
 		return this;
 	}
 	
@@ -99,7 +102,7 @@ public class Step extends Nodes implements EnvSupport, IdSupport {
 	
 	public Step run(String s) {
 		if (children.isEmpty()) {
-			this.add(new DashedNameQuotedValuePair("run", s));
+			this.add(new DashedNameValuePair("run", s));
 		} else {
 			this.add(new NameValuePair("run", s));
 		}

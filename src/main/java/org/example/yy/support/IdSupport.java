@@ -1,9 +1,9 @@
 package org.example.yy.support;
 
 import org.example.collections.Nodes;
+import org.example.wrappers.Node;
 import org.example.wrappers.leaves.DashedId;
 import org.example.wrappers.leaves.Id;
-import org.example.wrappers.Node;
 
 public interface IdSupport {
 	

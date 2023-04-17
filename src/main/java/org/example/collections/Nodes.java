@@ -1,13 +1,14 @@
 package org.example.collections;
 
+import org.example.wrappers.Node;
+import org.example.wrappers.Tag;
 import org.example.wrappers.leaves.LabeledDashedName;
 import org.example.wrappers.leaves.LabeledName;
-import org.example.wrappers.Node;
 import org.example.wrappers.leaves.SingleElement;
-import org.example.wrappers.Tag;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class Nodes extends Tag {
 	
@@ -37,5 +38,14 @@ public abstract class Nodes extends Tag {
 			}
 		}
 		return null;
+	}
+	public <T extends Node> List<T> findTags(Class<T> cls) {
+		List<Node> list = new ArrayList<>();
+		for (Node tag : children) {
+			if (cls == tag.getClass()) {
+				list.add(tag);
+			}
+		}
+		return (List<T>) list;
 	}
 }

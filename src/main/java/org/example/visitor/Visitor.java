@@ -56,6 +56,8 @@ import org.example.yy.IssueComment;
 import org.example.yy.Issues;
 import org.example.yy.Job;
 import org.example.yy.Label;
+import org.example.yy.Matrix;
+import org.example.yy.MatrixElement;
 import org.example.yy.MergeGroup;
 import org.example.yy.Milestone;
 import org.example.yy.PageBuild;
@@ -79,6 +81,7 @@ import org.example.yy.Schedule;
 import org.example.yy.Service;
 import org.example.yy.Status;
 import org.example.yy.Step;
+import org.example.yy.Strategy;
 import org.example.yy.Volume;
 import org.example.yy.Watch;
 import org.example.yy.Workflow;
@@ -88,6 +91,9 @@ import org.example.yy.WorkflowRun;
 
 public interface Visitor<R> {
 	void visit(Concurrency workflow);
+	void visit(Strategy strategy);
+	void visit(Matrix strategy);
+	void visit(MatrixElement matrixElement);
 	
 	void visit(Credentials workflow);
 	

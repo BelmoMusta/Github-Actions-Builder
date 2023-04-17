@@ -211,7 +211,7 @@ public class VisitorTest {
 				"    if: ${{ input.echo == 'true' }}\n" +
 				"    runs-on: ubuntu-latest\n" +
 				"    steps:\n" +
-				"      - run: 'pwd'\n" +
+				"      - run: pwd\n" +
 				"      - run: |\n" +
 				"          hi\n" +
 				"          there\n" +

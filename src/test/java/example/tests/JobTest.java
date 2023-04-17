@@ -6,11 +6,13 @@ import org.example.yy.Concurrency;
 import org.example.yy.Container;
 import org.example.yy.Defaults;
 import org.example.yy.Job;
+import org.example.yy.Matrix;
 import org.example.yy.Permissions;
 import org.example.yy.Pipe;
 import org.example.yy.Run;
 import org.example.yy.Service;
 import org.example.yy.Step;
+import org.example.yy.Strategy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -214,4 +216,39 @@ public class JobTest extends AbstracTest {
 		jobs.accept(visitor);
 		Assertions.assertEquals(EXP, visitor.getResult());
 	}
+	
+	static String EXPECTED_MATRIX = "jobs:\n" +
+			"  example_matrix:\n" +
+			"    strategy:\n" +
+			"      matrix:\n" +
+			"        os: [ubuntu-22.04, ubuntu-20.04, ubuntu-21.04]\n" +
+			"        version: [10, 12, 14, 8]\n" +
+			"    runs-on: ${{ matrix.os }}\n" +
+			"    steps:\n" +
+			"      - uses: actions/setup-node@v3\n" +
+			"        with:\n" +
+			"          node-version: ${{ matrix.version }}";
+	
+	@Test
+	public void testJobMatrix() {
+		
+		Job job = Job.$()
+				.label("example_matrix")
+				.strategy(Strategy.$()
+						.matrix(Matrix.$()
+								.line("os", "ubuntu-22.04", "ubuntu-20.04")
+								.line("os", "ubuntu-21.04")
+								.line("version", "10", "12", "14")
+								.line("version", "8")))
+				.runsOn("${{ matrix.os }}")
+				.step(Step.$().uses("actions/setup-node@v3")
+						.with("node-version", "${{ matrix.version }}"));
+		
+		Jobs jobs = new Jobs();
+		jobs.add(job);
+		
+		jobs.accept(visitor);
+		Assertions.assertEquals(EXPECTED_MATRIX, visitor.getResult());
+	}
+	
 }

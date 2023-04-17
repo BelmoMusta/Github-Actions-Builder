@@ -6,11 +6,11 @@ import org.example.collections.Outputs;
 import org.example.collections.Services;
 import org.example.collections.Steps;
 import org.example.visitor.Visitor;
+import org.example.wrappers.Node;
 import org.example.wrappers.leaves.DashSingleElement;
 import org.example.wrappers.leaves.If;
 import org.example.wrappers.leaves.LabeledName;
 import org.example.wrappers.leaves.NameValuePair;
-import org.example.wrappers.Node;
 import org.example.wrappers.leaves.Output;
 import org.example.wrappers.leaves.RunsOn;
 import org.example.wrappers.leaves.SingleElement;
@@ -154,6 +154,11 @@ public class Job extends Nodes implements EnvSupport {
 	
 	public Job permissions(Permissions permissions) {
 		add(permissions);
+		return this;
+	}
+	
+	public Job strategy(Strategy strategy) {
+		add(strategy);
 		return this;
 	}
 }
