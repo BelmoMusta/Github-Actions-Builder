@@ -3,6 +3,7 @@ package org.example.yy;
 import org.example.collections.Events;
 import org.example.collections.Jobs;
 import org.example.collections.Nodes;
+import org.example.visitor.StringPrinterVisitor;
 import org.example.visitor.Visitor;
 import org.example.wrappers.leaves.LabeledName;
 import org.example.yy.support.ElementsSupport;
@@ -51,5 +52,13 @@ public class Workflow extends Nodes implements EnvSupport, ElementsSupport {
     @Override
     public <R> void accept(Visitor<R> visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public String toString() {
+        StringPrinterVisitor visitor = new StringPrinterVisitor();
+       // visitor.setInlineArray(true);
+        this.accept(visitor);
+        return visitor.getResult();
     }
 }

@@ -29,6 +29,10 @@ public class Job extends Nodes implements EnvSupport {
     public static Job $() {
         return new Job();
     }
+    public static Job $(String label) {
+        Job job = new Job();
+        return job.label(label);
+    }
 
     public Job label(String label) {
         this.label = new SingleElement(label);
@@ -45,6 +49,10 @@ public class Job extends Nodes implements EnvSupport {
         return this;
     }
 
+    public Job runsOnUbuntuLatest() {
+        return runsOn("ubuntu-latest");
+    }
+
     public Job id(String id) {
         class Id extends NameValuePair {
             Id(String id) {
@@ -59,6 +67,12 @@ public class Job extends Nodes implements EnvSupport {
         return this;
     }
 
+    public Job steps(Step... steps) {
+        for (Step step : steps) {
+            step(step);
+        }
+        return this;
+    }
     public Job step(Step step) {
         Steps steps = findTag(Steps.class);
         if (steps == null) {

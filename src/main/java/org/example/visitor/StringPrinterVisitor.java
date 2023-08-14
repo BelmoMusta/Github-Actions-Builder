@@ -383,18 +383,21 @@ public class StringPrinterVisitor implements Visitor<String> {
     }
 
     protected void visitChildren(Collection<? extends Node> children, boolean addNewLine, boolean inlineArray) {
+        List<Node> nodes = new ArrayList<>(children);
         if (inlineArray) {
             appender_.append(" [");
-            String oss = children.stream()
-                    .map(Node::get)
-                    .collect(Collectors.joining(", "));
-            appender_.append(oss);
+            for (int i = 0; i < nodes.size(); i++) {
+                appender_.appendWithQuotes(nodes.get(i).get(), false);
+                if(i<nodes.size()-1){
+                    appender_.append(", ");
+                }
+            }
             appender_.append("]");
         } else {
             if (addNewLine && !children.isEmpty()) {
                 appender_.newLine();
             }
-            List<Node> nodes = new ArrayList<>(children);
+
             for (int i = 0; i < nodes.size(); i++) {
                 nodes.get(i).accept(this);
                 if (i < nodes.size() - 1) {
@@ -406,7 +409,7 @@ public class StringPrinterVisitor implements Visitor<String> {
 
     @Override
     public void visit(Branches branches) {
-        refactored(branches, false);
+        refactored(branches, true);
 
     }
 

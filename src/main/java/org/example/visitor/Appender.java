@@ -19,7 +19,7 @@ public class Appender {
         appendWithQuotes(str, true);
     }
 
-    private Appender appendWithQuotes(String str, boolean doubleQuotes) {
+    public Appender appendWithQuotes(String str, boolean doubleQuotes) {
         String quotes = "'";
         if (doubleQuotes) {
             quotes = "\"";
