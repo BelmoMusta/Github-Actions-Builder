@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class PublicTest extends AbstracTest {
-	
-	@Test
-	public void initTest() {
-		Public aPublic = Public.$();
-		aPublic.accept(visitor);
-		String expected = "public:";
-		Assertions.assertEquals(expected, visitor.getResult());
-	}
-	
+
+    @Test
+    public void initTest() {
+        Public aPublic = Public.$();
+        aPublic.accept(visitor);
+        String expected = "public:";
+        Assertions.assertEquals(expected, visitor.getResult());
+    }
+
 }

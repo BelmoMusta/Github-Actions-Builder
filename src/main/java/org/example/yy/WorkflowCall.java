@@ -9,31 +9,25 @@ import org.example.yy.support.OutputSupport;
 import org.example.yy.support.SecretSupport;
 
 public class WorkflowCall extends WorkflowEvent implements InputSupport, OutputSupport, SecretSupport {
-	
-	protected WorkflowCall() {
-		super("workflow_call");
-	}
-	
-	public WorkflowCall inputs(Input... inputs) {
-		return addInputs(this, inputs);
-	}
-	
-	public WorkflowCall secrets(Secret... secrets) {
-		return addSecrets(this, secrets);
-	}
-	
-	public WorkflowCall outputs(Output... inputs) {
-		return addOutputs(this, inputs);
-	}
-	
-	
-	public static WorkflowCall $() {
-		return new WorkflowCall();
-	}
-	
-	@Override
-	public <R> void accept(Visitor<R> visitor) {
-		visitor.visit(this);
-	}
-	
+
+    protected WorkflowCall() {
+        super("workflow_call");
+    }
+    public static WorkflowCall $() {
+        return new WorkflowCall();
+    }
+    public WorkflowCall inputs(Input... inputs) {
+        return addInputs(this, inputs);
+    }
+    public WorkflowCall secrets(Secret... secrets) {
+        return addSecrets(this, secrets);
+    }
+    public WorkflowCall outputs(Output... inputs) {
+        return addOutputs(this, inputs);
+    }
+    @Override
+    public <R> void accept(Visitor<R> visitor) {
+        visitor.visit(this);
+    }
+
 }

@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class StatusTest extends AbstracTest {
-	
-	@Test
-	public void initTest() {
-		Status status = Status.$();
-		status.accept(visitor);
-		String expected = "status:";
-		Assertions.assertEquals(expected, visitor.getResult());
-	}
-	
+
+    @Test
+    public void initTest() {
+        Status status = Status.$();
+        status.accept(visitor);
+        String expected = "status:";
+        Assertions.assertEquals(expected, visitor.getResult());
+    }
+
 }

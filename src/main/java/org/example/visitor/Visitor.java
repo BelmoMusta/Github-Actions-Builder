@@ -90,181 +90,184 @@ import org.example.yy.WorkflowDispatch;
 import org.example.yy.WorkflowRun;
 
 public interface Visitor<R> {
-	void visit(Concurrency workflow);
-	void visit(Strategy strategy);
-	void visit(Matrix strategy);
-	void visit(MatrixElement matrixElement);
-	
-	void visit(Credentials workflow);
-	
-	void visit(Defaults defaults);
-	
-	void visit(Run run);
-	
-	void visit(Permissions permissions);
-	
-	void visit(Workflow workflow);
-	
-	void visit(Workflows workflow);
-	
-	void visit(Paths paths);
-	
-	void visit(Cron cron);
-	
-	void visit(PathsIgnore paths);
-	
-	void visit(Tags tags);
-	
-	void visit(Branches branches);
-	
-	void visit(BranchesIgnore branchesIgnore);
-	
-	void visit(TagsIgnore tagsIgnore);
-	
-	void visit(RegistryPackage registryPackage);
-	
-	void visit(Environments environments);
-	
-	void visit(Withs environments);
-	
-	void visit(Events events);
-	
-	void visit(Inputs inputs);
-	
-	void visit(Secrets secrets);
-	
-	void visit(WorkflowRun workflowRun);
-	
-	void visit(Pipe pipe);
-	
-	void visit(Jobs jobs);
-	
-	void visit(Needs needs);
-	
-	
-	void visit(Options options);
-	
-	void visit(Outputs outputs);
-	
-	void visit(Ports ports);
-	
-	void visit(Services services);
-	
-	void visit(Steps steps);
-	
-	
-	void visit(Types types);
-	
-	void visit(Volumes volumes);
-	
-	void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair);
-	
-	void visit(DashedNameValuePair dashedNameQuotedValuePair);
-	
-	void visit(DashQuotedSingleElement dashQuotedSingleElement);
-	
-	void visit(DashSingleElement dashSingleElement);
-	
-	void visit(InOutElement<?> inOutElement);
-	
-	void visit(Input input);
-	
-	void visit(LabeledDashedName labeledDashedName);
-	
-	void visit(LabeledName labeledName);
-	
-	void visit(NameValuePair nameValuePair);
-	
-	void visit(Output output);
-	
-	void visit(SingleElement singleElement);
-	
-	void visit(SimpleEntry simpleEntry);
-	
-	void visit(DashedId dashedId);
-	
-	void visit(Container container);
-	
-	void visit(Environment environment);
-	
-	void visit(Job job);
-	
-	void visit(PullRequest pullRequest);
-	
-	void visit(PullRequestTarget pullRequestTarget);
-	
-	void visit(RepositoryDispatch repositoryDispatch);
-	
-	void visit(Push push);
-	
-	void visit(Release release);
-	
-	void visit(Delete release);
-	
-	void visit(DiscussionComment release);
-	
-	void visit(DeploymentStatus deploymentStatus);
-	
-	void visit(Discussion deploymentStatus);
-	
-	void visit(BranchProtectionRule branchProtectionRule);
-	
-	void visit(CheckRun checkRun);
-	
-	void visit(Create create);
-	
-	void visit(Fork fork);
-	
-	void visit(Gollum gollum);
-	
-	void visit(IssueComment issueComment);
-	
-	void visit(Issues issues);
-	
-	void visit(Label issues);
-	
-	void visit(MergeGroup mergeGroup);
-	
-	void visit(Milestone milestone);
-	
-	void visit(PageBuild pageBuild);
-	
-	void visit(Project project);
-	
-	void visit(ProjectCard projectCard);
-	
-	void visit(ProjectColumn projectColumn);
-	
-	void visit(Public aPublic);
-	
-	void visit(Status aPublic);
-	
-	void visit(Watch watch);
-	
-	void visit(WorkflowCall workflowCall);
-	
-	void visit(Secret secret);
-	
-	void visit(PullRequestComment pullRequestComment);
-	
-	void visit(PullRequestReview pullRequestReview);
-	
-	void visit(PullRequestReviewComment pullRequestReviewComment);
-	
-	void visit(CheckSuite checkSuite);
-	
-	void visit(Deployment deployment);
-	
-	void visit(Schedule schedule);
-	
-	void visit(Service service);
-	
-	void visit(Step step);
-	
-	void visit(Volume volume);
-	
-	void visit(WorkflowDispatch workflowDispatch);
-	
-	R getResult();
-	
+    void visit(Concurrency workflow);
+
+    void visit(Strategy strategy);
+
+    void visit(Matrix strategy);
+
+    void visit(MatrixElement matrixElement);
+
+    void visit(Credentials workflow);
+
+    void visit(Defaults defaults);
+
+    void visit(Run run);
+
+    void visit(Permissions permissions);
+
+    void visit(Workflow workflow);
+
+    void visit(Workflows workflow);
+
+    void visit(Paths paths);
+
+    void visit(Cron cron);
+
+    void visit(PathsIgnore paths);
+
+    void visit(Tags tags);
+
+    void visit(Branches branches);
+
+    void visit(BranchesIgnore branchesIgnore);
+
+    void visit(TagsIgnore tagsIgnore);
+
+    void visit(RegistryPackage registryPackage);
+
+    void visit(Environments environments);
+
+    void visit(Withs environments);
+
+    void visit(Events events);
+
+    void visit(Inputs inputs);
+
+    void visit(Secrets secrets);
+
+    void visit(WorkflowRun workflowRun);
+
+    void visit(Pipe pipe);
+
+    void visit(Jobs jobs);
+
+    void visit(Needs needs);
+
+
+    void visit(Options options);
+
+    void visit(Outputs outputs);
+
+    void visit(Ports ports);
+
+    void visit(Services services);
+
+    void visit(Steps steps);
+
+
+    void visit(Types types);
+
+    void visit(Volumes volumes);
+
+    void visit(DashedNameQuotedValuePair dashedNameQuotedValuePair);
+
+    void visit(DashedNameValuePair dashedNameQuotedValuePair);
+
+    void visit(DashQuotedSingleElement dashQuotedSingleElement);
+
+    void visit(DashSingleElement dashSingleElement);
+
+    void visit(InOutElement<?> inOutElement);
+
+    void visit(Input input);
+
+    void visit(LabeledDashedName labeledDashedName);
+
+    void visit(LabeledName labeledName);
+
+    void visit(NameValuePair nameValuePair);
+
+    void visit(Output output);
+
+    void visit(SingleElement singleElement);
+
+    void visit(SimpleEntry simpleEntry);
+
+    void visit(DashedId dashedId);
+
+    void visit(Container container);
+
+    void visit(Environment environment);
+
+    void visit(Job job);
+
+    void visit(PullRequest pullRequest);
+
+    void visit(PullRequestTarget pullRequestTarget);
+
+    void visit(RepositoryDispatch repositoryDispatch);
+
+    void visit(Push push);
+
+    void visit(Release release);
+
+    void visit(Delete release);
+
+    void visit(DiscussionComment release);
+
+    void visit(DeploymentStatus deploymentStatus);
+
+    void visit(Discussion deploymentStatus);
+
+    void visit(BranchProtectionRule branchProtectionRule);
+
+    void visit(CheckRun checkRun);
+
+    void visit(Create create);
+
+    void visit(Fork fork);
+
+    void visit(Gollum gollum);
+
+    void visit(IssueComment issueComment);
+
+    void visit(Issues issues);
+
+    void visit(Label issues);
+
+    void visit(MergeGroup mergeGroup);
+
+    void visit(Milestone milestone);
+
+    void visit(PageBuild pageBuild);
+
+    void visit(Project project);
+
+    void visit(ProjectCard projectCard);
+
+    void visit(ProjectColumn projectColumn);
+
+    void visit(Public aPublic);
+
+    void visit(Status aPublic);
+
+    void visit(Watch watch);
+
+    void visit(WorkflowCall workflowCall);
+
+    void visit(Secret secret);
+
+    void visit(PullRequestComment pullRequestComment);
+
+    void visit(PullRequestReview pullRequestReview);
+
+    void visit(PullRequestReviewComment pullRequestReviewComment);
+
+    void visit(CheckSuite checkSuite);
+
+    void visit(Deployment deployment);
+
+    void visit(Schedule schedule);
+
+    void visit(Service service);
+
+    void visit(Step step);
+
+    void visit(Volume volume);
+
+    void visit(WorkflowDispatch workflowDispatch);
+
+    R getResult();
+
 }

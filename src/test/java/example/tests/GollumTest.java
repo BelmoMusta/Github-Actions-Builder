@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class GollumTest extends AbstracTest {
-	
-	@Test
-	public void initTest() {
-		Gollum gollum = Gollum.$();
-		gollum.accept(visitor);
-		String expected = "gollum:";
-		Assertions.assertEquals(expected, visitor.getResult());
-	}
+
+    @Test
+    public void initTest() {
+        Gollum gollum = Gollum.$();
+        gollum.accept(visitor);
+        String expected = "gollum:";
+        Assertions.assertEquals(expected, visitor.getResult());
+    }
 }

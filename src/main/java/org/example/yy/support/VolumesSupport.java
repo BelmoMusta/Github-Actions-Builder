@@ -5,14 +5,14 @@ import org.example.collections.Volumes;
 import org.example.yy.Volume;
 
 public interface VolumesSupport {
-	default <E extends Nodes> E addVolume(E node, String name, String value) {
-		Volumes volumes = node.findTag(Volumes.class);
-		if (volumes == null) {
-			volumes = new Volumes();
-			node.add(volumes);
-		}
-		Volume volume = new Volume(name, value);
-		volumes.add(volume);
-		return node;
-	}
+    default <E extends Nodes> E addVolume(E node, String name, String value) {
+        Volumes volumes = node.findTag(Volumes.class);
+        if (volumes == null) {
+            volumes = new Volumes();
+            node.add(volumes);
+        }
+        Volume volume = new Volume(name, value);
+        volumes.add(volume);
+        return node;
+    }
 }

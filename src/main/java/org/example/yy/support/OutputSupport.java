@@ -5,10 +5,10 @@ import org.example.wrappers.leaves.Output;
 import org.example.yy.WorkflowEvent;
 
 public interface OutputSupport extends InOutSupport {
-	
-	default <E extends WorkflowEvent> E addOutputs(E event, Output... outputs) {
-		return addInouts(event, Outputs.class, Outputs::new, outputs);
-	}
-	
-	
+
+    default <E extends WorkflowEvent> E addOutputs(E event, Output... outputs) {
+        return addInouts(event, Outputs.class, Outputs::new, outputs);
+    }
+
+
 }
