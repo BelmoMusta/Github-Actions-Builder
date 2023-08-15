@@ -95,11 +95,11 @@ import org.example.yy.WorkflowRun;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StringPrinterVisitor implements Visitor<String> {
 
     private final Appender appender_ = new Appender();
+    private boolean inlineBranches;
 
     @Override
     public void visit(Concurrency concurrency) {
@@ -409,7 +409,7 @@ public class StringPrinterVisitor implements Visitor<String> {
 
     @Override
     public void visit(Branches branches) {
-        refactored(branches, true);
+        refactored(branches, inlineBranches);
 
     }
 
@@ -739,4 +739,7 @@ public class StringPrinterVisitor implements Visitor<String> {
         return appender_.toString();
     }
 
+    public void setInlineBranches(boolean inlineBranches) {
+        this.inlineBranches = inlineBranches;
+    }
 }

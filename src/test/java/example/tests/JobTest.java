@@ -113,8 +113,8 @@ public class JobTest extends AbstracTest {
             "  example_matrix:\n" +
             "    strategy:\n" +
             "      matrix:\n" +
-            "        os: [ubuntu-22.04, ubuntu-20.04, ubuntu-21.04]\n" +
-            "        version: [10, 12, 14, 8]\n" +
+            "        os: ['ubuntu-22.04', 'ubuntu-20.04', 'ubuntu-21.04']\n" +
+            "        version: ['10', '12', '14', '8']\n" +
             "    runs-on: ${{ matrix.os }}\n" +
             "    steps:\n" +
             "      - uses: actions/setup-node@v3\n" +

@@ -2,6 +2,8 @@ package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
+import org.example.wrappers.leaves.NameValuePair;
+import org.example.wrappers.leaves.SingleElement;
 
 import java.util.List;
 
@@ -15,6 +17,12 @@ public class Matrix extends Nodes {
     }
 
 
+    public Matrix include(String name, String... values) {
+        SingleElement include = new SingleElement("include");
+        // todo
+        add(include);
+        return this;
+    }
     public Matrix line(String name, String... values) {
         List<MatrixElement> tags = findTags(MatrixElement.class);
         MatrixElement existing = null;

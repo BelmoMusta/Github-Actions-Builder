@@ -2,6 +2,7 @@ package org.example.yy;
 
 import org.example.collections.Nodes;
 import org.example.visitor.Visitor;
+import org.example.wrappers.leaves.NameValuePair;
 
 public class Strategy extends Nodes {
     protected Strategy() {
@@ -20,5 +21,9 @@ public class Strategy extends Nodes {
     @Override
     public <R> void accept(Visitor<R> visitor) {
         visitor.visit(this);
+    }
+    public Strategy failFast(boolean value) {
+        add(new NameValuePair("fail-fast", value+""));
+        return this;
     }
 }
