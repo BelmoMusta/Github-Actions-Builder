@@ -26,4 +26,8 @@ public class Strategy extends Nodes {
         add(new NameValuePair("fail-fast", value+""));
         return this;
     }
+    public Strategy failFast() {
+        return failFast(true);
+    }
+
 }

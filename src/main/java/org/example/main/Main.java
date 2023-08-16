@@ -1,5 +1,8 @@
 package org.example.main;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import org.example.actions.Actions;
 import org.example.collections.Branches;
 import org.example.condition.Condition;
@@ -21,7 +24,7 @@ import java.io.FileWriter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String wf = Workflow.$()
+        Workflow wf = Workflow.$()
                 .name("Maven Build")
                 .on(
                         Schedule.$()
@@ -77,11 +80,15 @@ public class Main {
 
                 )
 
-                .toString();
+                //.toString()
+                ;
+
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
 
         FileWriter fileWriter = new FileWriter("maven_generated.yml");
-        fileWriter.write(wf);
-        fileWriter.close();
+        //fileWriter.write(wf);
+       // fileWriter.close();
+        mapper.writeValue(fileWriter, wf);
 
     }
 }

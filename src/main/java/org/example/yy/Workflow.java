@@ -11,6 +11,7 @@ import org.example.yy.support.EnvSupport;
 
 public class Workflow extends Nodes implements EnvSupport, ElementsSupport {
 
+    private Events events_;
     protected Workflow() {
         super(null, false);
     }
@@ -22,7 +23,7 @@ public class Workflow extends Nodes implements EnvSupport, ElementsSupport {
         return this;
     }
     public Workflow on(WorkflowEvent... events) {
-        Events events_ = findTag(Events.class);
+        events_ = findTag(Events.class);
         if (events_ == null) {
             events_ = new Events();
             add(events_);
@@ -60,5 +61,8 @@ public class Workflow extends Nodes implements EnvSupport, ElementsSupport {
        // visitor.setInlineArray(true);
         this.accept(visitor);
         return visitor.getResult();
+    }
+    public Nodes getOn(){
+        return events_;
     }
 }
