@@ -1,4 +1,23 @@
 ---
 name: "test-WF"
 jobs: []
-on: null
+on:
+  check_run:
+    types:
+    - "completed"
+    - "created"
+  workflow_dispatch: {}
+  push:
+    branches:
+    - "master"
+    - "!not_master"
+    tags:
+    - "my_tag"
+    - "!not_my_tag"
+    paths:
+    - "/path1"
+    - "/path2"
+    - "!test/path"
+  registry_package:
+    types:
+    - "published"
