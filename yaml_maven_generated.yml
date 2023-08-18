@@ -2,22 +2,42 @@
 name: "test-WF"
 jobs: []
 on:
+  schedule:
+    - cron: "* * * * *"
+    - cron: "1 * * * *"
+    - cron: "2 * * * *"
+  check_suite:
+    types:
+      - "completed"
   check_run:
     types:
-    - "completed"
-    - "created"
-  workflow_dispatch: {}
+      - "completed"
+      - "created"
+  workflow_dispatch:
+    outputs:
+      version:
+        value: "1.0.0"
+    inputs:
+      in:
+        description: "totoootot"
+        type: "boolean"
+        default: "false"
+        required: true
+      test:
+        options:
+          - "lol"
+          - "foo"
   push:
     branches:
-    - "master"
-    - "!not_master"
+      - "master"
+      - "!not_master"
     tags:
-    - "my_tag"
-    - "!not_my_tag"
+      - "my_tag"
+      - "!not_my_tag"
     paths:
-    - "/path1"
-    - "/path2"
-    - "!test/path"
+      - "/path1"
+      - "/path2"
+      - "!test/path"
   registry_package:
     types:
-    - "published"
+      - "published"

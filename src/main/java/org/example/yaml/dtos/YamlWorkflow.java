@@ -36,6 +36,8 @@ public class YamlWorkflow {
     public Map<String, YamlEvent> getEvents() {
         return eventsMap;
     }
+
+
      public List<YamlJob> getJobs() {
         return jobs;
     }
