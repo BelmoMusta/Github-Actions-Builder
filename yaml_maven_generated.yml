@@ -1,43 +1,77 @@
 ---
-name: "test-WF"
-jobs: []
+name: 'test-WF'
+jobs:
+  update-concourse-tasks:
+    name: 'update-concourse-tasks'
+    cancel-timeout-minutes: 5
+    concurrency:
+      group: 'grp'
+      cancel-in-progress: true
+    container:
+      ports:
+        - 80
+        - 90
+      volumes:
+        - '/etc:~/test'
+        - '/opt:~/test'
+      image: 'alpine'
+      options: '--cpu 1'
+      credentials:
+        username: 'user'
+        password: '1234'
+      env:
+        h: 'v'
+    environment: 'NonProd'
+    runs-on: 'self-hosted'
+    continue-on-error: true
+    defaults:
+      run:
+        shell: 'bash'
+        working-directory: '.'
+    env:
+      key: 'value'
+      key2: 'value2'
+    if: '${{ condition }}'
 on:
   schedule:
-    - cron: "* * * * *"
-    - cron: "1 * * * *"
-    - cron: "2 * * * *"
+    - cron: '* * * * *'
+    - cron: '1 * * * *'
+    - cron: '2 * * * *'
   check_suite:
     types:
-      - "completed"
+      - 'completed'
   check_run:
     types:
-      - "completed"
-      - "created"
+      - 'completed'
+      - 'created'
   workflow_dispatch:
     outputs:
       version:
-        value: "1.0.0"
+        value: '1.0.0'
     inputs:
       in:
-        description: "totoootot"
-        type: "boolean"
-        default: "false"
+        description: 'totoootot'
+        type: 'boolean'
+        default: 'false'
         required: true
       test:
         options:
-          - "lol"
-          - "foo"
+          - 'lol'
+          - 'foo'
   push:
     branches:
-      - "master"
-      - "!not_master"
+      - 'master'
+    branches-ignore:
+      - 'not_master'
     tags:
-      - "my_tag"
-      - "!not_my_tag"
+      - 'my_tag'
+    tags-ignore:
+      - 'not_my_tag'
     paths:
-      - "/path1"
-      - "/path2"
-      - "!test/path"
+      - '/path1'
+      - '/path 2'
+    paths-ignore:
+      - 'test/path'
   registry_package:
     types:
-      - "published"
+      - 'published'

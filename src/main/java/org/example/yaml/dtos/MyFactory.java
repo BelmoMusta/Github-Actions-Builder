@@ -15,10 +15,10 @@ public class MyFactory extends YAMLFactory {
         int feats = _yamlGeneratorFeatures;
         StringQuotingChecker quotingChecker = new MyStringQuotingChecker();
         if (_dumperOptions == null) {
-            return new YAMLGenerator(ctxt, _generatorFeatures, feats,
+            return new XYAMLGenerator(ctxt, _generatorFeatures, feats,
                     quotingChecker, _objectCodec, out, _version);
         } else {
-            return new YAMLGenerator(ctxt, _generatorFeatures, feats,
+            return new XYAMLGenerator(ctxt, _generatorFeatures, feats,
                     quotingChecker, _objectCodec, out, _dumperOptions);
         }
     }

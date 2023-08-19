@@ -1,6 +1,5 @@
 package org.example.yaml.dtos.support;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -23,12 +22,7 @@ public abstract class Support extends LinkedHashMap<String, Collection<String>> 
         return super.put(key, v);
     }
     public Collection<String> putIgnore(String key, Collection<String> value) {
-        return put(key, value.stream().map(br -> {
-            if (br.startsWith("!")) {
-                return br;
-            }
-            return "!" + br;
-        }).collect(Collectors.toList()));
+        return put(key+"-ignore", value);
     }
     public void putEnum(String key, Collection<Enum<?>> value) {
         put(key, value.stream()
