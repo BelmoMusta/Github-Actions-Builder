@@ -8,19 +8,34 @@ jobs:
       group: 'grp'
       cancel-in-progress: true
     container:
-      ports:
-        - 80
-        - 90
-      volumes:
-        - '/etc:~/test'
-        - '/opt:~/test'
       image: 'alpine'
-      options: '--cpu 1'
+      env:
+        h: 'v'
       credentials:
         username: 'user'
         password: '1234'
-      env:
-        h: 'v'
+      volumes:
+        - '/etc:~/test'
+        - '/opt:~/test'
+      ports:
+        - 80
+        - 90
+      options: '--cpu 1'
+    services:
+      redis:
+        image: 'redis'
+        env:
+          h: 'v'
+        credentials:
+          username: 'user'
+          password: '1234'
+        volumes:
+          - '/etc:~/test'
+          - '/opt:~/test'
+        ports:
+          - 80
+          - 90
+        options: '--cpu 1'
     environment: 'NonProd'
     runs-on: 'self-hosted'
     continue-on-error: true
@@ -32,6 +47,13 @@ jobs:
       key: 'value'
       key2: 'value2'
     if: '${{ condition }}'
+    permissions:
+      actions: 'read'
+    steps:
+      - name: 'my_build'
+        uses: 'actions/checkout@master'
+      - name: 'Say something'
+        run: 'echo lol'
 on:
   schedule:
     - cron: '* * * * *'

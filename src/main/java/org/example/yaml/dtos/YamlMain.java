@@ -17,7 +17,10 @@ import org.example.yaml.dtos.jobs.Container;
 import org.example.yaml.dtos.jobs.Credentials;
 import org.example.yaml.dtos.jobs.Defaults;
 import org.example.yaml.dtos.jobs.Job;
+import org.example.yaml.dtos.jobs.Permissions;
 import org.example.yaml.dtos.jobs.Run;
+import org.example.yaml.dtos.jobs.Service;
+import org.example.yaml.dtos.jobs.Step;
 
 import java.io.FileWriter;
 
@@ -45,8 +48,7 @@ public class YamlMain {
                                         Input.$().name("test")
                                                 .options("lol", "foo"))
                                 .outputs(Output.$().name("version")
-                                        .value("1.0.0"))
-                        ,
+                                        .value("1.0.0")),
                         Push.$()
                                 .branches("master")
                                 .ignoreBranches("not_master")
@@ -73,6 +75,16 @@ public class YamlMain {
                                         .username("user")
                                         .password("1234"))
                         )
+                        .services(Service.$("redis")
+                                .image("redis")
+                                .options("--cpu 1")
+                                .env("h", "v")
+                                .port(80, 90)
+                                .volumes("/etc", "~/test")
+                                .volumes("/opt", "~/test")
+                                .credentials(Credentials.$()
+                                        .username("user")
+                                        .password("1234")))
                         .environment("NonProd")
                         .runsOn("self-hosted")
                         .continueOnError(true)
@@ -85,6 +97,12 @@ public class YamlMain {
                         .env("key", "value")
                         .env("key2", "value2")
                         .if_("${{ condition }}")
+                        .permissions(Permissions.$()
+                                .actions(Permissions.Type.READ))
+                        .steps(Step.$().name("my_build")
+                                .uses("actions/checkout@master"))
+                        .steps(Step.$().name("Say something")
+                                .run("echo lol"))
 
                 );
         YAMLFactory yamlFactory = new MyFactory()
